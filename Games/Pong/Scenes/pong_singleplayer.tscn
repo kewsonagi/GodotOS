@@ -52,14 +52,6 @@ size = Vector2(20, 2000)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iubhc"]
 size = Vector2(20, 2000)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kq2ie"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(1, 1, 1, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nrrws"]
 bg_color = Color(0.239216, 0.239216, 0.239216, 1)
 border_width_left = 8
@@ -70,6 +62,14 @@ border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w40oq"]
 bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kq2ie"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
 
 [node name="Pong" type="Node2D"]
 script = ExtResource("1_oef8c")
@@ -199,9 +199,9 @@ custom_minimum_size = Vector2(0, 125)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_kq2ie")
 theme_override_styles/hover = SubResource("StyleBoxFlat_nrrws")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_w40oq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kq2ie")
 text = "Restart"
 
 [node name="MainMenuBtn" type="Button" parent="Game Over Screen/SingleplayerContainer"]
@@ -209,9 +209,9 @@ custom_minimum_size = Vector2(0, 125)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_kq2ie")
 theme_override_styles/hover = SubResource("StyleBoxFlat_nrrws")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_w40oq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kq2ie")
 text = "Main Menu"
 
 [node name="Game Over Title" type="RichTextLabel" parent="Game Over Screen"]

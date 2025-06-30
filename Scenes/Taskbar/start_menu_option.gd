@@ -49,15 +49,16 @@ func _on_mouse_exited() -> void:
 
 # TODO find a better way than copying this from desktop_folder.gd
 func spawn_window() -> void:
-	var window: FakeWindow
-	window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
-	window.get_node("%Game Window").add_child(load(game_scene).instantiate())
+	var window: FakeWindow = DefaultValues.spawn_game_window(game_scene, %"Menu Title".text)
+	#var window: FakeWindow
+	#window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
+	#window.get_node("%Game Window").add_child(load(game_scene).instantiate())
 	
 	if use_generic_pause_menu:
 		window.get_node("%GamePauseManager").process_mode = Node.PROCESS_MODE_INHERIT
 	
-	window.title_text = %"Menu Title".text
-	get_tree().current_scene.add_child(window)
+	#window.title_text = %"Menu Title".text
+	#get_tree().current_scene.add_child(window)
 	
 	var taskbar_button: Control = load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()
 	taskbar_button.target_window = window
@@ -66,4 +67,6 @@ func spawn_window() -> void:
 	get_tree().get_first_node_in_group("taskbar_buttons").add_child(taskbar_button)
 
 func spawn_outside_window() -> void:
-	$/root/Control.add_child(load(game_scene).instantiate())
+	var windowParent:Node = $/root/Control;
+	DefaultValues.spawn_window(game_scene, game_scene.get_basename(), game_scene.get_basename(), windowParent)
+	#$/root/Control.add_child(load(game_scene).instantiate())

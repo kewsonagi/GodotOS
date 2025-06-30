@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfodxrenoxf8w"]
+
+[ext_resource type="Script" uid="uid://cv20x048ht4ki" path="res://Scenes/Main/Boot Splash/boot_splash.gd" id="1_cv386"]
+[ext_resource type="Texture2D" uid="uid://bwxnhif5h1cck" path="res://Art/Pixel_32.png" id="2_6a6gq"]
+[ext_resource type="Texture2D" uid="uid://bcaphivalhf06" path="res://Art/08_CRT_godot_splash_dark.png" id="2_ekugy"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m3kw8"]
+blend_mode = 2
+
+[node name="Boot Splash" type="CanvasLayer" node_paths=PackedStringArray("bootBackground", "bootImage", "bootImageShadow")]
+script = ExtResource("1_cv386")
+quit_animation = true
+bootBackground = NodePath("CanvasGroup/Background")
+bootImage = NodePath("Logo")
+bootImageShadow = NodePath("CanvasGroup/Logo")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+
+[node name="Background" type="Sprite2D" parent="CanvasGroup"]
+modulate = Color(1, 1, 1, 0.5529412)
+self_modulate = Color(1, 1, 1, 0.5176471)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6a6gq")
+
+[node name="Logo" type="Sprite2D" parent="CanvasGroup"]
+texture_filter = 6
+material = SubResource("CanvasItemMaterial_m3kw8")
+texture = ExtResource("2_ekugy")
+
+[node name="Parallax2D" type="Parallax2D" parent="CanvasGroup"]
+visible = false
+
+[node name="Logo2" type="Sprite2D" parent="CanvasGroup/Parallax2D"]
+texture_filter = 6
+material = SubResource("CanvasItemMaterial_m3kw8")
+texture = ExtResource("2_ekugy")
+
+[node name="Logo" type="Sprite2D" parent="."]
+texture_filter = 6
+texture = ExtResource("2_ekugy")

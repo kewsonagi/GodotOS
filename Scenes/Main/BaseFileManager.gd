@@ -5,19 +5,30 @@ class_name BaseFileManager
 
 ## The file manager's path (relative to user://files/)
 @export var file_path: String
+var directories: PackedStringArray
+var itemLocations: Dictionary = {}
 
 ## Removes all current folders (if any) and populates the file manager from file path.
 func populate_file_manager() -> void:
 	for child in get_children():
 		if child is FakeFolder:
 			child.queue_free()
-	for folder_name in DirAccess.get_directories_at("user://files/%s" % file_path):
-		if file_path.is_empty():
-			instantiate_file(folder_name, folder_name, FakeFolder.file_type_enum.FOLDER)
-		else:
-			instantiate_file(folder_name, "%s/%s" % [file_path, folder_name], FakeFolder.file_type_enum.FOLDER)
 	
-	for file_name: String in DirAccess.get_files_at("user://files/%s" % file_path):
+	print("populating filemanager at path: %s" % file_path)
+
+	directories.clear()
+	directories = DirAccess.get_directories_at("user://files/%s" % file_path)
+	itemLocations.clear()
+	if(directories):
+		for folder_name in DirAccess.get_directories_at("user://files/%s" % file_path):
+			if file_path.is_empty():
+				instantiate_file(folder_name, folder_name, FakeFolder.file_type_enum.FOLDER)
+			else:
+				instantiate_file(folder_name, "%s/%s" % [file_path, folder_name], FakeFolder.file_type_enum.FOLDER)
+	
+	directories.clear()
+	directories = DirAccess.get_files_at("user://files/%s" % file_path)
+	for file_name: String in  DirAccess.get_files_at("user://files/%s" % file_path):
 		if file_name.ends_with(".txt") or file_name.ends_with(".md"):
 			instantiate_file(file_name, file_path, FakeFolder.file_type_enum.TEXT_FILE)
 		elif file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".jpeg")\
@@ -35,6 +46,7 @@ func instantiate_file(file_name: String, path: String, file_type: FakeFolder.fil
 	folder.folder_path = path
 	folder.file_type = file_type
 	add_child(folder)
+	itemLocations["%s%s" % [path, file_name]] = Vector2(0,0)
 
 ## Sorts all folders to their correct positions. 
 func sort_folders() -> void:
@@ -112,6 +124,7 @@ func delete_file_with_name(file_name: String) -> void:
 			continue
 		
 		if child.folder_name == file_name:
+			itemLocations.erase(child.folder_name)
 			child.queue_free()
 	
 	await get_tree().process_frame

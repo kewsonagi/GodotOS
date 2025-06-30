@@ -17,11 +17,16 @@ var is_being_deleted: bool
 var is_minimized: bool
 var is_selected: bool
 var is_maximized: bool
+var windowID: String
 
-var maximize_icon: CompressedTexture2D = preload("res://Art/Icons/expand.png")
-var unmaximize_icon: CompressedTexture2D = preload("res://Art/Icons/shrink.png")
+@onready var maximizeButton: Button = $"Top Bar/HBoxContainer/Maximize Button"
+@onready var resizeButton: Control = $"Resize Drag Spot"
+@export var maximize_icon: CompressedTexture2D = preload("res://Art/Icons/expand.png")
+@export var unmaximize_icon: CompressedTexture2D = preload("res://Art/Icons/shrink.png")
 var old_unmaximized_position: Vector2
 var old_unmaximized_size: Vector2
+@onready var titleText: RichTextLabel = $"Top Bar/Title Text"
+
 
 var start_bg_color_alpha: float
 
@@ -30,7 +35,36 @@ signal selected(is_selected: bool)
 signal maximized(is_maximized: bool)
 signal deleted()
 
+var saveFileName: String = "window_settings"
+static var windowSaveFile: IndieBlueprintSavedGame
+#static var windowSaveFileLocation: String = "%s/%s" % [OS.get_user_data_dir(),saveFileName]
+#static var windowSaveManager: IndieBlueprintSaveManager;
+var windowSavePosKey: String
+var windowSaveSizeKey: String
+var windowSaveMaximizedKey: String
+
+#set window ID and initialize any window specific key/value pairs for saving settings
+func SetID(id:String) -> void:
+	windowID = id
+	windowSavePosKey = "%s%s" % [windowID, "pos"]
+	windowSaveSizeKey = "%s%s" % [windowID, "size"]
+	windowSaveMaximizedKey = "%s%s" % [windowID, "maximized"]
+
+
+	#save section
+	if(!windowSaveFile):return
+
+	if(windowSaveFile.data.has(windowSaveSizeKey)):
+		position = windowSaveFile.data[windowSavePosKey]
+		size = windowSaveFile.data[windowSaveSizeKey]
+		if(windowSaveFile.data.has(windowSaveMaximizedKey)):
+			is_maximized = windowSaveFile.data[windowSaveMaximizedKey]
+		if(is_maximized):
+			is_maximized = false #mark it not maximized so it doesnt minimize on load instead
+			#maximize_window()
+
 func _ready() -> void:
+	timeOfClick = Time.get_ticks_msec()
 	# Duplicate theme override so values can be set without affecting other windows
 	self["theme_override_styles/panel"] = self["theme_override_styles/panel"].duplicate()
 	top_bar["theme_override_styles/panel"] = top_bar["theme_override_styles/panel"].duplicate()
@@ -39,7 +73,7 @@ func _ready() -> void:
 	num_of_windows += 1
 	select_window(false)
 	
-	$"Top Bar/Title Text".text = " ".join(title_text.split("\n"))
+	titleText.text = " ".join(title_text.split("\n"))
 	
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	
@@ -47,24 +81,108 @@ func _ready() -> void:
 	var tween: Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(self, "modulate:a", 1, 0.5)
+	
+	saveFileName = IndieBlueprintSavedGame.clean_filename(saveFileName)
+	if(!windowSaveFile):
+		#windowSaveFile = IndieBlueprintSaveManager.create_new_save(windowSaveFileLocation)
+		if(!IndieBlueprintSaveManager.save_filename_exists(saveFileName)):
+			print("no prev window setting file exists, creating one %s" % saveFileName)
+			windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
+			#windowSaveFile = IndieBlueprintSavedGame.new()
+			#windowSaveFile.write_savegame(windowSaveFileLocation)
+		else:
+			print("already have a window setting file, supposedly, load it %s"  % saveFileName)
+			windowSaveFile = IndieBlueprintSaveManager.load_savegame(saveFileName)
+			if(!windowSaveFile):
+				print("failed to load save file? make one, again")
+				windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
+	
+	print(windowSaveFile)
+	SetID(windowID)
 
 func _process(_delta: float) -> void:
 	if is_dragging:
+		var mouseChangeInPosition: Vector2 = get_global_mouse_position() - mouse_start_drag_position;
+		if(mouseChangeInPosition.x > 5 or mouseChangeInPosition.x < -5 or mouseChangeInPosition.y > 5 or mouseChangeInPosition.y < -5):
+			#moved enough to un-maximize window(restore)
+			if(is_maximized):
+				#var diffInSize: Vector2 = size - old_unmaximized_size;
+				#global_position += Vector2(diffInSize.x, diffInSize.y)
+				size = old_unmaximized_size
+				windowSaveFile.data[windowSaveSizeKey] = size
+				#global_position = get_global_mouse_position()
+				#global_position = Vector2(get_global_mouse_position().x + old_unmaximized_position.x/2, get_global_mouse_position().y)
+				clamp_window_inside_viewport()
+				#old_unmaximized_position = global_position
+				#old_unmaximized_position = global_position
+				maximize_window(false)
+		#global_position.x = get_global_mouse_position().x - size.x/2
+		#global_position.y = get_global_mouse_position().y - top_bar.size.y/2
 		global_position = start_drag_position + (get_global_mouse_position() - mouse_start_drag_position)
 		clamp_window_inside_viewport()
+		windowSaveFile.data[windowSavePosKey] = position
+		
+		#windowSaveFile.data[windowSaveSizeKey] = size
 
+var mouseClicked: bool
+var leftClick: bool
+var rightClick: bool
+var timeOfClick: int
+@export var doubleClickThreashold: float = 0.5
+var scrolled: bool
+var amountScrolledVerticle: float
+var amountScrolledHorizontal: float
+var draggingStart: bool
+var draggingEnd: bool
+var dragging: bool
+
+#clicked inside the window itself
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and (event.button_index == 1 or event.button_index == 2) and event.is_pressed():
-		select_window(true)
+	#if event is InputEventMouseButton and (event.button_index == 1 or event.button_index == 2) and event.is_pressed():
+	#	select_window(true)
+	if(event.is_action_pressed(&"LeftClick")):
+		if(!is_selected):
+			select_window(true)
 
+		if(!leftClick):#just started left click
+			mouseClicked = true
+			leftClick = true
+
+	if(event.is_action_pressed(&"RightClick")):
+		if(!is_selected):
+			select_window(true)
+
+		if(!rightClick):#just started right click
+			mouseClicked = true
+			rightClick = true;
+
+	if(event.is_action_released(&"LeftClick") or event.is_action_released(&"RightClick")):#released hold/click buttons
+		mouseClicked = false
+		leftClick = false;
+		rightClick = false;
+		#dragging = false
+		#draggingEnd = true
+
+#clicked inside the window titlebar
 func _on_top_bar_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == 1:
-		if event.is_pressed():
-			is_dragging = true
-			start_drag_position = global_position
-			mouse_start_drag_position = get_global_mouse_position()
-		else:
-			is_dragging = false
+	if(event.is_action_pressed(&"LeftClick")):
+		var timeSinceLastClick:float = float(Time.get_ticks_msec() - timeOfClick)/1000.0
+		if(timeSinceLastClick > doubleClickThreashold):
+			if(timeSinceLastClick < doubleClickThreashold*3):
+				#passed the double click check
+				#toggle maximizing the window
+				maximize_window()
+		timeOfClick = Time.get_ticks_msec()
+		#if event.is_pressed():
+		if(!is_dragging):#if we just clicked the title bar, select it
+			select_window(true)
+		
+		is_dragging = true
+		start_drag_position = global_position
+		mouse_start_drag_position = get_global_mouse_position()
+		#windowSaveFile.data[windowSavePosKey] = position
+	if(event.is_action_released(&"LeftClick")):
+		is_dragging = false
 
 func _on_close_button_pressed() -> void:
 	if is_being_deleted:
@@ -72,6 +190,11 @@ func _on_close_button_pressed() -> void:
 	
 	if GlobalValues.selected_window == self:
 		GlobalValues.selected_window = null
+	
+	windowSaveFile.data[windowSavePosKey] = position
+	windowSaveFile.data[windowSaveSizeKey] = size
+	windowSaveFile.data[windowSaveMaximizedKey] = is_maximized
+	windowSaveFile.write_savegame();
 	
 	deleted.emit()
 	num_of_windows -= 1
@@ -84,6 +207,8 @@ func _on_close_button_pressed() -> void:
 func _on_minimize_button_pressed() -> void:
 	hide_window()
 
+func _exit_tree() -> void:
+	_on_close_button_pressed()
 
 func hide_window() -> void:
 	if is_minimized:
@@ -129,7 +254,7 @@ func select_window(play_fade_animation: bool) -> void:
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property($"Top Bar/Title Text", "modulate", Color("3cffff"), 0.25)
+	tween.tween_property(titleText, "modulate", Color("3cffff"), 0.25)
 	tween.tween_property(self["theme_override_styles/panel"], "shadow_size", 20, 0.25)
 	if play_fade_animation:
 		tween.tween_property(self, "modulate:a", 1, 0.1)
@@ -150,7 +275,7 @@ func deselect_window() -> void:
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(self, "modulate:a", 0.75, 0.25)
-	tween.tween_property($"Top Bar/Title Text", "modulate", Color.WHITE, 0.25)
+	tween.tween_property(titleText, "modulate", Color.WHITE, 0.25)
 	tween.tween_property(self["theme_override_styles/panel"], "shadow_size", 0, 0.25)
 
 func deselect_other_windows() -> void:
@@ -181,15 +306,22 @@ func _on_viewport_size_changed() -> void:
 func _on_maximize_button_pressed() -> void:
 	maximize_window()
 
-func maximize_window() -> void:
+func maximize_window(animatePos: bool = true) -> void:
+	#select_window(false)
+	select_window(true)
 	if is_maximized:
 		is_maximized = !is_maximized
-		$"Top Bar/HBoxContainer/Maximize Button".icon = maximize_icon
+		maximizeButton.icon = maximize_icon
 		
 		var tween: Tween = create_tween()
 		tween.set_parallel(true)
 		tween.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		tween.tween_property(self, "global_position", old_unmaximized_position, 0.25)
+		
+		if(animatePos):
+			tween.tween_property(self, "global_position", old_unmaximized_position, 0.25)
+		else:
+			global_position = old_unmaximized_position
+			
 		tween.tween_property(self["theme_override_styles/panel"], "bg_color:a", start_bg_color_alpha, 0.25)
 		await tween.tween_property(self, "size", old_unmaximized_size, 0.25).finished
 		
@@ -197,10 +329,11 @@ func maximize_window() -> void:
 		top_bar["theme_override_styles/panel"]["corner_radius_top_left"] = 5
 		top_bar["theme_override_styles/panel"]["corner_radius_top_right"] = 5
 		
-		$"Resize Drag Spot".window_resized.emit()
+		resizeButton.window_resized.emit()
 	else:
 		is_maximized = !is_maximized
-		$"Top Bar/HBoxContainer/Maximize Button".icon = unmaximize_icon
+		maximizeButton.icon = unmaximize_icon
+		windowSaveFile.data[windowSaveMaximizedKey] = is_maximized
 		
 		old_unmaximized_position = global_position
 		old_unmaximized_size = size
@@ -211,7 +344,10 @@ func maximize_window() -> void:
 		var tween: Tween = create_tween()
 		tween.set_parallel(true)
 		tween.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		tween.tween_property(self, "global_position", Vector2.ZERO, 0.25)
+		if(animatePos):
+			tween.tween_property(self, "global_position", Vector2.ZERO, 0.25)
+		else:
+			global_position = Vector2.ZERO
 		tween.tween_property(self["theme_override_styles/panel"], "bg_color:a", 1, 0.25)
 		await tween.tween_property(self, "size", new_size, 0.25).finished
 		
@@ -219,4 +355,5 @@ func maximize_window() -> void:
 		top_bar["theme_override_styles/panel"]["corner_radius_top_left"] = 0
 		top_bar["theme_override_styles/panel"]["corner_radius_top_right"] = 0
 		
-		$"Resize Drag Spot".window_resized.emit()
+		resizeButton.window_resized.emit()
+		maximized.emit(true)

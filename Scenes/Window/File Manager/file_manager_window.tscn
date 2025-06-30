@@ -1,14 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://i03dt4l5msgl"]
+[gd_scene load_steps=9 format=3 uid="uid://i03dt4l5msgl"]
 
 [ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_xona8"]
 [ext_resource type="Script" uid="uid://0e08uudim1di" path="res://Scenes/Window/File Manager/file_manager_window.gd" id="2_prcfs"]
+[ext_resource type="Texture2D" uid="uid://d2bniimqpwm2r" path="res://Art/shaded/50-chevron-left.png" id="3_e3b21"]
+[ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="3_x5fsl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8j66m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq0su"]
 content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0.196078, 0.333333, 0.196078, 0.784314)
+bg_color = Color(0.1355058, 7.288199e-05, 0.18264979, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -20,18 +22,18 @@ shadow_color = Color(0, 0, 0, 0.0784314)
 bg_color = Color(0, 0, 0, 0.392157)
 corner_radius_top_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrke7"]
-bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
-corner_radius_top_left = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogij0"]
 bg_color = Color(0.4, 0.4, 0.4, 0.392157)
+corner_radius_top_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrke7"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
 corner_radius_top_left = 5
 
 [node name="Window" instance=ExtResource("1_xona8")]
 offset_left = -267.5
 offset_right = 267.5
-theme_override_styles/panel = SubResource("StyleBoxFlat_8j66m")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="." index="0"]
 layout_mode = 1
@@ -66,8 +68,13 @@ grow_vertical = 2
 focus_mode = 0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_xgbvp")
-theme_override_styles/hover = SubResource("StyleBoxFlat_lrke7")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ogij0")
-text = "^"
+theme_override_styles/hover = SubResource("StyleBoxFlat_lrke7")
+icon = ExtResource("3_e3b21")
+expand_icon = true
+
+[node name="Icon" parent="Top Bar" index="3"]
+visible = false
+icon = ExtResource("3_x5fsl")
 
 [connection signal="pressed" from="Top Bar/Back Button" to="ScrollContainer/File Manager Window" method="_on_back_button_pressed"]

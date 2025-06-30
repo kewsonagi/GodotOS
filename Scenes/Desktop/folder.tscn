@@ -1,23 +1,24 @@
 [gd_scene load_steps=8 format=3 uid="uid://dci6t0fj42xpv"]
 
 [ext_resource type="Script" uid="uid://j6auwoexib63" path="res://Scenes/Desktop/desktop_folder.gd" id="1_44lov"]
-[ext_resource type="Texture2D" uid="uid://cjve37ywrq6qo" path="res://Art/Folder Icons/folder.png" id="2_8hyqf"]
 [ext_resource type="Script" uid="uid://csxjm2dry3dji" path="res://Scenes/Desktop/folder_title_edit.gd" id="2_aux0e"]
+[ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="2_f8rht"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr400"]
-bg_color = Color(0, 0.521569, 0.627451, 0.784314)
+bg_color = Color(0.41463205, 0.4489593, 0.6677051, 0.78431374)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l4r3"]
-bg_color = Color(0, 0.568627, 0.682353, 0.941176)
+bg_color = Color(0.5271636, 0.42567655, 0.8396229, 0.9411765)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0.792157, 0.952941, 1)
+border_color = Color(1, 0.4862745, 0.94509804, 0.6117647)
+border_blend = true
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -39,6 +40,9 @@ anchors_preset = 0
 size_flags_horizontal = 4
 mouse_filter = 1
 script = ExtResource("1_44lov")
+FOLDER_COLOR = Color(0.86726326, 0.85169405, 0.5475487, 1)
+TEXT_FILE_COLOR = Color(0.7185804, 0.86725366, 0.89075077, 1)
+IMAGE_COLOR = Color(0.9295097, 0.89000744, 0.9503042, 1)
 
 [node name="Hover Highlight" type="Panel" parent="."]
 layout_mode = 0
@@ -59,7 +63,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3l4r3")
 
 [node name="Folder" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(80, 100)
-layout_mode = 2
+layout_mode = 0
 offset_right = 80.0
 offset_bottom = 100.0
 size_flags_vertical = 4
@@ -70,10 +74,10 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 30
 
 [node name="TextureRect" type="TextureRect" parent="Folder"]
-modulate = Color(0.305882, 0.980392, 0.509804, 1)
+modulate = Color(0.8631563, 0.83977675, 0.6900709, 1)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_8hyqf")
+texture = ExtResource("2_f8rht")
 expand_mode = 4
 
 [node name="Double Click" type="Timer" parent="."]
@@ -101,8 +105,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(95, 0)
 layout_mode = 2
 mouse_filter = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/normal_font_size = 14
