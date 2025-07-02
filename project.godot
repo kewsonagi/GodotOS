@@ -38,6 +38,9 @@ UnderworldQuest="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldQuest
 InputHelper="*res://addons/input_helper/input_helper.gd"
 GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
 IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
+IndieBlueprintAudioManager="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/audio_manager.gd"
+IndieBlueprintMusicManager="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/music_manager.gd"
+IndieBlueprintSoundPool="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/sound_pool.gd"
 
 [debug]
 
@@ -56,14 +59,9 @@ window/vsync/vsync_mode=0
 
 project/assembly_name="GodotOS"
 
-[editor]
-
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
-
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/git_sha_project_setting/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/theme_switcher/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
+enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/indent_guidelines/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/theme_switcher/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
 
 [file_customization]
 
@@ -71,13 +69,17 @@ folder_colors={
 "res://Art/": "green",
 "res://Default Files/": "gray",
 "res://Games/": "red",
-"res://Scenes/": "blue",
-"res://Scenes/Misc/": "gray"
+"res://Scenes/": "blue"
 }
 
 [filesystem]
 
 import/fbx/enabled=true
+
+[github_to_itch]
+
+config/itch_username="kewsonagi"
+config/itch_project_name="godot-desktop"
 
 [global_group]
 

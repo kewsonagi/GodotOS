@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cfj5p5pgfnywp"]
+[gd_scene load_steps=19 format=3 uid="uid://cfj5p5pgfnywp"]
 
 [ext_resource type="Script" uid="uid://clkes7h7romou" path="res://Scenes/Taskbar/start_button.gd" id="1_aypgd"]
 [ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="2_0bho0"]
@@ -10,6 +10,18 @@
 [ext_resource type="Script" uid="uid://bcvlao324av3w" path="res://Scenes/Taskbar/settings_button.gd" id="6_38i4x"]
 [ext_resource type="Script" uid="uid://33k2ree3e2yt" path="res://Scenes/Taskbar/taskbar_time.gd" id="7_2yhho"]
 [ext_resource type="Script" uid="uid://cehs3cp6p5mhf" path="res://Scenes/Taskbar/buddy_button.gd" id="9_0bho0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bho0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14973955, 0.00024895632, 0.26567283, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxws7"]
 bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
@@ -58,6 +70,7 @@ offset_left = 5.0
 offset_top = 50.0
 offset_right = 355.0
 offset_bottom = 606.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="StartMenuAnchor/Start Menu"]
 layout_mode = 1
@@ -66,7 +79,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = 2
 
 [node name="Godotris Option" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
@@ -111,6 +124,7 @@ title_text = "Paint Splatter 3D"
 description_text = "Paintball splash 3D items"
 
 [node name="Power Button" type="Button" parent="StartMenuAnchor/Start Menu"]
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -133,7 +147,7 @@ script = ExtResource("4_cnyss")
 boot_splash_scene = ExtResource("4_esxxc")
 
 [node name="Settings Button" type="Button" parent="StartMenuAnchor/Start Menu"]
-texture_filter = 6
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

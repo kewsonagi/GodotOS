@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://da4oly47yx3ja"]
 
 [ext_resource type="Script" uid="uid://b4pjauo2jicy2" path="res://Scenes/Taskbar/start_menu_option.gd" id="1_2fneu"]
-[ext_resource type="Texture2D" uid="uid://2sqrvihn1cjq" path="res://Art/Folder Icons/game.png" id="2_4g113"]
+[ext_resource type="Texture2D" uid="uid://c0ovs3dnopxua" path="res://Art/Icons - icones/games-01.png" id="2_j6xxd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0gkon"]
 bg_color = Color(0.77936745, 0.6259147, 1, 0.7254902)
@@ -48,10 +48,10 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer"]
-modulate = Color(0.811765, 0.329412, 0.960784, 1)
+modulate = Color(0.7968209, 0.67204857, 0.8504373, 1)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_4g113")
+texture = ExtResource("2_j6xxd")
 expand_mode = 2
 
 [node name="Control" type="Control" parent="HBoxContainer"]

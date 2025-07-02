@@ -9,7 +9,9 @@ class_name BootSplash
 @export var bootImage: Sprite2D
 @export var bootImageShadow: Sprite2D
 @export var timeLength: float = 0.5
-@export var scaleAmount: Vector2 = Vector2(2,2)
+@export var scaleBegin: Vector2 = Vector2(2,2)
+@export var scaleEnd: Vector2 = Vector2(2,2)
+#@export var bootSound: AudioSample
 
 func _ready() -> void:
 	visible = true
@@ -20,11 +22,14 @@ func _ready() -> void:
 		play_animation()
 
 func play_animation() -> void:
+	bootImage.scale = scaleBegin;
+	bootImageShadow.scale = scaleBegin;
+
 	var tween: Tween = create_tween()
 	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
 	tween.set_parallel(true)
-	tween.tween_property(bootImageShadow, "scale", scaleAmount, timeLength)
-	tween.tween_property(bootImage, "scale", scaleAmount, timeLength)
+	tween.tween_property(bootImageShadow, "scale", scaleEnd, timeLength)
+	tween.tween_property(bootImage, "scale", scaleEnd, timeLength)
 	
 	tween.tween_property(bootImageShadow, "self_modulate:a", 0, timeLength)
 	
@@ -32,16 +37,18 @@ func play_animation() -> void:
 	queue_free()
 
 func play_quit_animation() -> void:
+	bootImage.scale = scaleBegin;
+	bootImageShadow.scale = scaleBegin;
 	#Start scaled to max, go to 1
-	bootImageShadow.scale = scaleAmount
+	#bootImageShadow.scale = scaleAmount
 	bootImageShadow.self_modulate.a = 0
-	bootImage.scale = scaleAmount
+	#bootImage.scale = scaleAmount
 	
 	var tween: Tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	tween.set_parallel(true)
-	tween.tween_property(bootImageShadow, "scale", Vector2(1, 1), 2)
-	tween.tween_property(bootImage, "scale", Vector2(1, 1), timeLength/2)
+	tween.tween_property(bootImageShadow, "scale", scaleEnd, timeLength)
+	tween.tween_property(bootImage, "scale", scaleEnd, timeLength)
 	
 	await get_tree().create_timer(timeLength/2).timeout
 	

@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func StartGame() -> void:
 	if(!spawnedWindow):
-		spawnedWindow = DefaultValues.spawn_game_window(mainGameScene.resource_path, "")
+		spawnedWindow = DefaultValues.spawn_game_window(mainGameScene.resource_path, "","",null)
 	
 func getStartScene() -> Node:
 	return spawnedWindow

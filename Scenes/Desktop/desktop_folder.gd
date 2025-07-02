@@ -123,7 +123,7 @@ func spawn_window() -> void:
 		else:
 			window.get_node("%Image Viewer").import_image("%s/%s" % [folder_path, folder_name])
 	
-	window.title_text = %"Folder Title".text
+	window.title_text = windowName#%"Folder Title".text
 	#get_tree().current_scene.add_child(window)
 	
 	var taskbar_button: Control = load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()

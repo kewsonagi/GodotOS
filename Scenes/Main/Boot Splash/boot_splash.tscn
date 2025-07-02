@@ -8,17 +8,19 @@
 blend_mode = 2
 
 [node name="Boot Splash" type="CanvasLayer" node_paths=PackedStringArray("bootBackground", "bootImage", "bootImageShadow")]
+follow_viewport_enabled = true
 script = ExtResource("1_oyw0a")
 bootBackground = NodePath("CanvasGroup/Background")
 bootImage = NodePath("Logo")
 bootImageShadow = NodePath("CanvasGroup/Logo")
+scaleBegin = Vector2(0.8, 0.8)
+scaleEnd = Vector2(1.2, 1.2)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
 
 [node name="Background" type="Sprite2D" parent="CanvasGroup"]
 modulate = Color(1, 1, 1, 0.5529412)
 self_modulate = Color(1, 1, 1, 0.4862745)
-position = Vector2(576, 324)
 scale = Vector2(1152, 648)
 texture = ExtResource("2_follq")
 

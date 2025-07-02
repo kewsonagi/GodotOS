@@ -5,6 +5,9 @@ var wallpaper_name: String
 var wallpaper_stretch_mode: TextureRect.StretchMode # int from 0 to 6
 @onready var background_color_rect: ColorRect = $"/root/Control/BackgroundColor"
 @onready var wallpaper: Wallpaper = $"/root/Control/Wallpaper"
+var soundManager2D: AudioStreamPlayer2D
+var soundManager3D: AudioStreamPlayer3D
+var windows: Array[FakeWindow] = []
 
 func _ready() -> void:
 	DisplayServer.window_set_min_size(Vector2i(600, 525))
@@ -98,6 +101,8 @@ func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitle
 		parentWindow.add_child(window)
 	else:
 		get_tree().current_scene.add_child(window)
+	
+	windows.append(window)
 		
 	return window as Node
 
@@ -118,5 +123,13 @@ func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Un
 		parentWindow.add_child(window)
 	else:
 		get_tree().current_scene.add_child(window)
+	
+	windows.append(window)
 		
 	return window as Node
+
+func CloseWindow(window: FakeWindow) -> void:
+	windows.erase(window)
+	
+func _exit_tree() -> void:
+	windows.clear()

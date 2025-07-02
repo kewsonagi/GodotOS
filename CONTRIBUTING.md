@@ -1,21 +1,20 @@
-# Contributing to GodotOS
+# Contribution
 
-Thanks for coming by! Here are some general contributing tips:
+Existing issues marked with a [help wanted tag](https://github.com/ninetailsrabbit/indie-blueprint-audio/labels/help%20wanted) are the best candidates for contributions. Issues with that tag are either not prioritised, or are in need of help with someone with more expertise within a certain area
 
-* Please make your variables and functions statically typed.
-* Try to follow the [GDScript style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html) as closely as you can (though this isn't entirely required)
-* If you're planning on submitting a PR for a major feature or drastic change, please discuss it with me first.
+## Reporting bugs
 
-# Adding your game/app to GodotOS
+1. **[Follow the template for bug reports.](https://github.com/ninetailsrabbit/indie-blueprint-audio/issues/new?assignees=ninetailsrabbit&labels=%F0%9F%90%9B+bug&projects=&template=bug_report.md&title)**
+2. **Golden rule** Open _one_ ussie for _one_ bug .
+3. [Search for existing reports first.](https://github.com/ninetailsrabbit/indie-blueprint-audio/issues) If you found a similar issue in the tracker - better share your problem in the existing thread.
+4. Besides the platform, specify as many specifics as you can _(if relevant)_. CPU/GPU, input methods _(controller, mouse)_ and so on.
+5. A simple reproduction project helps more than any reproduction steps. Include it whenever you can. Examining the problem first-hand is the easiest way to solve it.
 
-One thing I will always welcome is more games! There are just a few notes I have before you try to submit a PR for your game.
+## Proposing features
 
-* **Try to make your game as small as you can.** GodotOS is built in mind to run on the web, so any large files can greatly detract from its loading times and portability. 
-This doesn't mean you can't have SFX or sprites, just use them in moderation!
-As a rule of thumb, try to make your game under 1 megabyte. Consider compressing your assets, going for a pixel-art or minimalist style, using a sprite atlas, etc.
-* Don't use autoloads in your game since it would have to always be running for the entire application. If you **really** need an autoload, consider passing data through save files or adding a node in `/root/`.
-  Remember to delete it on window exit if you're doing this!
-* Avoid using functions that affect the entire scene such as `get_tree().change_scene_to_file()`. This will affect GodotOS as a whole, not just your game. Check the official games included for examples on how to safely change scenes only for the game window.
-* Make sure your scene and script names less generic. If you have a player and the game is called Super Bit Boy for example, call it `bit_boy_player.gd` instead of `player.gd`.
+1. **[Follow the template for feature requests.](https://github.com/ninetailsrabbit/indie-blueprint-audio/issues/new?assignees=ninetailsrabbit&labels=%E2%AD%90+feature&projects=&template=feature_request.md&title)**
+2. [Search for existing proposals first.](https://github.com/ninetailsrabbit/indie-blueprint-audio/issues)
+3. Request something with a real-world use-case. Abstract features may not be considered.
+4. If you are capable of implementing said feature, include some code that demonstrates the finer details/nuances of said feature.
 
-That's it. Good luck!
+## Thanks you for contributing mindfully!

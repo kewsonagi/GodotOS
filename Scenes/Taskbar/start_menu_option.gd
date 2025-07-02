@@ -26,7 +26,8 @@ func _ready() -> void:
 	%"Menu Description".text = "[center]%s" % description_text
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == 1 and event.is_pressed():
+	#if event is InputEventMouseButton and event.button_index == 1 and event.is_pressed():
+	if(event.is_action_pressed(&"LeftClick") or event.is_action_pressed(&"RightClick")):
 		if spawn_inside_window:
 			spawn_window()
 		else:
@@ -49,7 +50,8 @@ func _on_mouse_exited() -> void:
 
 # TODO find a better way than copying this from desktop_folder.gd
 func spawn_window() -> void:
-	var window: FakeWindow = DefaultValues.spawn_game_window(game_scene, %"Menu Title".text)
+	print("spawn regular game window inside itself")
+	var window: FakeWindow = DefaultValues.spawn_game_window(game_scene, %"Menu Title".text, %"Menu Title".text,self)
 	#var window: FakeWindow
 	#window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	#window.get_node("%Game Window").add_child(load(game_scene).instantiate())
@@ -67,6 +69,7 @@ func spawn_window() -> void:
 	get_tree().get_first_node_in_group("taskbar_buttons").add_child(taskbar_button)
 
 func spawn_outside_window() -> void:
+	print("spawn game outside of window")
 	var windowParent:Node = $/root/Control;
 	DefaultValues.spawn_window(game_scene, game_scene.get_basename(), game_scene.get_basename(), windowParent)
 	#$/root/Control.add_child(load(game_scene).instantiate())

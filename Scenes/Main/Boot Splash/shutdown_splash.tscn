@@ -13,6 +13,8 @@ quit_animation = true
 bootBackground = NodePath("CanvasGroup/Background")
 bootImage = NodePath("Logo")
 bootImageShadow = NodePath("CanvasGroup/Logo")
+scaleBegin = Vector2(1, 1)
+scaleEnd = Vector2(0, 0)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
 
