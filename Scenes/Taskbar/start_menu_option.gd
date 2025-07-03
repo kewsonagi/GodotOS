@@ -59,17 +59,13 @@ func spawn_window() -> void:
 	if use_generic_pause_menu:
 		window.get_node("%GamePauseManager").process_mode = Node.PROCESS_MODE_INHERIT
 	
-	#window.title_text = %"Menu Title".text
-	#get_tree().current_scene.add_child(window)
+	DefaultValues.AddWindowToTaskbar(window, Color.GREEN, $"HBoxContainer/MarginContainer/TextureRect".texture)
+	#taskbar_button.active_color = $"HBoxContainer/MarginContainer/TextureRect".modulate
 	
-	var taskbar_button: Control = load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()
-	taskbar_button.target_window = window
-	taskbar_button.get_node("TextureMargin/TextureRect").texture = $"HBoxContainer/MarginContainer/TextureRect".texture
-	taskbar_button.active_color = $"HBoxContainer/MarginContainer/TextureRect".modulate
-	get_tree().get_first_node_in_group("taskbar_buttons").add_child(taskbar_button)
 
 func spawn_outside_window() -> void:
 	print("spawn game outside of window")
 	var windowParent:Node = $/root/Control;
-	DefaultValues.spawn_window(game_scene, game_scene.get_basename(), game_scene.get_basename(), windowParent)
+	var window: FakeWindow = DefaultValues.spawn_window(game_scene, game_scene.get_basename(), game_scene.get_basename(), windowParent)
+	DefaultValues.AddWindowToTaskbar(window, Color.GREEN, $"HBoxContainer/MarginContainer/TextureRect".texture)
 	#$/root/Control.add_child(load(game_scene).instantiate())

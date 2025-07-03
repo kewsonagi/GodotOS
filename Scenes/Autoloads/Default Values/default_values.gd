@@ -5,8 +5,8 @@ var wallpaper_name: String
 var wallpaper_stretch_mode: TextureRect.StretchMode # int from 0 to 6
 @onready var background_color_rect: ColorRect = $"/root/Control/BackgroundColor"
 @onready var wallpaper: Wallpaper = $"/root/Control/Wallpaper"
-var soundManager2D: AudioStreamPlayer2D
-var soundManager3D: AudioStreamPlayer3D
+#var soundManager2D: AudioStreamPlayer2D
+#var soundManager3D: AudioStreamPlayer3D
 var windows: Array[FakeWindow] = []
 
 func _ready() -> void:
@@ -125,8 +125,17 @@ func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Un
 		get_tree().current_scene.add_child(window)
 	
 	windows.append(window)
-		
+
 	return window as Node
+
+func AddWindowToTaskbar(window: FakeWindow, color: Color = Color.GRAY, texture: Texture2D=null) -> void:
+	#add window to taskbar
+	var taskbar_button: Control = load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()
+	taskbar_button.target_window = window
+	if(texture):
+		taskbar_button.get_node("TextureMargin/TextureRect").texture = texture
+	taskbar_button.active_color = color
+	get_tree().get_first_node_in_group("taskbar_buttons").add_child(taskbar_button)
 
 func CloseWindow(window: FakeWindow) -> void:
 	windows.erase(window)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dci6t0fj42xpv"]
+[gd_scene load_steps=10 format=3 uid="uid://dci6t0fj42xpv"]
 
 [ext_resource type="Script" uid="uid://j6auwoexib63" path="res://Scenes/Desktop/desktop_folder.gd" id="1_44lov"]
 [ext_resource type="Script" uid="uid://csxjm2dry3dji" path="res://Scenes/Desktop/folder_title_edit.gd" id="2_aux0e"]
 [ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="2_f8rht"]
+[ext_resource type="Texture2D" uid="uid://bnvcfipxcfprr" path="res://Art/Icons - icones/photo-software.png" id="3_knrpm"]
+[ext_resource type="Texture2D" uid="uid://cib3o43x5hml6" path="res://Art/Icons - icones/notepad-02.png" id="4_8kv7n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr400"]
 bg_color = Color(0.41463205, 0.4489593, 0.6677051, 0.78431374)
@@ -40,6 +42,9 @@ anchors_preset = 0
 size_flags_horizontal = 4
 mouse_filter = 1
 script = ExtResource("1_44lov")
+folderIcon = ExtResource("2_f8rht")
+photoViewerIcon = ExtResource("3_knrpm")
+textEditIcon = ExtResource("4_8kv7n")
 FOLDER_COLOR = Color(0.86726326, 0.85169405, 0.5475487, 1)
 TEXT_FILE_COLOR = Color(0.7185804, 0.86725366, 0.89075077, 1)
 IMAGE_COLOR = Color(0.9295097, 0.89000744, 0.9503042, 1)

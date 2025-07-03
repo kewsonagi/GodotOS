@@ -86,18 +86,15 @@ func _ready() -> void:
 	if(!windowSaveFile):
 		#windowSaveFile = IndieBlueprintSaveManager.create_new_save(windowSaveFileLocation)
 		if(!IndieBlueprintSaveManager.save_filename_exists(saveFileName)):
-			print("no prev window setting file exists, creating one %s" % saveFileName)
 			windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
 			#windowSaveFile = IndieBlueprintSavedGame.new()
 			#windowSaveFile.write_savegame(windowSaveFileLocation)
 		else:
-			print("already have a window setting file, supposedly, load it %s"  % saveFileName)
 			windowSaveFile = IndieBlueprintSaveManager.load_savegame(saveFileName)
 			if(!windowSaveFile):
-				print("failed to load save file? make one, again")
 				windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
 	
-	print(windowSaveFile)
+	#print(windowSaveFile)
 	SetID(windowID)
 
 func _process(_delta: float) -> void:

@@ -5,7 +5,7 @@ class_name FileManagerWindow
 
 func _ready() -> void:
 	populate_file_manager()
-	sort_folders()
+	#sort_folders()
 	
 	$"../../Resize Drag Spot".window_resized.connect(update_positions)
 

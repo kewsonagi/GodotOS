@@ -32,8 +32,15 @@ bg_color = Color(0.4, 0.4, 0.4, 0.392157)
 bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3xsn"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(0, 0, 0, 0.392157)
+corner_radius_top_left = 5
 corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jljmq"]
 bg_color = Color(1, 0.247059, 0.188235, 0.588235)
@@ -82,8 +89,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 bbcode_enabled = true
-text = "[center]Hello World!"
+text = "Hello World!"
 scroll_active = false
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Top Bar"]
 layout_mode = 1

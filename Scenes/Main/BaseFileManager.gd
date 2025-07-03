@@ -7,40 +7,54 @@ class_name BaseFileManager
 @export var file_path: String
 var directories: PackedStringArray
 var itemLocations: Dictionary = {}
+@export var startingUserDirectory: String = "user://files/"
 
 ## Removes all current folders (if any) and populates the file manager from file path.
 func populate_file_manager() -> void:
 	for child in get_children():
 		if child is FakeFolder:
 			child.queue_free()
-	
-	print("populating filemanager at path: %s" % file_path)
 
 	directories.clear()
-	directories = DirAccess.get_directories_at("user://files/%s" % file_path)
+	directories = DirAccess.get_directories_at("%s%s" % [startingUserDirectory,file_path])
 	itemLocations.clear()
 	if(directories):
-		for folder_name in DirAccess.get_directories_at("user://files/%s" % file_path):
+		for folder_name in directories:
+			print("folder name in file manager: %s" % folder_name)
+			print("folder path in file manager: %s/%s" % [file_path,folder_name])
 			if file_path.is_empty():
-				instantiate_file(folder_name, folder_name, FakeFolder.file_type_enum.FOLDER)
+				PopulateWithFolder(folder_name, folder_name)
 			else:
-				instantiate_file(folder_name, "%s/%s" % [file_path, folder_name], FakeFolder.file_type_enum.FOLDER)
+				PopulateWithFolder(folder_name, "%s/%s" % [file_path, folder_name])
 	
 	directories.clear()
-	directories = DirAccess.get_files_at("user://files/%s" % file_path)
-	for file_name: String in  DirAccess.get_files_at("user://files/%s" % file_path):
+	directories = DirAccess.get_files_at("%s%s" % [startingUserDirectory,file_path])
+	for file_name: String in  directories:
 		if file_name.ends_with(".txt") or file_name.ends_with(".md"):
-			instantiate_file(file_name, file_path, FakeFolder.file_type_enum.TEXT_FILE)
+			PopulateWithFile(file_name, file_path, FakeFolder.file_type_enum.TEXT_FILE)
 		elif file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".jpeg")\
 		or file_name.ends_with(".webp"):
-			instantiate_file(file_name, file_path, FakeFolder.file_type_enum.IMAGE)
+			PopulateWithFile(file_name, file_path, FakeFolder.file_type_enum.IMAGE)
 	
+	directories.clear()
 	await get_tree().process_frame
 	await get_tree().process_frame # TODO fix whatever's causing a race condition :/
 	sort_folders()
 
-## Adds a folder as a child
-func instantiate_file(file_name: String, path: String, file_type: FakeFolder.file_type_enum) -> void:
+## Adds a folder to the file manager
+func PopulateWithFolder(file_name: String, path: String) -> void:
+	#print("adding file or folder in file manager: path: %s - name: %s" % [path, file_name])
+	var folder: FakeFolder = load("res://Scenes/Desktop/folder.tscn").instantiate()
+	var file_type: FakeFolder.file_type_enum = FakeFolder.file_type_enum.FOLDER
+	folder.folder_name = file_name
+	folder.folder_path = path
+	folder.file_type = file_type
+	add_child(folder)
+	itemLocations["%s%s" % [path, file_name]] = Vector2(0,0)
+
+# Adds a file of a type to the file manager
+func PopulateWithFile(file_name: String, path: String, file_type: FakeFolder.file_type_enum) -> void:
+	#print("adding file or folder in file manager: path: %s - name: %s" % [path, file_name])
 	var folder: FakeFolder = load("res://Scenes/Desktop/folder.tscn").instantiate()
 	folder.folder_name = file_name
 	folder.folder_path = path
@@ -73,13 +87,13 @@ func new_folder() -> void:
 	var padded_file_path: String # Since I sometimes want the / and sometimes not
 	if !file_path.is_empty():
 		padded_file_path = "%s/" % file_path
-	if DirAccess.dir_exists_absolute("user://files/%s%s" % [padded_file_path, new_folder_name]):
+	if DirAccess.dir_exists_absolute("%s%s%s" % [startingUserDirectory, padded_file_path, new_folder_name]):
 		for i in range(2, 1000):
 			new_folder_name = "New Folder %d" % i
-			if !DirAccess.dir_exists_absolute("user://files/%s%s" % [padded_file_path, new_folder_name]):
+			if !DirAccess.dir_exists_absolute("%s%s%s" % [startingUserDirectory, padded_file_path, new_folder_name]):
 				break
 	
-	DirAccess.make_dir_absolute("user://files/%s%s" % [padded_file_path, new_folder_name])
+	DirAccess.make_dir_absolute("%s%s%s" % [startingUserDirectory, padded_file_path, new_folder_name])
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
 		if file_manager.file_path == file_path:
 			file_manager.instantiate_file(new_folder_name, "%s%s" % [padded_file_path, new_folder_name], FakeFolder.file_type_enum.FOLDER)
@@ -87,7 +101,7 @@ func new_folder() -> void:
 			sort_folders()
 	
 	if file_path.is_empty():
-		instantiate_file(new_folder_name, "%s" % new_folder_name, FakeFolder.file_type_enum.FOLDER)
+		PopulateWithFolder(new_folder_name, "%s" % new_folder_name)
 		sort_folders()
 
 ## Creates a new file.
@@ -98,14 +112,14 @@ func new_file(extension: String, file_type: FakeFolder.file_type_enum) -> void:
 	if !file_path.is_empty():
 		padded_file_path = "%s/" % file_path
 	
-	if FileAccess.file_exists("user://files/%s%s" % [padded_file_path, new_file_name]):
+	if FileAccess.file_exists("%s%s%s" % [startingUserDirectory, padded_file_path, new_file_name]):
 		for i in range(2, 1000):
 			new_file_name = "New File %d%s" % [i, extension]
-			if !FileAccess.file_exists("user://files/%s%s" % [padded_file_path, new_file_name]):
+			if !FileAccess.file_exists("%s%s%s" % [startingUserDirectory, padded_file_path, new_file_name]):
 				break
 	
 	# Just touches the file
-	var _file: FileAccess = FileAccess.open("user://files/%s%s" % [padded_file_path, new_file_name], FileAccess.WRITE)
+	var _file: FileAccess = FileAccess.open("%s%s%s" % [startingUserDirectory, padded_file_path, new_file_name], FileAccess.WRITE)
 	
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
 		if file_manager.file_path == file_path:
@@ -114,7 +128,10 @@ func new_file(extension: String, file_type: FakeFolder.file_type_enum) -> void:
 			file_manager.sort_folders()
 	
 	if file_path.is_empty():
-		instantiate_file(new_file_name, file_path, file_type)
+		if(file_type == FakeFolder.file_type_enum.FOLDER):
+			PopulateWithFolder(new_file_name, file_path)
+		else:
+			PopulateWithFile(new_file_name, file_path, file_type)
 		sort_folders()
 
 ## Finds a file/folder based on name and frees it (but doesn't delete it from the actual system)

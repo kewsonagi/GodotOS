@@ -26,7 +26,8 @@ func _ready() -> void:
 		DefaultValues.wallpaper_name = "default wall.webp"
 		DefaultValues.save_state()
 	
-	populate_file_manager()
+	#populate_file_manager()
+	super._ready();
 	get_window().size_changed.connect(update_positions)
 	get_window().focus_entered.connect(_on_window_focus)
 

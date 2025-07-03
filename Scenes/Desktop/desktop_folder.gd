@@ -7,6 +7,9 @@ class_name FakeFolder
 enum file_type_enum {FOLDER, TEXT_FILE, IMAGE}
 @export var file_type: file_type_enum
 
+@export var folderIcon: Texture2D
+@export var photoViewerIcon: Texture2D
+@export var textEditIcon: Texture2D
 @export var FOLDER_COLOR: Color = Color("4efa82")
 @export var TEXT_FILE_COLOR: Color = Color("4deff5")
 @export var IMAGE_COLOR: Color = Color("f9ee13")
@@ -23,13 +26,13 @@ func _ready() -> void:
 	
 	if file_type == file_type_enum.FOLDER:
 		$Folder/TextureRect.modulate = FOLDER_COLOR
-		$Folder/TextureRect.texture = load("res://Art/Folder Icons/folder.png")
+		$Folder/TextureRect.texture = folderIcon
 	elif file_type == file_type_enum.TEXT_FILE:
 		$Folder/TextureRect.modulate = TEXT_FILE_COLOR
-		$Folder/TextureRect.texture = load("res://Art/Folder Icons/text_file.png")
+		$Folder/TextureRect.texture = textEditIcon
 	elif file_type == file_type_enum.IMAGE:
 		$Folder/TextureRect.modulate = IMAGE_COLOR
-		$Folder/TextureRect.texture = load("res://Art/Folder Icons/image.png")
+		$Folder/TextureRect.texture = photoViewerIcon
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
@@ -97,19 +100,23 @@ func hide_selected_highlight() -> void:
 
 func spawn_window() -> void:
 	var window: FakeWindow
+	
+	print("desktop folder opening folder with path: %s" % folder_path)
 	var windowName:String=folder_path
-	var windowID:String=folder_path
+	var windowID:String="%s/%s" % [folder_path, folder_name]
 	var windowParent:Node=get_tree().current_scene
 	print("Spawning window, Name: %s, ID: %s, Parent: %s" % [windowName,windowID,windowParent])
 
 	if file_type == file_type_enum.FOLDER:
 		window = DefaultValues.spawn_window("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID,windowParent)
 		print("returned window: %s" % window)
-		#load("res://Scenes/Window/File Manager/file_manager_window.tscn").instantiate()
 		window.get_node("%File Manager Window").file_path = folder_path
+		#HACK
+		#forcing a reload of the file manager window with the correct path instead of the desktop one
+		#possibly change this to have an initialization of the manager, or a file manager specific window creation?
+		window.get_node("%File Manager Window").reload_window(folder_path)
 	elif file_type == file_type_enum.TEXT_FILE:
 		window = DefaultValues.spawn_window("res://Scenes/Window/Text Editor/text_editor.tscn", windowName, windowID,windowParent)
-		#window = load("res://Scenes/Window/Text Editor/text_editor.tscn").instantiate()
 		# TODO make this more flexible?
 		if folder_path.is_empty():
 			window.get_node("%Text Editor").populate_text(folder_name)
@@ -117,28 +124,23 @@ func spawn_window() -> void:
 			window.get_node("%Text Editor").populate_text("%s/%s" % [folder_path, folder_name])
 	elif file_type == file_type_enum.IMAGE:
 		window = DefaultValues.spawn_window("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID,windowParent)
-		#window = load("res://Scenes/Window/Image Viewer/image_viewer.tscn").instantiate()
 		if folder_path.is_empty():
 			window.get_node("%Image Viewer").import_image(folder_name)
 		else:
 			window.get_node("%Image Viewer").import_image("%s/%s" % [folder_path, folder_name])
 	
 	window.title_text = windowName#%"Folder Title".text
-	#get_tree().current_scene.add_child(window)
 	
-	var taskbar_button: Control = load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()
-	taskbar_button.target_window = window
+	var taskColor: Color = FOLDER_COLOR;
 	
 	if file_type == file_type_enum.FOLDER:
-		taskbar_button.active_color = FOLDER_COLOR
+		taskColor = FOLDER_COLOR
 	if file_type == file_type_enum.TEXT_FILE:
-		taskbar_button.active_color = TEXT_FILE_COLOR
+		taskColor = TEXT_FILE_COLOR
 	elif file_type == file_type_enum.IMAGE:
-		taskbar_button.active_color = IMAGE_COLOR
+		taskColor = IMAGE_COLOR
 	
-	taskbar_button.get_node("TextureMargin/TextureRect").texture = $"Folder/TextureRect".texture
-	
-	get_tree().get_first_node_in_group("taskbar_buttons").add_child(taskbar_button)
+	DefaultValues.AddWindowToTaskbar(window, taskColor, $Folder/TextureRect.texture)
 
 func delete_file() -> void:
 	if file_type == file_type_enum.FOLDER:
