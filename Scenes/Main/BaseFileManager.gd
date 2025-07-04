@@ -20,8 +20,6 @@ func populate_file_manager() -> void:
 	itemLocations.clear()
 	if(directories):
 		for folder_name in directories:
-			print("folder name in file manager: %s" % folder_name)
-			print("folder path in file manager: %s/%s" % [file_path,folder_name])
 			if file_path.is_empty():
 				PopulateWithFolder(folder_name, folder_name)
 			else:

@@ -21,8 +21,8 @@ var windowID: String
 
 @onready var maximizeButton: Button = $"Top Bar/HBoxContainer/Maximize Button"
 @onready var resizeButton: Control = $"Resize Drag Spot"
-@export var maximize_icon: CompressedTexture2D = preload("res://Art/Icons/expand.png")
-@export var unmaximize_icon: CompressedTexture2D = preload("res://Art/Icons/shrink.png")
+@export var maximize_icon: CompressedTexture2D = preload("res://Art/shaded/37-plus-sign.png")
+@export var unmaximize_icon: CompressedTexture2D = preload("res://Art/shaded/38-minus-sign.png")
 var old_unmaximized_position: Vector2
 var old_unmaximized_size: Vector2
 @onready var titleText: RichTextLabel = $"Top Bar/Title Text"
@@ -37,12 +37,15 @@ signal deleted()
 
 var saveFileName: String = "window_settings"
 static var windowSaveFile: IndieBlueprintSavedGame
-#static var windowSaveFileLocation: String = "%s/%s" % [OS.get_user_data_dir(),saveFileName]
-#static var windowSaveManager: IndieBlueprintSaveManager;
 var windowSavePosKey: String
 var windowSaveSizeKey: String
 var windowSaveMaximizedKey: String
 
+var creationData: Dictionary
+
+func SetData(data: Dictionary) -> void:
+	creationData = data;
+	
 #set window ID and initialize any window specific key/value pairs for saving settings
 func SetID(id:String) -> void:
 	windowID = id
@@ -61,7 +64,6 @@ func SetID(id:String) -> void:
 			is_maximized = windowSaveFile.data[windowSaveMaximizedKey]
 		if(is_maximized):
 			is_maximized = false #mark it not maximized so it doesnt minimize on load instead
-			#maximize_window()
 
 func _ready() -> void:
 	timeOfClick = Time.get_ticks_msec()
@@ -84,17 +86,13 @@ func _ready() -> void:
 	
 	saveFileName = IndieBlueprintSavedGame.clean_filename(saveFileName)
 	if(!windowSaveFile):
-		#windowSaveFile = IndieBlueprintSaveManager.create_new_save(windowSaveFileLocation)
 		if(!IndieBlueprintSaveManager.save_filename_exists(saveFileName)):
 			windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
-			#windowSaveFile = IndieBlueprintSavedGame.new()
-			#windowSaveFile.write_savegame(windowSaveFileLocation)
 		else:
 			windowSaveFile = IndieBlueprintSaveManager.load_savegame(saveFileName)
 			if(!windowSaveFile):
 				windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
 	
-	#print(windowSaveFile)
 	SetID(windowID)
 
 func _process(_delta: float) -> void:
@@ -103,23 +101,13 @@ func _process(_delta: float) -> void:
 		if(mouseChangeInPosition.x > 5 or mouseChangeInPosition.x < -5 or mouseChangeInPosition.y > 5 or mouseChangeInPosition.y < -5):
 			#moved enough to un-maximize window(restore)
 			if(is_maximized):
-				#var diffInSize: Vector2 = size - old_unmaximized_size;
-				#global_position += Vector2(diffInSize.x, diffInSize.y)
 				size = old_unmaximized_size
 				windowSaveFile.data[windowSaveSizeKey] = size
-				#global_position = get_global_mouse_position()
-				#global_position = Vector2(get_global_mouse_position().x + old_unmaximized_position.x/2, get_global_mouse_position().y)
 				clamp_window_inside_viewport()
-				#old_unmaximized_position = global_position
-				#old_unmaximized_position = global_position
 				maximize_window(false)
-		#global_position.x = get_global_mouse_position().x - size.x/2
-		#global_position.y = get_global_mouse_position().y - top_bar.size.y/2
 		global_position = start_drag_position + (get_global_mouse_position() - mouse_start_drag_position)
 		clamp_window_inside_viewport()
 		windowSaveFile.data[windowSavePosKey] = position
-		
-		#windowSaveFile.data[windowSaveSizeKey] = size
 
 var mouseClicked: bool
 var leftClick: bool
@@ -135,8 +123,6 @@ var dragging: bool
 
 #clicked inside the window itself
 func _gui_input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and (event.button_index == 1 or event.button_index == 2) and event.is_pressed():
-	#	select_window(true)
 	if(event.is_action_pressed(&"LeftClick")):
 		if(!is_selected):
 			select_window(true)
@@ -157,8 +143,6 @@ func _gui_input(event: InputEvent) -> void:
 		mouseClicked = false
 		leftClick = false;
 		rightClick = false;
-		#dragging = false
-		#draggingEnd = true
 
 #clicked inside the window titlebar
 func _on_top_bar_gui_input(event: InputEvent) -> void:
@@ -170,14 +154,12 @@ func _on_top_bar_gui_input(event: InputEvent) -> void:
 				#toggle maximizing the window
 				maximize_window()
 		timeOfClick = Time.get_ticks_msec()
-		#if event.is_pressed():
 		if(!is_dragging):#if we just clicked the title bar, select it
 			select_window(true)
 		
 		is_dragging = true
 		start_drag_position = global_position
 		mouse_start_drag_position = get_global_mouse_position()
-		#windowSaveFile.data[windowSavePosKey] = position
 	if(event.is_action_released(&"LeftClick")):
 		is_dragging = false
 
@@ -304,7 +286,6 @@ func _on_maximize_button_pressed() -> void:
 	maximize_window()
 
 func maximize_window(animatePos: bool = true) -> void:
-	#select_window(false)
 	select_window(true)
 	if is_maximized:
 		is_maximized = !is_maximized

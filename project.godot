@@ -16,31 +16,27 @@ config/version="1.1.0"
 run/main_scene="res://Scenes/Main/MainScene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="GodotOS"
-config/auto_accept_quit=false
 config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/fullsize=false
-boot_splash/image="res://Art/Godot Logo.png"
+boot_splash/image="uid://bcaphivalhf06"
 config/icon="res://icon.svg"
 
 [autoload]
 
+IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
+GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
+InputHelper="*res://addons/input_helper/input_helper.gd"
+DefaultValues="*res://Scenes/Autoloads/Default Values/default_values.tscn"
+GlobalValues="*res://Scenes/Autoloads/GlobalValues/global_values.tscn"
 UVPosition="*res://Games/Paint Splatter 3D/scripts/uv_position.gd"
 HotkeyManager="res://Scenes/Autoloads/Hotkey Manager/hotkey_manager.tscn"
 ContextMenu="*res://Scenes/Autoloads/Context Menu/context_menu.tscn"
 NotificationManager="*res://Scenes/Autoloads/Notification Manager/notification_manager.tscn"
 CopyPasteManager="*res://Scenes/Autoloads/CopyPaste Manager/copy_paste_manager.tscn"
-GlobalValues="*res://Scenes/Autoloads/GlobalValues/global_values.tscn"
-DefaultValues="*res://Scenes/Autoloads/Default Values/default_values.tscn"
 TransitionManager="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldTransition_Manager.gd"
 UnderworldGlobal="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldGlobal.gd"
 UnderworldQuest="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldQuestManager.gd"
-InputHelper="*res://addons/input_helper/input_helper.gd"
-GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
-IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
-IndieBlueprintAudioManager="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/audio_manager.gd"
-IndieBlueprintMusicManager="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/music_manager.gd"
-IndieBlueprintSoundPool="*res://addons/ninetailsrabbit.indie_blueprint_audio/src/sound_pool.gd"
 
 [debug]
 
@@ -50,11 +46,10 @@ gdscript/warnings/untyped_declaration=1
 
 window/size/mode=2
 window/size/initial_position_type=3
-window/size/borderless=true
 window/size/transparent=true
 window/energy_saving/keep_screen_on=false
 window/subwindows/embed_subwindows=false
-window/vsync/vsync_mode=0
+window/vsync/vsync_mode=2
 
 [dotnet]
 
@@ -62,7 +57,7 @@ project/assembly_name="GodotOS"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/indent_guidelines/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/theme_switcher/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
+enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/indent_guidelines/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/theme_switcher/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
 
 [file_customization]
 
@@ -314,5 +309,5 @@ RightClick={
 
 textures/canvas_textures/default_texture_filter=2
 renderer/rendering_method="mobile"
-driver/threads/thread_model=2
 environment/defaults/default_clear_color=Color(0.301961, 0.301961, 0.301961, 1)
+viewport/transparent_background=true

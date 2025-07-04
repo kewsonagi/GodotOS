@@ -101,33 +101,27 @@ func hide_selected_highlight() -> void:
 func spawn_window() -> void:
 	var window: FakeWindow
 	
-	print("desktop folder opening folder with path: %s" % folder_path)
 	var windowName:String=folder_path
 	var windowID:String="%s/%s" % [folder_path, folder_name]
 	var windowParent:Node=get_tree().current_scene
-	print("Spawning window, Name: %s, ID: %s, Parent: %s" % [windowName,windowID,windowParent])
+	var windowData: Dictionary = {}
 
+	var filename: String = folder_name;
+	if(!folder_path.is_empty()):
+		filename = "%s/%s" % [folder_path, folder_name]
+	
 	if file_type == file_type_enum.FOLDER:
-		window = DefaultValues.spawn_window("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID,windowParent)
-		print("returned window: %s" % window)
-		window.get_node("%File Manager Window").file_path = folder_path
-		#HACK
-		#forcing a reload of the file manager window with the correct path instead of the desktop one
-		#possibly change this to have an initialization of the manager, or a file manager specific window creation?
-		window.get_node("%File Manager Window").reload_window(folder_path)
+		windowData["StartPath"] = folder_path;
+		
+		window = DefaultValues.spawn_window("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID, windowData,windowParent)
 	elif file_type == file_type_enum.TEXT_FILE:
-		window = DefaultValues.spawn_window("res://Scenes/Window/Text Editor/text_editor.tscn", windowName, windowID,windowParent)
-		# TODO make this more flexible?
-		if folder_path.is_empty():
-			window.get_node("%Text Editor").populate_text(folder_name)
-		else:
-			window.get_node("%Text Editor").populate_text("%s/%s" % [folder_path, folder_name])
+		windowData["Filename"] = filename;
+		
+		window = DefaultValues.spawn_window("res://Scenes/Window/Text Editor/text_editor.tscn", windowName, windowID, windowData, windowParent)
 	elif file_type == file_type_enum.IMAGE:
-		window = DefaultValues.spawn_window("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID,windowParent)
-		if folder_path.is_empty():
-			window.get_node("%Image Viewer").import_image(folder_name)
-		else:
-			window.get_node("%Image Viewer").import_image("%s/%s" % [folder_path, folder_name])
+		windowData["Filename"] = filename;
+
+		window = DefaultValues.spawn_window("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID, windowData, windowParent)
 	
 	window.title_text = windowName#%"Folder Title".text
 	
@@ -148,6 +142,8 @@ func delete_file() -> void:
 		if !DirAccess.dir_exists_absolute(delete_path):
 			return
 		OS.move_to_trash(delete_path)
+		#looking for a file manager currently open with the deleted folder
+		#if found, close it
 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
 			if file_manager.file_path.begins_with(folder_path):
 				file_manager.close_window()

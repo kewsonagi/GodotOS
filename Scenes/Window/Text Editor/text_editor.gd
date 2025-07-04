@@ -3,6 +3,7 @@ extends CodeEdit
 ## The text editor window. Is actually a CodeEdit to support line numbers for each row.
 
 @onready var window: FakeWindow = $"../.."
+@export var parentWindow: FakeWindow
 
 var text_edited: bool
 var file_path: String : 
@@ -14,6 +15,9 @@ var file_path: String :
 			$"../../Top Bar/Title Text".text = "[center]%s" % file_path.split('/')[-1]
 
 func _ready() -> void:
+	if(parentWindow.creationData.has("Filename")):
+		populate_text(parentWindow.creationData["Filename"])
+
 	window.selected.connect(_on_window_selected)
 	
 	adjust_menu_options()

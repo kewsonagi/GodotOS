@@ -28,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Image Viewer" type="TextureRect" parent="Control" index="0"]
+[node name="Image Viewer" type="TextureRect" parent="Control" index="0" node_paths=PackedStringArray("parentWindow")]
 unique_name_in_owner = true
 texture_filter = 6
 layout_mode = 1
@@ -42,3 +42,4 @@ mouse_filter = 2
 expand_mode = 2
 stretch_mode = 5
 script = ExtResource("2_3oyj5")
+parentWindow = NodePath("../..")

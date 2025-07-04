@@ -5,11 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dc6higwdbswel" path="res://Scenes/Autoloads/Context Menu/context_menu_seperator.tscn" id="3_ygltd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnd7w"]
-bg_color = Color(0.2, 0.2, 0.25098, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
+bg_color = Color(0.25822183, 0.15735474, 0.305228, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
 
 [node name="Context Menu" type="Panel"]
 clip_contents = true

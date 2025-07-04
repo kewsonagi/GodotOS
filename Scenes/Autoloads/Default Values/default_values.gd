@@ -8,65 +8,41 @@ var wallpaper_stretch_mode: TextureRect.StretchMode # int from 0 to 6
 #var soundManager2D: AudioStreamPlayer2D
 #var soundManager3D: AudioStreamPlayer3D
 var windows: Array[FakeWindow] = []
+var globalSettingsSave: IndieBlueprintSavedGame
+var saveFileName:String = "Global Settings"
 
 func _ready() -> void:
 	DisplayServer.window_set_min_size(Vector2i(600, 525))
 	
-	#NOTE: Vsync is disabled due to input lag: https://github.com/godotengine/godot/issues/75830
-	#NOTE: Web can't get screen refresh rate
-	var new_max_fps: int = int(DisplayServer.screen_get_refresh_rate())
-	if new_max_fps == -1:
-		Engine.max_fps = 60
+	saveFileName = IndieBlueprintSavedGame.clean_filename(saveFileName)
+	if(!IndieBlueprintSaveManager.save_filename_exists(saveFileName)):
+		globalSettingsSave = IndieBlueprintSaveManager.create_new_save(saveFileName)
 	else:
-		Engine.max_fps = new_max_fps
-	
-	
-	if wallpaper == null or background_color_rect == null:
-		printerr("default_values.gd: Couldn't find wallpaper (are you debugging a scene?)")
-		return
-	
-	if FileAccess.file_exists("user://user_preferences.txt"):
-		load_state()
-	else:
-		save_state()
+		globalSettingsSave = IndieBlueprintSaveManager.load_savegame(saveFileName)
+		if(!globalSettingsSave):
+			globalSettingsSave = IndieBlueprintSaveManager.create_new_save(saveFileName)
+		else:
+			load_state()
+
+	save_state()
 
 func save_state() -> void:
-	var save_dict: Dictionary = {
-		"wallpaper_name": wallpaper_name,
-		"wallpaper_stretch_mode": wallpaper_stretch_mode,
-		"background_color": background_color_rect.color.to_html(),
-		"zoom_level": get_window().content_scale_factor
-	}
-	
-	var json_string: String = JSON.stringify(save_dict)
-	
-	var save_file: FileAccess = FileAccess.open("user://user_preferences.txt", FileAccess.WRITE)
-	save_file.store_line(json_string)
+	globalSettingsSave.data["WallpaperName"] = wallpaper_name
+	globalSettingsSave.data["WallpaperStretchMode"] = wallpaper_stretch_mode
+	globalSettingsSave.data["BackgroundColor"] = background_color_rect.color#.to_html()
+	globalSettingsSave.data["WindowScale"] = get_window().content_scale_factor
+	globalSettingsSave.write_savegame()
 
 func load_state() -> void:
-	var save_file: FileAccess = FileAccess.open("user://user_preferences.txt", FileAccess.READ)
-	
-	var json_string: String = save_file.get_line()
-	var json: JSON = JSON.new()
-	var parse_result: Error = json.parse(json_string)
-	if parse_result != OK:
-		printerr("default_values.gd: Failed to parse user preferences file!")
-		return
-	
-	var save_dict: Dictionary = json.get_data()
-	
-	wallpaper_name = save_dict.wallpaper_name
-	if !wallpaper_name.is_empty():
+	wallpaper_name = globalSettingsSave.data["WallpaperName"]
+	wallpaper_stretch_mode = globalSettingsSave.data["WallpaperStretchMode"]
+	background_color_rect.color = globalSettingsSave.data["BackgroundColor"]
+	get_window().content_scale_factor = globalSettingsSave.data["WindowScale"]
+	if (!wallpaper_name.is_empty()):
 		wallpaper.apply_wallpaper_from_path(wallpaper_name)
 	
-	if save_dict.has(wallpaper_stretch_mode):
-		wallpaper_stretch_mode = save_dict.wallpaper_stretch_mode
-	else:
-		wallpaper_stretch_mode = 6
 	wallpaper.apply_wallpaper_stretch_mode(wallpaper_stretch_mode)
-	
-	background_color_rect.color = Color.from_string(save_dict.background_color, Color.from_rgba8(77, 77, 77))
-	get_window().content_scale_factor = save_dict.zoom_level
+	print("loading defaults\nwallpaper name: %s\nbackground color: %s" % [wallpaper_name, background_color_rect.color])
 
 ## Copies the wallpaper to root GodotOS folder so it can load it again later. 
 ## It doesn't use the actual wallpaper file since it can be removed/deleted.
@@ -85,18 +61,19 @@ func delete_wallpaper() -> void:
 	wallpaper_name = ""
 	save_state()
 
-func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", parentWindow: Node = null) -> Node:
+func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
 	if(windowName.is_empty()):
 		windowName = "Untitled"
 	if(windowID.is_empty()):
 		windowID = "game"
-	print("spawning new window: ", sceneToLoadInsideWindow)
+	#print("spawning new window: ", sceneToLoadInsideWindow)
 	var window: FakeWindow
 	window = load(sceneToLoadInsideWindow).instantiate()
-	print("default values, spawn_window: %s" % (window as Node))
+	#print("default values, spawn_window: %s" % (window as Node))
 	
 	window.title_text = windowName;
 	window.SetID(windowID)
+	window.SetData(data)
 	if(parentWindow):
 		parentWindow.add_child(window)
 	else:
@@ -106,7 +83,7 @@ func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitle
 		
 	return window as Node
 
-func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", parentWindow: Node = null) -> Node:
+func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
 	if(windowName.is_empty()):
 		windowName = "Untitled"
 	if(windowID.is_empty()):
@@ -119,6 +96,7 @@ func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Un
 	
 	window.title_text = windowName;
 	window.SetID(windowID)
+	window.SetData(data)
 	if(parentWindow):
 		parentWindow.add_child(window)
 	else:

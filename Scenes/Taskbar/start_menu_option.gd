@@ -19,6 +19,7 @@ extends Panel
 @export var use_generic_pause_menu: bool
 
 var is_mouse_over: bool
+@export var gameData: Dictionary = {}
 
 func _ready() -> void:
 	$"Background Panel".visible = false
@@ -51,7 +52,7 @@ func _on_mouse_exited() -> void:
 # TODO find a better way than copying this from desktop_folder.gd
 func spawn_window() -> void:
 	print("spawn regular game window inside itself")
-	var window: FakeWindow = DefaultValues.spawn_game_window(game_scene, %"Menu Title".text, %"Menu Title".text,self)
+	var window: FakeWindow = DefaultValues.spawn_game_window(game_scene, %"Menu Title".text, %"Menu Title".text, gameData,self)
 	#var window: FakeWindow
 	#window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	#window.get_node("%Game Window").add_child(load(game_scene).instantiate())
@@ -66,6 +67,6 @@ func spawn_window() -> void:
 func spawn_outside_window() -> void:
 	print("spawn game outside of window")
 	var windowParent:Node = $/root/Control;
-	var window: FakeWindow = DefaultValues.spawn_window(game_scene, game_scene.get_basename(), game_scene.get_basename(), windowParent)
+	var window: FakeWindow = DefaultValues.spawn_window(game_scene, game_scene.get_basename(), game_scene.get_basename(), gameData, windowParent)
 	DefaultValues.AddWindowToTaskbar(window, Color.GREEN, $"HBoxContainer/MarginContainer/TextureRect".texture)
 	#$/root/Control.add_child(load(game_scene).instantiate())
