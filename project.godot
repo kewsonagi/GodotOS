@@ -57,7 +57,7 @@ project/assembly_name="GodotOS"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/indent_guidelines/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/theme_switcher/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
+enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/Previewer_2D_3D/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/editor_log_highlighter/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/hein_draw/plugin.cfg", "res://addons/indent_guidelines/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/theme_switcher/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/wingman/plugin.cfg")
 
 [file_customization]
 

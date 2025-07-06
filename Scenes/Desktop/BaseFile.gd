@@ -1,0 +1,163 @@
+extends Control
+class_name BaseFile
+
+## A folder that can be opened and interacted with.
+## Files like text/image files are just folders with a different file_type_enum.
+
+enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE}
+@export var eFileType: E_FILE_TYPE
+
+@export var fileIcon: Texture2D
+@export var fileColor: Color = Color("4efa82")
+
+var szFileName: String
+var szFilePath: String # Relative to user://files/
+
+var bMouseOver: bool
+
+func _ready() -> void:
+	$"Hover Highlight".self_modulate.a = 0
+	$"Selected Highlight".visible = false
+	%"Folder Title".text = "[center]%s" % szFileName
+	
+	$Folder/TextureRect.modulate = fileColor
+	$Folder/TextureRect.texture = fileIcon
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.is_pressed():
+		if !bMouseOver:
+			hide_selected_highlight()
+		else:
+			show_selected_highlight()
+			if !bMouseOver or event.button_index != 1:
+				return
+			
+			if $"Double Click".is_stopped():
+				$"Double Click".start()
+			else:
+				accept_event()
+				open_folder()
+	if $"Selected Highlight".visible and !$"Control/Title Edit Container".visible:
+		if event.is_action_pressed("delete"):
+			delete_file()
+		elif event.is_action_pressed("ui_copy"):
+			CopyPasteManager.copy_file(self)
+		elif event.is_action_pressed("ui_cut"):
+			CopyPasteManager.cut_file(self)
+		
+		if event.is_action_pressed("ui_up"):
+			accept_event()
+			get_parent().select_folder_up(self)
+		elif event.is_action_pressed("ui_down"):
+			accept_event()
+			get_parent().select_folder_down(self)
+		elif event.is_action_pressed("ui_left"):
+			accept_event()
+			get_parent().select_folder_left(self)
+		elif event.is_action_pressed("ui_right"):
+			accept_event()
+			get_parent().select_folder_right(self)
+		elif event.is_action_pressed("ui_accept"):
+			accept_event()
+			open_folder()
+
+func _on_mouse_entered() -> void:
+	show_hover_highlight()
+	bMouseOver = true
+
+func _on_mouse_exited() -> void:
+	hide_hover_highlight()
+	bMouseOver = false
+
+# ------
+
+func show_hover_highlight() -> void:
+	var tween: Tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property($"Hover Highlight", "self_modulate:a", 1, 0.25).from(0.1)
+
+func hide_hover_highlight() -> void:
+	var tween: Tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($"Hover Highlight", "self_modulate:a", 0, 0.25)
+
+func show_selected_highlight() -> void:
+	$"Selected Highlight".visible = true
+
+func hide_selected_highlight() -> void:
+	$"Selected Highlight".visible = false
+
+func spawn_window() -> void:
+	var window: FakeWindow
+	
+	var windowName:String=szFilePath
+	var windowID:String="%s/%s" % [szFilePath, szFileName]
+	var windowParent:Node=get_tree().current_scene
+	var windowData: Dictionary = {}
+
+	var filename: String = szFileName;
+	if(!szFilePath.is_empty()):
+		filename = "%s/%s" % [szFilePath, szFileName]
+	
+	if eFileType == E_FILE_TYPE.FOLDER:
+		windowData["StartPath"] = szFilePath;
+		
+		window = DefaultValues.spawn_window("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID, windowData,windowParent)
+	elif eFileType == E_FILE_TYPE.TEXT_FILE:
+		windowData["Filename"] = filename;
+		
+		window = DefaultValues.spawn_window("res://Scenes/Window/Text Editor/text_editor.tscn", windowName, windowID, windowData, windowParent)
+	elif eFileType == E_FILE_TYPE.IMAGE:
+		windowData["Filename"] = filename;
+
+		window = DefaultValues.spawn_window("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID, windowData, windowParent)
+	
+	window.title_text = windowName#%"Folder Title".text
+	
+	var taskColor: Color = fileColor;
+	
+	DefaultValues.AddWindowToTaskbar(window, taskColor, $Folder/TextureRect.texture)
+
+func delete_file() -> void:
+	if eFileType == E_FILE_TYPE.FOLDER:
+		var delete_path: String = ProjectSettings.globalize_path("user://files/%s" % szFilePath)
+		if !DirAccess.dir_exists_absolute(delete_path):
+			return
+		OS.move_to_trash(delete_path)
+		#looking for a file manager currently open with the deleted folder
+		#if found, close it
+		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
+			if file_manager.file_path.begins_with(szFilePath):
+				file_manager.close_window()
+			elif get_parent() is FileManagerWindow and file_manager.file_path == get_parent().file_path:
+				file_manager.delete_file_with_name(szFileName)
+				file_manager.update_positions()
+	else:
+		var delete_path: String = ProjectSettings.globalize_path("user://files/%s/%s" % [szFilePath, szFileName])
+		if !FileAccess.file_exists(delete_path):
+			return
+		OS.move_to_trash(delete_path)
+		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
+			if file_manager.file_path == szFilePath:
+				file_manager.delete_file_with_name(szFileName)
+				file_manager.sort_folders()
+	
+	if szFilePath.is_empty() or (eFileType == E_FILE_TYPE.FOLDER and len(szFilePath.split('/')) == 1):
+		var desktop_file_manager: DesktopFileManager = get_tree().get_first_node_in_group("desktop_file_manager")
+		desktop_file_manager.delete_file_with_name(szFileName)
+		desktop_file_manager.sort_folders()
+	# TODO make the color file_type dependent?
+	NotificationManager.spawn_notification("Moved [color=59ea90][wave freq=7]%s[/wave][/color] to trash!" % szFileName)
+	queue_free()
+
+func open_folder() -> void:
+	hide_selected_highlight()
+	if get_parent().is_in_group("file_manager_window") and eFileType == E_FILE_TYPE.FOLDER:
+		get_parent().reload_window(szFilePath)
+	else:
+		spawn_window()
+
+func OpenFile() -> void:
+	return
+func DeleteFile() -> void:
+	return

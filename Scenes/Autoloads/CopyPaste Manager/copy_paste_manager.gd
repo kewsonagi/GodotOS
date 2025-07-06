@@ -3,12 +3,16 @@ extends Node
 
 ## The target folder. NOT used for variables since it could be freed by a file manager window!
 var target_folder: FakeFolder
+var target_file: BaseFile
 
 ## The target folder's name. Gets emptied after a paste.
 var target_folder_name: String
+var target_file_name: String
 
 var target_folder_path: String
+var target_file_path: String
 var target_folder_type: FakeFolder.file_type_enum
+var target_file_type: BaseFile.E_FILE_TYPE
 
 enum StateEnum{COPY, CUT}
 var state: StateEnum = StateEnum.COPY
@@ -40,6 +44,18 @@ func copy_folder(folder: FakeFolder) -> void:
 	state = StateEnum.COPY
 	NotificationManager.spawn_notification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
+func copy_file(file: BaseFile) -> void:
+	if target_file:
+		target_file.modulate.a = 1
+	target_file = file
+	
+	target_file_name = file.szFileName
+	target_file_path = file.szFilePath
+	target_file_type = file.eFileType
+	file.modulate.a = 0.8
+	state = StateEnum.COPY
+	NotificationManager.spawn_notification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
+
 func cut_folder(folder: FakeFolder) -> void:
 	if target_folder:
 		target_folder.modulate.a = 1
@@ -51,6 +67,18 @@ func cut_folder(folder: FakeFolder) -> void:
 	target_folder_type = folder.file_type
 	state = StateEnum.CUT
 	NotificationManager.spawn_notification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
+
+func cut_file(file: BaseFile) -> void:
+	if target_file:
+		target_file.modulate.a = 1
+	target_file = file
+	target_folder.modulate.a = 0.8
+	
+	target_file_name = file.szFileName
+	target_file_path = file.szFilePath
+	target_file_type = file.eFileType
+	state = StateEnum.CUT
+	NotificationManager.spawn_notification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_file_name)
 
 ## Pastes the folder, caling paste_folder_copy() or paste_folder_cut() depending on the state selected
 func paste_folder(to_path: String) -> void:

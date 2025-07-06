@@ -18,11 +18,12 @@ var is_minimized: bool
 var is_selected: bool
 var is_maximized: bool
 var windowID: String
+var windowOpened: bool = true
 
 @onready var maximizeButton: Button = $"Top Bar/HBoxContainer/Maximize Button"
 @onready var resizeButton: Control = $"Resize Drag Spot"
-@export var maximize_icon: CompressedTexture2D = preload("res://Art/shaded/37-plus-sign.png")
-@export var unmaximize_icon: CompressedTexture2D = preload("res://Art/shaded/38-minus-sign.png")
+@export var maximize_icon: CompressedTexture2D = load("res://Art/shaded/37-plus-sign.png")
+@export var unmaximize_icon: CompressedTexture2D = load("res://Art/Icons/shrink.png")
 var old_unmaximized_position: Vector2
 var old_unmaximized_size: Vector2
 @onready var titleText: RichTextLabel = $"Top Bar/Title Text"
@@ -40,6 +41,7 @@ static var windowSaveFile: IndieBlueprintSavedGame
 var windowSavePosKey: String
 var windowSaveSizeKey: String
 var windowSaveMaximizedKey: String
+var windowOpenedKey: String
 
 var creationData: Dictionary
 
@@ -52,6 +54,7 @@ func SetID(id:String) -> void:
 	windowSavePosKey = "%s%s" % [windowID, "pos"]
 	windowSaveSizeKey = "%s%s" % [windowID, "size"]
 	windowSaveMaximizedKey = "%s%s" % [windowID, "maximized"]
+	windowOpenedKey = "%s%s" % [windowID, "opened"]
 
 
 	#save section
@@ -66,7 +69,8 @@ func SetID(id:String) -> void:
 			is_maximized = false #mark it not maximized so it doesnt minimize on load instead
 
 func _ready() -> void:
-	timeOfClick = Time.get_ticks_msec()
+	windowOpened = true
+	#timeOfClick = Time.get_ticks_msec()
 	# Duplicate theme override so values can be set without affecting other windows
 	self["theme_override_styles/panel"] = self["theme_override_styles/panel"].duplicate()
 	top_bar["theme_override_styles/panel"] = top_bar["theme_override_styles/panel"].duplicate()
@@ -103,9 +107,25 @@ func _process(_delta: float) -> void:
 			if(is_maximized):
 				size = old_unmaximized_size
 				windowSaveFile.data[windowSaveSizeKey] = size
-				clamp_window_inside_viewport()
+
+				#global_position = get_global_mouse_position();
+				#global_position.x += size.x/2;
+				#global_position.y += 20;
 				maximize_window(false)
-		global_position = start_drag_position + (get_global_mouse_position() - mouse_start_drag_position)
+				#position.x+=(get_global_mouse_position().x-old_unmaximized_position.x)/2.0
+				#position.y+=(get_global_mouse_position().y-old_unmaximized_position.y)
+				#clamp_window_inside_viewport()
+				global_position = get_global_mouse_position() - Vector2(size.x/2.0, 20)
+				
+				start_drag_position = global_position
+				mouse_start_drag_position = get_global_mouse_position()
+				windowMouseDragOffset = mouse_start_drag_position - start_drag_position
+				#windowMouseDragOffset.x = windowMouseDragOffset.x + size.x/2.0
+				
+		#global_position = start_drag_position + (get_global_mouse_position() - mouse_start_drag_position)
+		global_position = get_global_mouse_position() - windowMouseDragOffset
+
+		#global_position = get_global_mouse_position() - Vector2(size.x/2.0, 20)
 		clamp_window_inside_viewport()
 		windowSaveFile.data[windowSavePosKey] = position
 
@@ -120,6 +140,7 @@ var amountScrolledHorizontal: float
 var draggingStart: bool
 var draggingEnd: bool
 var dragging: bool
+var windowMouseDragOffset: Vector2
 
 #clicked inside the window itself
 func _gui_input(event: InputEvent) -> void:
@@ -148,18 +169,19 @@ func _gui_input(event: InputEvent) -> void:
 func _on_top_bar_gui_input(event: InputEvent) -> void:
 	if(event.is_action_pressed(&"LeftClick")):
 		var timeSinceLastClick:float = float(Time.get_ticks_msec() - timeOfClick)/1000.0
-		if(timeSinceLastClick > doubleClickThreashold):
-			if(timeSinceLastClick < doubleClickThreashold*3):
+		#if(timeSinceLastClick > doubleClickThreashold):
+		if(timeSinceLastClick < doubleClickThreashold):
 				#passed the double click check
 				#toggle maximizing the window
-				maximize_window()
+			maximize_window()
 		timeOfClick = Time.get_ticks_msec()
 		if(!is_dragging):#if we just clicked the title bar, select it
 			select_window(true)
 		
-		is_dragging = true
-		start_drag_position = global_position
-		mouse_start_drag_position = get_global_mouse_position()
+			is_dragging = true
+			start_drag_position = global_position
+			mouse_start_drag_position = get_global_mouse_position()
+			windowMouseDragOffset = mouse_start_drag_position - start_drag_position
 	if(event.is_action_released(&"LeftClick")):
 		is_dragging = false
 
@@ -167,13 +189,12 @@ func _on_close_button_pressed() -> void:
 	if is_being_deleted:
 		return
 	
+	windowOpened = false;
+	
 	if GlobalValues.selected_window == self:
 		GlobalValues.selected_window = null
 	
-	windowSaveFile.data[windowSavePosKey] = position
-	windowSaveFile.data[windowSaveSizeKey] = size
-	windowSaveFile.data[windowSaveMaximizedKey] = is_maximized
-	windowSaveFile.write_savegame();
+	SaveWindowState()
 	
 	deleted.emit()
 	num_of_windows -= 1
@@ -183,11 +204,20 @@ func _on_close_button_pressed() -> void:
 	await tween.tween_property(self, "modulate:a", 0, 0.25).finished
 	queue_free()
 
+func SaveWindowState() -> void:
+	windowSaveFile.data[windowSavePosKey] = position
+	windowSaveFile.data[windowSaveSizeKey] = size
+	windowSaveFile.data[windowSaveMaximizedKey] = is_maximized
+	windowSaveFile.data[windowOpenedKey] = true
+	windowSaveFile.write_savegame();
+
 func _on_minimize_button_pressed() -> void:
 	hide_window()
 
+#should only be called when the godot window closes
 func _exit_tree() -> void:
-	_on_close_button_pressed()
+	#_on_close_button_pressed()
+	SaveWindowState()
 
 func hide_window() -> void:
 	if is_minimized:
