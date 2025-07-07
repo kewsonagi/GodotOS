@@ -59,7 +59,7 @@ func update_horizontal_direction() -> void:
 	var tallest_child: int = 0
 	
 	for child: Node in get_children():
-		if !(child is FakeFolder):
+		if !(child is BaseFile):
 			continue
 		
 		if next_position.x + right_margin + child.size.x > size.x:

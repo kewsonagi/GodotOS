@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://i03dt4l5msgl"]
+[gd_scene load_steps=12 format=3 uid="uid://i03dt4l5msgl"]
 
 [ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_xona8"]
 [ext_resource type="Script" uid="uid://0e08uudim1di" path="res://Scenes/Window/File Manager/file_manager_window.gd" id="2_prcfs"]
+[ext_resource type="PackedScene" uid="uid://blxpspp2wqdbs" path="res://Scenes/Desktop/TextFile.tscn" id="3_aqguq"]
 [ext_resource type="Texture2D" uid="uid://d2bniimqpwm2r" path="res://Art/shaded/50-chevron-left.png" id="3_e3b21"]
 [ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="3_x5fsl"]
+[ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_fms8f"]
+[ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_qhshh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq0su"]
 content_margin_left = 0.0
@@ -56,6 +59,9 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("2_prcfs")
 parentWindow = NodePath("../..")
+textFile = ExtResource("3_aqguq")
+imageFile = ExtResource("4_fms8f")
+folderFile = ExtResource("5_qhshh")
 horizontal_spacing = 20
 vertical_spacing = 15
 left_margin = 20

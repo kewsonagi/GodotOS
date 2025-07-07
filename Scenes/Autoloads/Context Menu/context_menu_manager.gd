@@ -36,7 +36,7 @@ func handle_right_click(node: Control) -> void:
 	for option in $VBoxContainer.get_children():
 		option.queue_free()
 	
-	if node is FakeFolder:
+	if node is BaseFile:
 		target = node
 		add_folder_options()
 		play_cooldown()
@@ -71,7 +71,7 @@ func hide_context_menu() -> void:
 ## Adds options that would be visible when right clicking a folder
 func add_folder_options() -> void:
 	var type_name: String
-	if target.file_type == FakeFolder.file_type_enum.FOLDER:
+	if target.eFileType == BaseFile.E_FILE_TYPE.FOLDER:
 		type_name = "Folder"
 	else:
 		type_name = "File"
@@ -94,7 +94,7 @@ func add_folder_options() -> void:
 	
 	$VBoxContainer.add_child(rename_option)
 	
-	if target.file_type == FakeFolder.file_type_enum.IMAGE:
+	if target.eFileType == BaseFile.E_FILE_TYPE.IMAGE:
 		var set_wallpaper_option: Control = context_menu_option.instantiate()
 		set_wallpaper_option.get_node("%Option Text").text = "Set as wallpaper"
 		set_wallpaper_option.option_clicked.connect(_handle_set_wallpaper)
@@ -118,7 +118,7 @@ func add_file_manager_options() -> void:
 	
 	if !CopyPasteManager.target_folder_name.is_empty():
 		var paste_folder_option: Control = context_menu_option.instantiate()
-		if CopyPasteManager.target_folder_type == FakeFolder.file_type_enum.FOLDER:
+		if CopyPasteManager.target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
 			paste_folder_option.get_node("%Option Text").text = "Paste Folder"
 		else:
 			paste_folder_option.get_node("%Option Text").text = "Paste File"
@@ -145,7 +145,7 @@ func _handle_new_folder() -> void:
 	target.new_folder()
 
 func _handle_new_text_file() -> void:
-	target.new_file(".txt", FakeFolder.file_type_enum.TEXT_FILE)
+	target.new_file(".txt", BaseFile.E_FILE_TYPE.TEXT_FILE)
 
 func _handle_copy_folder() -> void:
 	CopyPasteManager.copy_folder(target)

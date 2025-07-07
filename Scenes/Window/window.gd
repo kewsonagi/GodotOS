@@ -108,24 +108,15 @@ func _process(_delta: float) -> void:
 				size = old_unmaximized_size
 				windowSaveFile.data[windowSaveSizeKey] = size
 
-				#global_position = get_global_mouse_position();
-				#global_position.x += size.x/2;
-				#global_position.y += 20;
 				maximize_window(false)
-				#position.x+=(get_global_mouse_position().x-old_unmaximized_position.x)/2.0
-				#position.y+=(get_global_mouse_position().y-old_unmaximized_position.y)
-				#clamp_window_inside_viewport()
 				global_position = get_global_mouse_position() - Vector2(size.x/2.0, 20)
 				
 				start_drag_position = global_position
 				mouse_start_drag_position = get_global_mouse_position()
 				windowMouseDragOffset = mouse_start_drag_position - start_drag_position
-				#windowMouseDragOffset.x = windowMouseDragOffset.x + size.x/2.0
 				
-		#global_position = start_drag_position + (get_global_mouse_position() - mouse_start_drag_position)
 		global_position = get_global_mouse_position() - windowMouseDragOffset
 
-		#global_position = get_global_mouse_position() - Vector2(size.x/2.0, 20)
 		clamp_window_inside_viewport()
 		windowSaveFile.data[windowSavePosKey] = position
 

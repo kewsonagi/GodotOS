@@ -2,7 +2,7 @@ extends Node
 ## Managed copying and pasting of files and folders.
 
 ## The target folder. NOT used for variables since it could be freed by a file manager window!
-var target_folder: FakeFolder
+var target_folder: BaseFile
 var target_file: BaseFile
 
 ## The target folder's name. Gets emptied after a paste.
@@ -11,7 +11,7 @@ var target_file_name: String
 
 var target_folder_path: String
 var target_file_path: String
-var target_folder_type: FakeFolder.file_type_enum
+var target_folder_type: BaseFile.E_FILE_TYPE
 var target_file_type: BaseFile.E_FILE_TYPE
 
 enum StateEnum{COPY, CUT}
@@ -32,14 +32,14 @@ func _input(event: InputEvent) -> void:
 		if selected_window and file_manager_window != null:
 			paste_folder(file_manager_window.file_path)
 
-func copy_folder(folder: FakeFolder) -> void:
+func copy_folder(folder: BaseFile) -> void:
 	if target_folder:
 		target_folder.modulate.a = 1
 	target_folder = folder
 	
-	target_folder_name = folder.folder_name
-	target_folder_path = folder.folder_path
-	target_folder_type = folder.file_type
+	target_folder_name = folder.szFileName
+	target_folder_path = folder.szFilePath
+	target_folder_type = folder.eFileType
 	folder.modulate.a = 0.8
 	state = StateEnum.COPY
 	NotificationManager.spawn_notification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
@@ -56,15 +56,15 @@ func copy_file(file: BaseFile) -> void:
 	state = StateEnum.COPY
 	NotificationManager.spawn_notification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
-func cut_folder(folder: FakeFolder) -> void:
+func cut_folder(folder: BaseFile) -> void:
 	if target_folder:
 		target_folder.modulate.a = 1
 	target_folder = folder
 	target_folder.modulate.a = 0.8
 	
-	target_folder_name = folder.folder_name
-	target_folder_path = folder.folder_path
-	target_folder_type = folder.file_type
+	target_folder_name = folder.szFileName
+	target_folder_path = folder.szFilePath
+	target_folder_type = folder.eFileType
 	state = StateEnum.CUT
 	NotificationManager.spawn_notification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
@@ -93,7 +93,7 @@ func paste_folder(to_path: String) -> void:
 
 func paste_folder_copy(to_path: String) -> void:
 	var to: String = "user://files/%s/%s" % [to_path, target_folder_name]
-	if target_folder_type == FakeFolder.file_type_enum.FOLDER:
+	if target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
 		var from: String = "user://files/%s" % target_folder_path
 		if from != to:
 			DirAccess.make_dir_absolute(to)
@@ -120,7 +120,7 @@ func paste_folder_copy(to_path: String) -> void:
 
 func paste_folder_cut(to_path: String) -> void:
 	var to: String = "user://files/%s/%s" % [to_path, target_folder_name]
-	if target_folder_type == FakeFolder.file_type_enum.FOLDER:
+	if target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
 		var from: String = "user://files/%s" % target_folder_path
 		DirAccess.rename_absolute(from, to)
 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
@@ -156,10 +156,10 @@ func copy_directory_recursively(dir_path: String, to_path: String) -> void:
 
 ## Instantiates a new file in the file manager then refreshes. Used for adding a single file without causing a full refresh.
 func instantiate_file_and_sort(file_manager: BaseFileManager, to_path: String) -> void:
-	if target_folder_type == FakeFolder.file_type_enum.FOLDER:
-		file_manager.instantiate_file(target_folder_name, "%s/%s" % [to_path, target_folder_name], target_folder_type)
+	if target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
+		file_manager.PopulateWithFile(target_folder_name, "%s/%s" % [to_path, target_folder_name], target_folder_type)
 	else:
-		file_manager.instantiate_file(target_folder_name, to_path, target_folder_type)
+		file_manager.PopulateWithFile(target_folder_name, to_path, target_folder_type)
 	file_manager.sort_folders()
 
 ## Copies files that get dragged and dropped into GodotOS (if the file format is supported).

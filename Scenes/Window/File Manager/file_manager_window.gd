@@ -18,7 +18,7 @@ func reload_window(folder_path: String) -> void:
 		file_path = folder_path
 	
 	for child in get_children():
-		if child is FakeFolder:
+		if child is BaseFile:
 			child.queue_free()
 	
 	populate_file_manager()

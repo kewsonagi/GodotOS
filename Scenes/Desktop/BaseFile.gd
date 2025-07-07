@@ -36,7 +36,8 @@ func _input(event: InputEvent) -> void:
 				$"Double Click".start()
 			else:
 				accept_event()
-				open_folder()
+				# open_folder()
+				OpenFile()
 	if $"Selected Highlight".visible and !$"Control/Title Edit Container".visible:
 		if event.is_action_pressed("delete"):
 			delete_file()
@@ -59,7 +60,8 @@ func _input(event: InputEvent) -> void:
 			get_parent().select_folder_right(self)
 		elif event.is_action_pressed("ui_accept"):
 			accept_event()
-			open_folder()
+			# open_folder()
+			OpenFile()
 
 func _on_mouse_entered() -> void:
 	show_hover_highlight()
@@ -86,37 +88,6 @@ func show_selected_highlight() -> void:
 
 func hide_selected_highlight() -> void:
 	$"Selected Highlight".visible = false
-
-func spawn_window() -> void:
-	var window: FakeWindow
-	
-	var windowName:String=szFilePath
-	var windowID:String="%s/%s" % [szFilePath, szFileName]
-	var windowParent:Node=get_tree().current_scene
-	var windowData: Dictionary = {}
-
-	var filename: String = szFileName;
-	if(!szFilePath.is_empty()):
-		filename = "%s/%s" % [szFilePath, szFileName]
-	
-	if eFileType == E_FILE_TYPE.FOLDER:
-		windowData["StartPath"] = szFilePath;
-		
-		window = DefaultValues.spawn_window("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID, windowData,windowParent)
-	elif eFileType == E_FILE_TYPE.TEXT_FILE:
-		windowData["Filename"] = filename;
-		
-		window = DefaultValues.spawn_window("res://Scenes/Window/Text Editor/text_editor.tscn", windowName, windowID, windowData, windowParent)
-	elif eFileType == E_FILE_TYPE.IMAGE:
-		windowData["Filename"] = filename;
-
-		window = DefaultValues.spawn_window("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID, windowData, windowParent)
-	
-	window.title_text = windowName#%"Folder Title".text
-	
-	var taskColor: Color = fileColor;
-	
-	DefaultValues.AddWindowToTaskbar(window, taskColor, $Folder/TextureRect.texture)
 
 func delete_file() -> void:
 	if eFileType == E_FILE_TYPE.FOLDER:
@@ -149,13 +120,6 @@ func delete_file() -> void:
 	# TODO make the color file_type dependent?
 	NotificationManager.spawn_notification("Moved [color=59ea90][wave freq=7]%s[/wave][/color] to trash!" % szFileName)
 	queue_free()
-
-func open_folder() -> void:
-	hide_selected_highlight()
-	if get_parent().is_in_group("file_manager_window") and eFileType == E_FILE_TYPE.FOLDER:
-		get_parent().reload_window(szFilePath)
-	else:
-		spawn_window()
 
 func OpenFile() -> void:
 	return

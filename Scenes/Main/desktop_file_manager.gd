@@ -43,10 +43,12 @@ func copy_from_res(from: String, to: String) -> void:
 func _on_window_focus() -> void:
 	var current_file_names: Array[String] = []
 	for child in get_children():
-		if !(child is FakeFolder):
+		# if !(child is FakeFolder):
+		if !(child is BaseFile):
 			continue
 		
-		current_file_names.append(child.folder_name)
+		# current_file_names.append(child.folder_name)
+		current_file_names.append(child.szFileName)
 	
 	var new_file_names: Array[String] = []
 	for file_name in DirAccess.get_files_at("user://files/"):

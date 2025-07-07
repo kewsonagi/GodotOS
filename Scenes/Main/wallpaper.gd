@@ -18,11 +18,11 @@ func apply_wallpaper_from_path(path: String) -> void:
 	add_wallpaper(image)
 
 ## Applies wallpaper from an image file
-func apply_wallpaper_from_file(image_file: FakeFolder) -> void:
+func apply_wallpaper_from_file(image_file: BaseFile) -> void:
 	wallpaper_added.emit()
 	DefaultValues.save_wallpaper(image_file)
 	
-	var image: Image = Image.load_from_file("user://files/%s/%s" % [image_file.folder_path, image_file.folder_name])
+	var image: Image = Image.load_from_file("user://files/%s/%s" % [image_file.szFilePath, image_file.szFileName])
 	add_wallpaper(image)
 
 func add_wallpaper(image: Image) -> void:
