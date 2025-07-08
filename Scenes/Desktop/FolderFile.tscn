@@ -33,7 +33,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1fwe"]
 
-[node name="Folder" type="Control" groups=["folder", "right_click_enabled"]]
+[node name="Folder" type="Control" node_paths=PackedStringArray("hoverHighlightControl", "selectedHighlightControl", "fileTexture", "doubleClickTimer", "titleEditBox", "fileTitleControl") groups=["folder", "right_click_enabled"]]
 custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
 anchors_preset = 0
@@ -42,6 +42,12 @@ mouse_filter = 1
 script = ExtResource("1_y12s4")
 fileIcon = ExtResource("2_y12s4")
 fileColor = Color(0.8417413, 0.84973186, 0.6599077, 1)
+hoverHighlightControl = NodePath("Hover Highlight")
+selectedHighlightControl = NodePath("Selected Highlight")
+fileTexture = NodePath("Folder/TextureRect")
+doubleClickTimer = NodePath("Double Click")
+titleEditBox = NodePath("Control/Title Edit Container/Folder Title Edit")
+fileTitleControl = NodePath("Control/CenterContainer/Folder Title")
 
 [node name="Hover Highlight" type="Panel" parent="."]
 layout_mode = 0

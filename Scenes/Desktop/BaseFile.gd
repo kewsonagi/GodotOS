@@ -4,7 +4,7 @@ class_name BaseFile
 ## A folder that can be opened and interacted with.
 ## Files like text/image files are just folders with a different file_type_enum.
 
-enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE}
+enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE, UNKNOWN}
 @export var eFileType: E_FILE_TYPE
 
 @export var fileIcon: Texture2D
@@ -15,13 +15,21 @@ var szFilePath: String # Relative to user://files/
 
 var bMouseOver: bool
 
+@export var hoverHighlightControl: Control
+@export var selectedHighlightControl: Control
+@export var fileTexture: TextureRect
+@export var doubleClickTimer: Timer
+@export var titleEditBox: TextEdit
+@export var fileTitleControl: RichTextLabel
+
+
 func _ready() -> void:
-	$"Hover Highlight".self_modulate.a = 0
-	$"Selected Highlight".visible = false
-	%"Folder Title".text = "[center]%s" % szFileName
+	hoverHighlightControl.self_modulate.a = 0
+	selectedHighlightControl.visible = false
+	fileTitleControl.text = "[center]%s" % szFileName
 	
-	$Folder/TextureRect.modulate = fileColor
-	$Folder/TextureRect.texture = fileIcon
+	fileTexture.modulate = fileColor
+	fileTexture.texture = fileIcon
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
@@ -32,13 +40,13 @@ func _input(event: InputEvent) -> void:
 			if !bMouseOver or event.button_index != 1:
 				return
 			
-			if $"Double Click".is_stopped():
-				$"Double Click".start()
+			if doubleClickTimer.is_stopped():
+				doubleClickTimer.start()
 			else:
 				accept_event()
 				# open_folder()
 				OpenFile()
-	if $"Selected Highlight".visible and !$"Control/Title Edit Container".visible:
+	if selectedHighlightControl.visible and !titleEditBox.visible:
 		if event.is_action_pressed("delete"):
 			delete_file()
 		elif event.is_action_pressed("ui_copy"):
@@ -71,23 +79,27 @@ func _on_mouse_exited() -> void:
 	hide_hover_highlight()
 	bMouseOver = false
 
+func _get_drag_data(_at_position: Vector2) -> Variant:
+	set_drag_preview(fileTexture.get_parent().duplicate())
+	return self
+
 # ------
 
 func show_hover_highlight() -> void:
 	var tween: Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property($"Hover Highlight", "self_modulate:a", 1, 0.25).from(0.1)
+	tween.tween_property(hoverHighlightControl, "self_modulate:a", 1, 0.25).from(0.1)
 
 func hide_hover_highlight() -> void:
 	var tween: Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property($"Hover Highlight", "self_modulate:a", 0, 0.25)
+	tween.tween_property(hoverHighlightControl, "self_modulate:a", 0, 0.25)
 
 func show_selected_highlight() -> void:
-	$"Selected Highlight".visible = true
+	selectedHighlightControl.visible = true
 
 func hide_selected_highlight() -> void:
-	$"Selected Highlight".visible = false
+	selectedHighlightControl.visible = false
 
 func delete_file() -> void:
 	if eFileType == E_FILE_TYPE.FOLDER:

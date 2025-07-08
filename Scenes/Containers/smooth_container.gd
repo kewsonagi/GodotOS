@@ -30,6 +30,7 @@ var next_position: Vector2
 var line_count: int
 
 var start_min_size: Vector2
+var currentChildren: Array[Node]
 
 func _ready() -> void:
 	# I don't know why but having a container parent forces this node's size to be (0, 0) in the first frame
@@ -58,7 +59,8 @@ func update_horizontal_direction() -> void:
 	
 	var tallest_child: int = 0
 	
-	for child: Node in get_children():
+	currentChildren = get_children()
+	for child: Node in currentChildren:
 		if !(child is BaseFile):
 			continue
 		
@@ -96,7 +98,8 @@ func update_vertical_direction() -> void:
 	line_count = 0
 	
 	var longest_child: int = 0
-	for child: Node in get_children():
+	currentChildren = get_children()
+	for child: Node in currentChildren:
 		if !(child is Control):
 			continue
 		

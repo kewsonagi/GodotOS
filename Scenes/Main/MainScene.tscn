@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmjyglrsf04uo"]
+[gd_scene load_steps=12 format=3 uid="uid://bmjyglrsf04uo"]
 
 [ext_resource type="Script" uid="uid://crccellk2oo41" path="res://Scenes/Main/desktop_file_manager.gd" id="1_c0q37"]
 [ext_resource type="Script" uid="uid://fgth35grbgyv" path="res://Scenes/Main/wallpaper.gd" id="1_xkkt2"]
 [ext_resource type="PackedScene" uid="uid://cfj5p5pgfnywp" path="res://Scenes/Taskbar/taskbar.tscn" id="2_35ao4"]
 [ext_resource type="PackedScene" uid="uid://blxpspp2wqdbs" path="res://Scenes/Desktop/TextFile.tscn" id="3_ctt6t"]
 [ext_resource type="PackedScene" uid="uid://bwyybu5i3kid" path="res://Scenes/Main/Boot Splash/boot_splash.tscn" id="3_ifoxq"]
+[ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="3_rgj25"]
 [ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_rgj25"]
 [ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_r8g3u"]
 
@@ -76,6 +77,7 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c0q37")
+baseFile = ExtResource("3_rgj25")
 textFile = ExtResource("3_ctt6t")
 imageFile = ExtResource("4_rgj25")
 folderFile = ExtResource("5_r8g3u")

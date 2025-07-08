@@ -8,6 +8,7 @@ class_name BaseFileManager
 var directories: PackedStringArray
 var itemLocations: Dictionary = {}
 @export var startingUserDirectory: String = "user://files/"
+@export var baseFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
 @export var textFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
 @export var extensionsForText: PackedStringArray = ["txt", "md"]
 @export var imageFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
@@ -39,6 +40,8 @@ func populate_file_manager() -> void:
 		# or file_name.ends_with(".webp"):
 		elif (extensionsForImage.has(file_name.get_extension())):
 			PopulateWithFile(file_name, file_path, BaseFile.E_FILE_TYPE.IMAGE)
+		else:
+			PopulateWithFile(file_name, file_path, BaseFile.E_FILE_TYPE.UNKNOWN)
 	
 	directories.clear()
 	await get_tree().process_frame
@@ -64,6 +67,8 @@ func PopulateWithFile(file_name: String, path: String, file_type: BaseFile.E_FIL
 		file = imageFile.instantiate()
 	elif(file_type == BaseFile.E_FILE_TYPE.FOLDER):
 		file = folderFile.instantiate()
+	else:
+		file = baseFile.instantiate()
 	file.szFileName = file_name
 	file.szFilePath = path
 	file.eFileType = file_type
@@ -230,3 +235,86 @@ func _custom_folders_first_sort(a: BaseFile, b: BaseFile) -> bool:
 	if a.eFileType == BaseFile.E_FILE_TYPE.FOLDER and a.eFileType != b.eFileType:
 		return true
 	return false
+
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	if(data is BaseFile):
+		return true
+	return false
+
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
+	if(data is BaseFile):
+		var currentFile: BaseFile = (data as BaseFile)
+		#look through children to see if we are dropping an item into ourself
+		#if so, do nothing
+		for child: Node in currentChildren:
+			if (child == currentFile):
+				return;
+		
+		#not an item in this window already, copy or move it
+		CopyPasteManager.cut_folder(currentFile)
+		CopyPasteManager.paste_folder(file_path)
+
+func _ready() -> void:
+	super._ready()
+	get_viewport().files_dropped.connect(OnDroppedFolders)
+
+func _exit_tree() -> void:
+	get_viewport().files_dropped.disconnect(OnDroppedFolders)
+
+
+func OnDroppedFolders(files: PackedStringArray) -> void:
+	for thisFile: String in files:
+		print(thisFile)
+		# var extension: String = thisFile.split(".")[-1]
+		# match extension:
+			# "txt", "md", "jpg", "jpeg", "png", "webp":
+		# var new_file_name: String
+		# if OS.has_feature("windows"):
+		# 	new_file_name = thisFile.replace("\\", "/").split("/")[-1]
+		# else:
+		# 	new_file_name = thisFile.split("/")[-1]
+		var filename: String = thisFile.get_file()#get the end of the path/file, including extension
+		# var extension: String = thisFile.get_extension()
+		# var filepath: String = thisFile.get_base_dir()
+		# print("dropped file/folder: %s, with extension: %s, at path: %s" %[filename, extension, filepath])
+		
+		#check if the filename has no extension, if so this is a folder to copy
+		if(filename.is_empty() or filename.get_extension().is_empty()):
+			var startingPathOnSystem: String = "%s/" % thisFile.get_base_dir()
+			var startingPathLocal: String = "user://files/"
+
+			#start with current path
+			var pathsToCreate: PackedStringArray = [thisFile.get_file()]
+			while (pathsToCreate.size()>0):
+				var curPath: String = pathsToCreate.get(0)
+				pathsToCreate.remove_at(0)
+
+				var pathToMake:String = "%s%s" % [startingPathLocal, curPath]
+				var pathOnSystem:String = "%s%s" % [startingPathOnSystem, curPath]
+				DirAccess.make_dir_absolute(pathToMake)
+
+				#check for folders in this new directory, if so grab them and add them to the pathsToCreate array
+				var newPathsInThisDir: PackedStringArray = DirAccess.get_directories_at(pathOnSystem)
+				if(!newPathsInThisDir.is_empty()):
+					for nextPath in newPathsInThisDir:
+						# pathsToCreate.append_array(newPathsInThisDir)
+						var fullNextPath: String = "%s/%s" % [curPath, nextPath.get_file()]
+						print(fullNextPath)
+						pathsToCreate.append(fullNextPath)
+				
+				var filesInThisDir: PackedStringArray = DirAccess.get_files_at(pathOnSystem)
+				if(!filesInThisDir.is_empty()):
+					for nextFile in filesInThisDir:
+						var nextFilePath: String = "%s/%s" % [pathToMake, nextFile.get_file()]
+						var nextFilePathOnSystem: String = "%s/%s" % [pathOnSystem, nextFile.get_file()]
+						print(nextFilePath)
+						DirAccess.copy_absolute(nextFilePathOnSystem, nextFilePath)
+				
+			# DirAccess.make_dir_recursive_absolute("user://files/%s"filename.getdi)
+			DirAccess.copy_absolute(thisFile, "user://files/%s" % filename)
+			# filename = thisFile.get_base_dir()
+		else:
+			DirAccess.copy_absolute(thisFile, "user://files/%s" % filename)
+		print("copying file: %s to internal: user://files/%s" % [thisFile,filename])
+		# get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
+		populate_file_manager()

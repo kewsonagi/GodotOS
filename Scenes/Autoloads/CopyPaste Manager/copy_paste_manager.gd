@@ -17,8 +17,8 @@ var target_file_type: BaseFile.E_FILE_TYPE
 enum StateEnum{COPY, CUT}
 var state: StateEnum = StateEnum.COPY
 
-func _ready() -> void:
-	get_viewport().files_dropped.connect(_handle_dropped_folders)
+# func _ready() -> void:
+	# get_viewport().files_dropped.connect(_handle_dropped_folders)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_paste"):
@@ -163,15 +163,15 @@ func instantiate_file_and_sort(file_manager: BaseFileManager, to_path: String) -
 	file_manager.sort_folders()
 
 ## Copies files that get dragged and dropped into GodotOS (if the file format is supported).
-func _handle_dropped_folders(files: PackedStringArray) -> void:
-	for file_name: String in files:
-		var extension: String = file_name.split(".")[-1]
-		match extension:
-			"txt", "md", "jpg", "jpeg", "png", "webp":
-				var new_file_name: String
-				if OS.has_feature("windows"):
-					new_file_name = file_name.replace("\\", "/").split("/")[-1]
-				else:
-					new_file_name = file_name.split("/")[-1]
-				DirAccess.copy_absolute(file_name, "user://files/%s" % new_file_name)
-				get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
+# func _handle_dropped_folders(files: PackedStringArray) -> void:
+# 	for file_name: String in files:
+# 		var extension: String = file_name.split(".")[-1]
+# 		match extension:
+# 			"txt", "md", "jpg", "jpeg", "png", "webp":
+# 				var new_file_name: String
+# 				if OS.has_feature("windows"):
+# 					new_file_name = file_name.replace("\\", "/").split("/")[-1]
+# 				else:
+# 					new_file_name = file_name.split("/")[-1]
+# 				DirAccess.copy_absolute(file_name, "user://files/%s" % new_file_name)
+# 				get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
