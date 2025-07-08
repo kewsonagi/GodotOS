@@ -119,6 +119,10 @@ func _process(_delta: float) -> void:
 
 		clamp_window_inside_viewport()
 		windowSaveFile.data[windowSavePosKey] = position
+	
+	if(bDraggingResize):
+		HandleResize()
+
 
 var mouseClicked: bool
 var leftClick: bool
@@ -142,6 +146,12 @@ func _gui_input(event: InputEvent) -> void:
 		if(!leftClick):#just started left click
 			mouseClicked = true
 			leftClick = true
+		
+		bDraggingResize = ClickedResizeWindowArea()
+		if(bDraggingResize):
+			start_drag_position = global_position
+			mouse_start_drag_position = get_global_mouse_position()
+			windowMouseDragOffset = mouse_start_drag_position - start_drag_position
 
 	if(event.is_action_pressed(&"RightClick")):
 		if(!is_selected):
@@ -155,6 +165,7 @@ func _gui_input(event: InputEvent) -> void:
 		mouseClicked = false
 		leftClick = false;
 		rightClick = false;
+		bDraggingResize = false;
 
 #clicked inside the window titlebar
 func _on_top_bar_gui_input(event: InputEvent) -> void:
@@ -356,3 +367,39 @@ func maximize_window(animatePos: bool = true) -> void:
 		
 		resizeButton.window_resized.emit()
 		maximized.emit(true)
+
+func GetSize() -> Vector2:
+	return size;
+
+func GetPosition() -> Vector2:
+	return position;
+
+func MoveWindow(newPos: Vector2) -> void:
+	global_position = newPos;
+	old_unmaximized_position = global_position;
+	if is_maximized:
+		is_maximized = !is_maximized
+		maximizeButton.icon = maximize_icon
+
+#resize window width/height, bottom right corner
+func ResizeWindow(newSize: Vector2) -> void:
+	size = newSize;
+	old_unmaximized_size = size
+	if is_maximized:
+		is_maximized = !is_maximized
+		maximizeButton.icon = maximize_icon
+
+@export var resizeBorderWidth: float
+@export var resizeBorderHeight: float
+var bDraggingResize: bool = false;
+# @export var resizeBorders: Array[Control]
+
+func ClickedResizeWindowArea() -> bool:
+	if(get_global_mouse_position().x > global_position.x+size.x-resizeBorderWidth and get_global_mouse_position().x < global_position.x + size.x + resizeBorderWidth):
+		if(get_global_mouse_position().y > global_position.y + size.x - resizeBorderHeight and get_global_mouse_position().y < global_position.y + size.y + resizeBorderHeight):
+			return true
+	return false
+func HandleResize() -> void:
+	var mouseChangeInPosition: Vector2 = get_global_mouse_position() - mouse_start_drag_position;
+	if(bDraggingResize):
+		size += mouseChangeInPosition

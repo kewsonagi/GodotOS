@@ -2,34 +2,49 @@ extends Control
 
 ## The resize drag spot in the bottom right of each window.
 
-var window: FakeWindow
-var is_dragging: bool
+@export var windowToResize: FakeWindow
+@export var bTopLeft: bool = false;
+@export var bResizeX: bool = true;
+@export var bResizeY: bool = true;
+var bIsDragging: bool
 
-var start_size: Vector2
-var mouse_start_drag_position: Vector2
+var startWindowSize: Vector2
+var startDragPosition: Vector2
+var startWindowPosition: Vector2
 
 signal window_resized()
-
-func _ready() -> void:
-	window = get_parent()
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == 1:
 		if event.is_pressed():
-			is_dragging = true
-			mouse_start_drag_position = get_global_mouse_position()
-			start_size = get_parent().size
+			bIsDragging = true
+			startDragPosition = get_global_mouse_position()
+			startWindowSize = get_parent().size
+			startWindowPosition = windowToResize.position
 		else:
-			is_dragging = false
+			bIsDragging = false
 
 func _physics_process(_delta: float) -> void:
-	if is_dragging:
+	if bIsDragging:
 		# TODO optimize this a bit?
 		window_resized.emit()
-		if Input.is_key_pressed(KEY_SHIFT):
-			var aspect_ratio: float = start_size.x / (start_size.y - 30)
-			window.size.x = start_size.x + (get_global_mouse_position().x - mouse_start_drag_position.x) * aspect_ratio
-			window.size.y = start_size.y + get_global_mouse_position().x - mouse_start_drag_position.x
+		var amountChanged: Vector2 = get_global_mouse_position() - startDragPosition;
+		# if Input.is_key_pressed(KEY_SHIFT):
+		# 	var aspect_ratio: float = start_size.x / (start_size.y - 30)
+		# 	windowToResize.size.x = start_size.x + (get_global_mouse_position().x - mouse_start_drag_position.x) * aspect_ratio
+		# 	windowToResize.size.y = start_size.y + get_global_mouse_position().x - mouse_start_drag_position.x
+		# else:
+		# 	windowToResize.size = start_size + get_global_mouse_position() - mouse_start_drag_position
+		if(!bTopLeft):
+			if(bResizeX):
+				windowToResize.size.x = startWindowSize.x + amountChanged.x
+			if(bResizeY):
+				windowToResize.size.y = startWindowSize.y + amountChanged.y
 		else:
-			window.size = start_size + get_global_mouse_position() - mouse_start_drag_position
-		window.clamp_window_inside_viewport()
+			if(bResizeX):
+				windowToResize.position.x = startWindowPosition.x + amountChanged.x
+				windowToResize.size.x = startWindowSize.x - amountChanged.x
+			if(bResizeY):
+				windowToResize.position.y = startWindowPosition.y + amountChanged.y
+				windowToResize.size.y = startWindowSize.y - amountChanged.y
+		windowToResize.clamp_window_inside_viewport()

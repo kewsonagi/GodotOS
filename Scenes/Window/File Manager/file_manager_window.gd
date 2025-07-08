@@ -4,6 +4,7 @@ class_name FileManagerWindow
 ## The file manager window.
 @export var parentWindow: FakeWindow
 
+
 func _ready() -> void:
 	if(parentWindow.creationData.has("StartPath")):
 		file_path = parentWindow.creationData["StartPath"]
