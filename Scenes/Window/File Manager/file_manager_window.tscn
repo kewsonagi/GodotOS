@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://i03dt4l5msgl"]
+[gd_scene load_steps=13 format=3 uid="uid://i03dt4l5msgl"]
 
 [ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_xona8"]
 [ext_resource type="Script" uid="uid://0e08uudim1di" path="res://Scenes/Window/File Manager/file_manager_window.gd" id="2_prcfs"]
@@ -8,8 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="3_x5fsl"]
 [ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_fms8f"]
 [ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_qhshh"]
-[ext_resource type="Script" uid="uid://chdl3m2p86twh" path="res://Scenes/Window/resize_drag_spot.gd" id="9_7xnin"]
-[ext_resource type="Texture2D" uid="uid://cbwip815aqfhq" path="res://Art/soft_retro/art/unchecked.svg" id="10_7xnin"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq0su"]
 content_margin_left = 0.0
@@ -91,130 +89,5 @@ expand_icon = true
 [node name="Icon" parent="Top Bar" index="3"]
 visible = false
 icon = ExtResource("3_x5fsl")
-
-[node name="Resize Drag Spot" parent="." index="2" node_paths=PackedStringArray("windowToResize")]
-windowToResize = NodePath("..")
-
-[node name="Resize Drag Spot Left" type="Control" parent="." index="4" node_paths=PackedStringArray("windowToResize")]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = -5.0
-grow_vertical = 2
-mouse_default_cursor_shape = 12
-script = ExtResource("9_7xnin")
-windowToResize = NodePath("..")
-bTopLeft = true
-bResizeY = false
-
-[node name="CornerHandleLeft" type="TextureRect" parent="." index="5"]
-modulate = Color(1, 1, 1, 0.76862746)
-self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
-custom_minimum_size = Vector2(5, 0)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = -5.0
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("10_7xnin")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="Resize Drag Spot Right" type="Control" parent="." index="6" node_paths=PackedStringArray("windowToResize")]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(-1, 1)
-pivot_offset = Vector2(10, 0)
-mouse_default_cursor_shape = 12
-script = ExtResource("9_7xnin")
-windowToResize = NodePath("..")
-bResizeY = false
-
-[node name="CornerHandleRight" type="TextureRect" parent="." index="7"]
-modulate = Color(1, 1, 1, 0.76862746)
-self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
-custom_minimum_size = Vector2(5, 0)
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(-1, 1)
-pivot_offset = Vector2(5, 0)
-mouse_filter = 2
-texture = ExtResource("10_7xnin")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="Resize Drag Spot Bottom" type="Control" parent="." index="8" node_paths=PackedStringArray("windowToResize")]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(1, -1)
-pivot_offset = Vector2(0, 10)
-mouse_default_cursor_shape = 12
-script = ExtResource("9_7xnin")
-windowToResize = NodePath("..")
-bResizeX = false
-
-[node name="CornerHandleRightBottom" type="TextureRect" parent="." index="9"]
-modulate = Color(1, 1, 1, 0.76862746)
-self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(1, -1)
-pivot_offset = Vector2(0, 5)
-mouse_filter = 2
-texture = ExtResource("10_7xnin")
-expand_mode = 1
-stretch_mode = 1
-
-[node name="Resize Drag Spot Top" type="Control" parent="." index="10" node_paths=PackedStringArray("windowToResize")]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-pivot_offset = Vector2(0, 10)
-mouse_default_cursor_shape = 12
-script = ExtResource("9_7xnin")
-windowToResize = NodePath("..")
-bTopLeft = true
-bResizeX = false
-
-[node name="CornerHandleRightTop" type="TextureRect" parent="." index="11"]
-modulate = Color(1, 1, 1, 0.76862746)
-self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-pivot_offset = Vector2(0, 5)
-mouse_filter = 2
-texture = ExtResource("10_7xnin")
-expand_mode = 1
-stretch_mode = 1
 
 [connection signal="pressed" from="Top Bar/Back Button" to="ScrollContainer/File Manager Window" method="_on_back_button_pressed"]
