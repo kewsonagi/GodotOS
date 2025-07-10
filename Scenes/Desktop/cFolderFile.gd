@@ -42,5 +42,5 @@ func DeleteFile() -> void:
 		desktop_file_manager.delete_file_with_name(szFileName)
 		desktop_file_manager.sort_folders()
 	# TODO make the color file_type dependent?
-	NotificationManager.spawn_notification("Moved [color=59ea90][wave freq=7]%s[/wave][/color] to trash!" % szFileName)
+	NotificationManager.ShowNotification("Moved [color=59ea90][wave freq=7]%s[/wave][/color] to trash!" % szFileName)
 	queue_free()

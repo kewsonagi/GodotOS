@@ -79,7 +79,7 @@ func _ready() -> void:
 	num_of_windows += 1
 	select_window(false)
 	
-	titleText.text = " ".join(title_text.split("\n"))
+	# titleText.text = " ".join(title_text.split("\n"))
 	
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	

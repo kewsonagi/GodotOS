@@ -52,7 +52,7 @@ offset_top = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="File Manager Window" type="Control" parent="ScrollContainer" index="0" node_paths=PackedStringArray("parentWindow") groups=["file_manager_window", "right_click_enabled"]]
+[node name="File Manager Window" type="Control" parent="ScrollContainer" index="0" node_paths=PackedStringArray("parentWindow", "resizeSpots", "windowTitle") groups=["file_manager_window", "right_click_enabled"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -60,6 +60,8 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("2_prcfs")
 parentWindow = NodePath("../..")
+resizeSpots = [NodePath("../../Resize Drag Spot"), NodePath("../../Resize Drag SpotTopLeft"), NodePath("../../Resize Drag SpotTopRight"), NodePath("../../Resize Drag SpotBottomLeft"), NodePath("../../Resize Drag Spot Left"), NodePath("../../Resize Drag Spot Right"), NodePath("../../Resize Drag Spot Bottom"), NodePath("../../Resize Drag Spot Top")]
+windowTitle = NodePath("../../Top Bar/Title Text")
 baseFile = ExtResource("3_fms8f")
 textFile = ExtResource("3_aqguq")
 imageFile = ExtResource("4_fms8f")

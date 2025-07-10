@@ -3,7 +3,7 @@ class_name FileManagerWindow
 
 ## The file manager window.
 @export var parentWindow: FakeWindow
-
+@export var resizeSpots: Array[Control]
 
 func _ready() -> void:
 	if(parentWindow.creationData.has("StartPath")):
@@ -11,7 +11,9 @@ func _ready() -> void:
 	populate_file_manager()
 	#sort_folders()
 	
-	$"../../Resize Drag Spot".window_resized.connect(update_positions)
+	# $"../../Resize Drag Spot".window_resized.connect(update_positions)
+	for resizeSpot in resizeSpots:
+		resizeSpot.window_resized.connect(update_positions)
 
 func reload_window(folder_path: String) -> void:
 	# Reload the same path if not given folder_path
@@ -25,10 +27,12 @@ func reload_window(folder_path: String) -> void:
 	populate_file_manager()
 	
 	#TODO make this less dumb
-	$"../../Top Bar/Title Text".text = "[center]%s" % file_path
+	# $"../../Top Bar/Title Text".text = "[center]%s" % file_path
+	if(windowTitle):
+		windowTitle.text = "%s" % [file_path]
 
-func close_window() -> void:
-	$"../.."._on_close_button_pressed()
+# func close_window() -> void:
+# 	$"../.."._on_close_button_pressed()
 
 ## Goes to the folder above the currently shown one. Can't go higher than user://files/
 func _on_back_button_pressed() -> void:

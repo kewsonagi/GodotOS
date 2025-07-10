@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xx7ovgyiqm11"
-path="res://.godot/imported/circle.png-12f8a2ea3c463bcbc7a9d8879d9d8bfe.ctex"
+uid="uid://bnaxtnoonrd58"
+path="res://.godot/imported/Thumbnail.png-143cb7006b8edd1e0eebaf68023ba4ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/hein_draw/icons/circle.png"
-dest_files=["res://.godot/imported/circle.png-12f8a2ea3c463bcbc7a9d8879d9d8bfe.ctex"]
+source_file="res://Thumbnail.png"
+dest_files=["res://.godot/imported/Thumbnail.png-143cb7006b8edd1e0eebaf68023ba4ed.ctex"]
 
 [params]
 

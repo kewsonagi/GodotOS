@@ -4,6 +4,7 @@ class_name BaseFileManager
 ## The base file manager inherited by desktop file manager and the file manager window.
 
 ## The file manager's path (relative to user://files/)
+@export var windowTitle: RichTextLabel
 @export var file_path: String
 var directories: PackedStringArray
 var itemLocations: Dictionary = {}

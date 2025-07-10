@@ -29,11 +29,11 @@ func show_rename() -> void:
 
 func trigger_rename() -> void:
 	if text.contains('/') or text.contains('\\') or text.contains('¥') or text.contains('₩'):
-		NotificationManager.spawn_notification("Error: File name can't include slashes!")
+		NotificationManager.ShowNotification("Error: File name can't include slashes!")
 		return
 	
 	if text.is_empty():
-		NotificationManager.spawn_notification("Error: File name can't be empty!")
+		NotificationManager.ShowNotification("Error: File name can't be empty!")
 		return
 	
 	get_parent().visible = false
@@ -44,7 +44,7 @@ func trigger_rename() -> void:
 		var new_folder_name: String = "%s.%s" % [text, folder.szFileName.split('.')[-1]]
 		if FileAccess.file_exists("user://files/%s/%s" % [folder.szFilePath, new_folder_name]):
 			cancel_rename()
-			NotificationManager.spawn_notification("That file already exists!")
+			NotificationManager.ShowNotification("That file already exists!")
 			return
 		folder.szFileName = new_folder_name
 		DirAccess.rename_absolute("user://files/%s/%s" % [folder.szFilePath, old_folder_name], "user://files/%s/%s" % [folder.szFilePath, folder.szFileName])
@@ -71,13 +71,13 @@ func trigger_rename() -> void:
 			var new_folder_path: String = "%s%s" % [folder.szFilePath.trim_suffix(old_folder_name), text]
 			if DirAccess.dir_exists_absolute("user://files/%s" % new_folder_path):
 				cancel_rename()
-				NotificationManager.spawn_notification("That folder already exists!")
+				NotificationManager.ShowNotification("That folder already exists!")
 				return
 			folder.szFilePath = new_folder_path
 		else:
 			if DirAccess.dir_exists_absolute("user://files/%s" % text):
 				cancel_rename()
-				NotificationManager.spawn_notification("That folder already exists!")
+				NotificationManager.ShowNotification("That folder already exists!")
 				return
 			folder.szFilePath = text
 		folder.szFileName = text

@@ -3,10 +3,10 @@ extends TextureRect
 ## The image viewer window.
 @export var parentWindow: FakeWindow
 
-
 func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
 		import_image(parentWindow.creationData["Filename"])
+		# parentWindow.titleText.text = parentWindow.creationData["Filename"]
 
 
 func import_image(file_path: String) -> void:

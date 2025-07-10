@@ -42,7 +42,7 @@ func copy_folder(folder: BaseFile) -> void:
 	target_folder_type = folder.eFileType
 	folder.modulate.a = 0.8
 	state = StateEnum.COPY
-	NotificationManager.spawn_notification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
+	NotificationManager.ShowNotification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
 func copy_file(file: BaseFile) -> void:
 	if target_file:
@@ -54,7 +54,7 @@ func copy_file(file: BaseFile) -> void:
 	target_file_type = file.eFileType
 	file.modulate.a = 0.8
 	state = StateEnum.COPY
-	NotificationManager.spawn_notification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
+	NotificationManager.ShowNotification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
 func cut_folder(folder: BaseFile) -> void:
 	if target_folder:
@@ -66,7 +66,7 @@ func cut_folder(folder: BaseFile) -> void:
 	target_folder_path = folder.szFilePath
 	target_folder_type = folder.eFileType
 	state = StateEnum.CUT
-	NotificationManager.spawn_notification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
+	NotificationManager.ShowNotification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
 func cut_file(file: BaseFile) -> void:
 	if target_file:
@@ -78,12 +78,12 @@ func cut_file(file: BaseFile) -> void:
 	target_file_path = file.szFilePath
 	target_file_type = file.eFileType
 	state = StateEnum.CUT
-	NotificationManager.spawn_notification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_file_name)
+	NotificationManager.ShowNotification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_file_name)
 
 ## Pastes the folder, caling paste_folder_copy() or paste_folder_cut() depending on the state selected
 func paste_folder(to_path: String) -> void:
 	if target_folder_name.is_empty():
-		NotificationManager.spawn_notification("Error: Nothing to copy")
+		NotificationManager.ShowNotification("Error: Nothing to copy")
 		return
 	
 	if state == StateEnum.COPY:
@@ -146,7 +146,7 @@ func paste_folder_cut(to_path: String) -> void:
 
 func copy_directory_recursively(dir_path: String, to_path: String) -> void:
 	if to_path.begins_with(dir_path):
-		NotificationManager.spawn_notification("ERROR: Can't copy a folder into itself!")
+		NotificationManager.ShowNotification("ERROR: Can't copy a folder into itself!")
 		return
 	for dir_name in DirAccess.get_directories_at(dir_path):
 		DirAccess.make_dir_absolute("%s/%s" % [to_path, dir_name])
