@@ -70,7 +70,6 @@ func SetID(id:String) -> void:
 
 func _ready() -> void:
 	windowOpened = true
-	#timeOfClick = Time.get_ticks_msec()
 	# Duplicate theme override so values can be set without affecting other windows
 	self["theme_override_styles/panel"] = self["theme_override_styles/panel"].duplicate()
 	top_bar["theme_override_styles/panel"] = top_bar["theme_override_styles/panel"].duplicate()
@@ -171,7 +170,6 @@ func _gui_input(event: InputEvent) -> void:
 func _on_top_bar_gui_input(event: InputEvent) -> void:
 	if(event.is_action_pressed(&"LeftClick")):
 		var timeSinceLastClick:float = float(Time.get_ticks_msec() - timeOfClick)/1000.0
-		#if(timeSinceLastClick > doubleClickThreashold):
 		if(timeSinceLastClick < doubleClickThreashold):
 				#passed the double click check
 				#toggle maximizing the window

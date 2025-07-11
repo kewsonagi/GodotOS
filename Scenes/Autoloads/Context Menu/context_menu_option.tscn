@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctmotds7d1sr1"]
+[gd_scene load_steps=4 format=3 uid="uid://ctmotds7d1sr1"]
 
 [ext_resource type="Script" uid="uid://vib2acjns3ka" path="res://Scenes/Autoloads/Context Menu/context_menu_option.gd" id="1_n16mt"]
+[ext_resource type="Texture2D" uid="uid://b34jpilo33jmk" path="res://Art/shaded/27-pen-edit.png" id="2_gnf5e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn8jj"]
 bg_color = Color(0, 0.792157, 0.952941, 0.72549)
@@ -9,20 +10,24 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[node name="Context Menu Option" type="Panel"]
+[node name="Context Menu Option" type="Panel" node_paths=PackedStringArray("optionText", "optionIcon")]
 self_modulate = Color(1, 1, 1, 0.2)
 custom_minimum_size = Vector2(0, 30)
+offset_right = 150.0
+offset_bottom = 30.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_xn8jj")
 script = ExtResource("1_n16mt")
+optionText = NodePath("CenterContainer/Option Text")
+optionIcon = NodePath("TextureRect")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -65.0
-offset_right = 85.0
+offset_left = 25.0
+offset_right = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -34,6 +39,20 @@ layout_mode = 2
 mouse_filter = 2
 text = "Hello, World!"
 fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_vertical = 2
+texture = ExtResource("2_gnf5e")
+expand_mode = 1
+stretch_mode = 4
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

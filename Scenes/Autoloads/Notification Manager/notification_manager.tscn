@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5rok2ine5c1c"]
+[gd_scene load_steps=7 format=3 uid="uid://c5rok2ine5c1c"]
 
 [ext_resource type="Script" uid="uid://du2ifgmx4m0qq" path="res://Scenes/Autoloads/Notification Manager/notification_manager.gd" id="1_xb1dn"]
 [ext_resource type="PackedScene" uid="uid://dgrw5q1qwsr33" path="res://Scenes/Autoloads/Notification Manager/notification.tscn" id="2_ispmn"]
+[ext_resource type="Texture2D" uid="uid://bd8n4be7b4478" path="res://Art/shaded/30-x-mark.png" id="3_ksg62"]
+[ext_resource type="Texture2D" uid="uid://bdvs602p0bjsr" path="res://Art/shaded/42-thunder-bolt.png" id="4_jc14i"]
+[ext_resource type="Texture2D" uid="uid://duoh5lo07tvrc" path="res://Art/shaded/18-accessibility.png" id="5_d8ljg"]
+[ext_resource type="Texture2D" uid="uid://b8dgh2w4gnpml" path="res://Art/shaded/11-language.png" id="6_pffgk"]
 
 [node name="Notification Manager" type="Control"]
 layout_mode = 3
@@ -13,3 +17,8 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_xb1dn")
 defaultNotification = ExtResource("2_ispmn")
+defaultNotiSize = Vector2(350, 120)
+errorIcon = ExtResource("3_ksg62")
+warningIcon = ExtResource("4_jc14i")
+infoIcon = ExtResource("5_d8ljg")
+unknownIcon = ExtResource("6_pffgk")

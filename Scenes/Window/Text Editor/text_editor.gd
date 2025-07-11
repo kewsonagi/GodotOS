@@ -9,15 +9,10 @@ var text_edited: bool
 var file_path: String : 
 	set(value):
 		file_path = value
-		# if text_edited:
-		# 	$"../../Top Bar/Title Text".text = "[center]%s*" % file_path.split('/')[-1]
-		# else:
-		# 	$"../../Top Bar/Title Text".text = "[center]%s" % file_path.split('/')[-1]
 
 func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
 		populate_text(parentWindow.creationData["Filename"])
-		# parentWindow.titleText.text = parentWindow.creationData["Filename"]
 
 	window.selected.connect(_on_window_selected)
 	
@@ -42,7 +37,6 @@ func _on_text_changed() -> void:
 	
 	text_edited = true
 	parentWindow.titleText.text += "*"
-	# $"../../Top Bar/Title Text".text += '*' 
 
 func save_file() -> void:
 	if !text_edited:
@@ -55,17 +49,10 @@ func save_file() -> void:
 	var file: FileAccess = FileAccess.open("user://files/%s" % file_path, FileAccess.WRITE)
 	file.store_string(text)
 	
-	# $"../../Top Bar/Title Text".text = $"../../Top Bar/Title Text".text.trim_suffix('*')
 	parentWindow.titleText.text = parentWindow.titleText.text.trim_suffix("*")
 	text_edited = false
 	
-	# var saved_notification: Panel = load("res://Scenes/Window/Text Editor/saved_notification.tscn").instantiate()
-	var saved_notification: Panel = NotificationManager.ShowNotification("Saved!")
-	# saved_notification.position.y = window.size.y - saved_notification.size.y - 15
-	# saved_notification.position.x = window.size.x - saved_notification.size.x - 15
-	# window.add_child(saved_notification)
-
-#TODO add warning when someone exits without saving
+	NotificationManager.ShowNotification("Saved!", NotificationManager.E_NOTIFICATION_TYPE.INFO)
 
 func _on_window_selected(selected: bool) -> void:
 	if selected:

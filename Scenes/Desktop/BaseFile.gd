@@ -44,7 +44,6 @@ func _input(event: InputEvent) -> void:
 				doubleClickTimer.start()
 			else:
 				accept_event()
-				# open_folder()
 				OpenFile()
 	if selectedHighlightControl.visible and !titleEditBox.visible:
 		if event.is_action_pressed("delete"):

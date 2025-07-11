@@ -2,10 +2,10 @@ extends Panel
 
 ## An autoload to manage the context menu (right click menu)
 
-const right_click_handler: PackedScene = preload("res://Scenes/Autoloads/Context Menu/right_click_handler.tscn")
-const context_menu_option: PackedScene = preload("res://Scenes/Autoloads/Context Menu/context_menu_option.tscn")
-const context_menu_seperator: PackedScene = preload("res://Scenes/Autoloads/Context Menu/context_menu_seperator.tscn")
-
+@export var right_click_handler: PackedScene = preload("res://Scenes/Autoloads/Context Menu/right_click_handler.tscn")
+@export var context_menu_option: PackedScene = preload("res://Scenes/Autoloads/Context Menu/context_menu_option.tscn")
+@export var context_menu_seperator: PackedScene = preload("res://Scenes/Autoloads/Context Menu/context_menu_seperator.tscn")
+@export var contextBoxContainer: Node
 ## The Control node that got right clicked.
 var target: Control
 
@@ -33,7 +33,7 @@ func handle_right_click(node: Control) -> void:
 	if is_shown_recently:
 		return
 	
-	for option in $VBoxContainer.get_children():
+	for option in contextBoxContainer.get_children():#$VBoxContainer.get_children():
 		option.queue_free()
 	
 	if node is BaseFile:
@@ -76,67 +76,84 @@ func add_folder_options() -> void:
 	else:
 		type_name = "File"
 	
-	var rename_option: Control = context_menu_option.instantiate()
-	rename_option.get_node("%Option Text").text = "Rename %s" % type_name
+	var rename_option: ContextMenuOption = context_menu_option.instantiate()
+	rename_option.optionText.text = "Rename %s" % type_name
 	rename_option.option_clicked.connect(_handle_folder_rename)
 	
-	var copy_option: Control = context_menu_option.instantiate()
-	copy_option.get_node("%Option Text").text = "Copy %s" % type_name
+	var copy_option: ContextMenuOption = context_menu_option.instantiate()
+	copy_option.optionText.text = "Copy %s" % type_name
 	copy_option.option_clicked.connect(_handle_copy_folder)
 	
-	var cut_option: Control = context_menu_option.instantiate()
-	cut_option.get_node("%Option Text").text = "Cut %s" % type_name
+	var cut_option: ContextMenuOption = context_menu_option.instantiate()
+	cut_option.optionText.text = "Cut %s" % type_name
 	cut_option.option_clicked.connect(_handle_cut_folder)
 	
-	var delete_option: Control = context_menu_option.instantiate()
-	delete_option.get_node("%Option Text").text = "Move to trash"
+	var delete_option: ContextMenuOption = context_menu_option.instantiate()
+	delete_option.optionText.text = "Move to trash"
 	delete_option.option_clicked.connect(_handle_folder_delete)
 	
-	$VBoxContainer.add_child(rename_option)
+	#$VBoxContainer.add_child(rename_option)
+	contextBoxContainer.add_child(rename_option)
 	
 	if target.eFileType == BaseFile.E_FILE_TYPE.IMAGE:
-		var set_wallpaper_option: Control = context_menu_option.instantiate()
-		set_wallpaper_option.get_node("%Option Text").text = "Set as wallpaper"
+		var set_wallpaper_option: ContextMenuOption = context_menu_option.instantiate()
+		set_wallpaper_option.optionText.text = "Set as wallpaper"
 		set_wallpaper_option.option_clicked.connect(_handle_set_wallpaper)
-		$VBoxContainer.add_child(set_wallpaper_option)
+		#$VBoxContainer.add_child(set_wallpaper_option)
+		contextBoxContainer.add_child(set_wallpaper_option)
 	
-	$VBoxContainer.add_child(context_menu_seperator.instantiate())
-	$VBoxContainer.add_child(copy_option)
-	$VBoxContainer.add_child(cut_option)
-	$VBoxContainer.add_child(context_menu_seperator.instantiate())
-	$VBoxContainer.add_child(delete_option)
+	# $VBoxContainer.add_child(context_menu_seperator.instantiate())
+	# $VBoxContainer.add_child(copy_option)
+	# $VBoxContainer.add_child(cut_option)
+	# $VBoxContainer.add_child(context_menu_seperator.instantiate())
+	# $VBoxContainer.add_child(delete_option)
+
+	contextBoxContainer.add_child(context_menu_seperator.instantiate())
+	contextBoxContainer.add_child(copy_option)
+	contextBoxContainer.add_child(cut_option)
+	contextBoxContainer.add_child(context_menu_seperator.instantiate())
+	contextBoxContainer.add_child(delete_option)
 
 ## Adds options that would be visible when right clicking a file manager
 func add_file_manager_options() -> void:
-	var new_folder_option: Control = context_menu_option.instantiate()
-	new_folder_option.get_node("%Option Text").text = "New Folder"
+	var new_folder_option: ContextMenuOption = context_menu_option.instantiate()
+	new_folder_option.optionText.text = "New Folder"
 	new_folder_option.option_clicked.connect(_handle_new_folder)
 	
-	var new_text_file_option: Control = context_menu_option.instantiate()
-	new_text_file_option.get_node("%Option Text").text = "New Text File"
+	var new_text_file_option: ContextMenuOption = context_menu_option.instantiate()
+	new_text_file_option.optionText.text = "New Text File"
 	new_text_file_option.option_clicked.connect(_handle_new_text_file)
 	
 	if !CopyPasteManager.target_folder_name.is_empty():
-		var paste_folder_option: Control = context_menu_option.instantiate()
+		var paste_folder_option: ContextMenuOption = context_menu_option.instantiate()
 		if CopyPasteManager.target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
-			paste_folder_option.get_node("%Option Text").text = "Paste Folder"
+			paste_folder_option.optionText.text = "Paste Folder"
 		else:
-			paste_folder_option.get_node("%Option Text").text = "Paste File"
+			paste_folder_option.optionText.text = "Paste File"
 		paste_folder_option.option_clicked.connect(_handle_paste_folder)
 		
-		$VBoxContainer.add_child(paste_folder_option)
-		$VBoxContainer.add_child(context_menu_seperator.instantiate())
-	$VBoxContainer.add_child(new_folder_option)
-	$VBoxContainer.add_child(new_text_file_option)
+		# $VBoxContainer.add_child(paste_folder_option)
+		# $VBoxContainer.add_child(context_menu_seperator.instantiate())
+
+		contextBoxContainer.add_child(paste_folder_option)
+		contextBoxContainer.add_child(context_menu_seperator.instantiate())
+	#$VBoxContainer.add_child(new_folder_option)
+	#$VBoxContainer.add_child(new_text_file_option)
+
+	contextBoxContainer.add_child(new_folder_option)
+	contextBoxContainer.add_child(new_text_file_option)
 
 # ----------
 
 func _handle_folder_rename() -> void:
-	target.get_node("%Folder Title Edit").show_rename()
+	if(target is BaseFile):
+		(target as BaseFile).titleEditBox.show_rename()#get_node("%Folder Title Edit").show_rename()
 
 func _handle_set_wallpaper() -> void:
 	# TODO make this a relative path?
-	get_node("/root/Control/Wallpaper").apply_wallpaper_from_file(target)
+	#get_node("/root/Control/Wallpaper").apply_wallpaper_from_file(target)
+	if(Wallpaper.wallpaperInstance):
+		Wallpaper.wallpaperInstance.apply_wallpaper_from_file(target)
 
 func _handle_folder_delete() -> void:
 	target.delete_file()

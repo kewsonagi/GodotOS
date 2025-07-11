@@ -1,26 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgrw5q1qwsr33"]
+[gd_scene load_steps=5 format=3 uid="uid://dgrw5q1qwsr33"]
 
 [ext_resource type="Script" uid="uid://cv6vbo4w5ecmt" path="res://Scenes/Autoloads/Notification Manager/notification.gd" id="1_0ehe8"]
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="2_83q5w"]
+[ext_resource type="Texture2D" uid="uid://c76mefvskmeuq" path="res://Art/shaded/10-notification-bell-circle.png" id="3_fsilr"]
 
-[node name="Notification" type="Panel" node_paths=PackedStringArray("mainText", "title", "background")]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -100.0
-grow_horizontal = 0
-grow_vertical = 0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt1fy"]
+bg_color = Color(0.35876518, 0.10769965, 0.41213182, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.933333, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[node name="Notification" type="Panel" node_paths=PackedStringArray("mainText", "title", "background", "icon")]
+offset_right = 400.0
+offset_bottom = 150.0
 pivot_offset = Vector2(150, 100)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
+theme = ExtResource("2_83q5w")
 script = ExtResource("1_0ehe8")
 mainText = NodePath("Notification Text")
 title = NodePath("Title")
 background = NodePath("Background")
+icon = NodePath("Icon")
 defaultDuration = 2.5
 
 [node name="Background" type="Panel" parent="."]
@@ -31,6 +37,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_83q5w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nt1fy")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 39.0
+offset_bottom = 39.0
+texture = ExtResource("3_fsilr")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Notification Text" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -39,7 +56,9 @@ anchor_right = 1.0
 offset_top = 50.0
 offset_bottom = 84.0
 grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 24
+theme = ExtResource("2_83q5w")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
 bbcode_enabled = true
 text = "[center]Hello, World!"
 fit_content = true
@@ -50,7 +69,9 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 40.0
 grow_horizontal = 2
+theme = ExtResource("2_83q5w")
 theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
 bbcode_enabled = true
 text = "Title"
 fit_content = true

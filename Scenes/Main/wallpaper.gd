@@ -4,8 +4,10 @@ class_name Wallpaper
 ## The desktop wallpaper, has an empty texture when the wallpaper is removed.
 
 signal wallpaper_added()
+static var wallpaperInstance: Wallpaper
 
 func _ready() -> void:
+	wallpaperInstance = self;
 	# I use a node to fade because fading modulate doesn't work if there is no texture
 	$Fade.modulate.a = 0
 	$Fade.visible = true

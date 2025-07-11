@@ -3,11 +3,14 @@ class_name ContextMenuOption
 
 ## One of the options that are clickable inside of a context menu.
 ## Used by context_menu_manager.
+@export var optionText: RichTextLabel
+@export var optionIcon: TextureRect
 
 signal option_clicked()
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == 1 and event.is_pressed():
+	#if event is InputEventMouseButton and event.button_index == 1 and event.is_pressed():
+	if(event.is_action_pressed(&"LeftClick")):
 		option_clicked.emit()
 
 func _on_mouse_entered() -> void:
