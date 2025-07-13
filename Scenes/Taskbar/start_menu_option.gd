@@ -26,10 +26,14 @@ var is_mouse_over: bool
 @export var MenuDescription: RichTextLabel
 @export var MenuIcon: TextureRect
 
+@export var backgroundPanel: Panel
+@export var taskbarIcon: TextureRect
+
 func _ready() -> void:
-	$"Background Panel".visible = false
+	backgroundPanel.visible = false
 	MenuTitle.text = "[center]%s" % title_text
-	MenuDescription.text = "[center]%s" % description_text
+	#MenuDescription.text = "[center]%s" % description_text
+	MenuDescription.visible = false;
 	if(programIcon):
 		MenuIcon.texture = programIcon
 
@@ -43,27 +47,30 @@ func _gui_input(event: InputEvent) -> void:
 
 func _on_mouse_entered() -> void:
 	is_mouse_over = true
-	$"Background Panel".visible = true
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property($"Background Panel", "modulate:a", 1, 0.2)
+	backgroundPanel.visible = true
+	TweenAnimator.glow_pulse(self, 0.1, 0.2, 0.3)
+	# var tween: Tween = create_tween()
+	# tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	# tween.tween_property(backgroundPanel, "modulate:a", 1, 0.2)
 
 func _on_mouse_exited() -> void:
 	is_mouse_over = false
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	await tween.tween_property($"Background Panel", "modulate:a", 0, 0.2).finished
+	TweenAnimator.glow_pulse(self, 0.1, 0.2, 0.3)
+
+	# var tween: Tween = create_tween()
+	# tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	# await tween.tween_property(backgroundPanel, "modulate:a", 0, 0.2).finished
 	if !is_mouse_over:
-		$"Background Panel".visible = false
+		backgroundPanel.visible = false
 
 # TODO find a better way than copying this from desktop_folder.gd
 func spawn_window() -> void:
 	print("spawn regular game window inside itself")
 	var window: FakeWindow
 	if(gameScene):
-		window = DefaultValues.spawn_game_window(gameScene.resource_path, title_text, gameScene.resource_path.get_basename(), gameData,self)
+		window = DefaultValues.spawn_game_window(gameScene.resource_path, title_text, gameScene.resource_path.get_basename(), gameData,null)
 	else:
-		window = DefaultValues.spawn_game_window(game_scene, title_text, game_scene.get_basename(), gameData,self)
+		window = DefaultValues.spawn_game_window(game_scene, title_text, game_scene.get_basename(), gameData,null)
 	#var window: FakeWindow
 	#window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	#window.get_node("%Game Window").add_child(load(game_scene).instantiate())
@@ -71,7 +78,7 @@ func spawn_window() -> void:
 	if use_generic_pause_menu:
 		window.get_node("%GamePauseManager").process_mode = Node.PROCESS_MODE_INHERIT
 	
-	DefaultValues.AddWindowToTaskbar(window, Color.GREEN, $"HBoxContainer/MarginContainer/TextureRect".texture)
+	DefaultValues.AddWindowToTaskbar(window, Color.CRIMSON, taskbarIcon.texture)
 	#taskbar_button.active_color = $"HBoxContainer/MarginContainer/TextureRect".modulate
 	
 
@@ -83,5 +90,5 @@ func spawn_outside_window() -> void:
 		window = DefaultValues.spawn_window(gameScene.resource_path,title_text, gameScene.resource_path.get_basename(), gameData, windowParent)
 	else:
 		window = DefaultValues.spawn_window(game_scene, title_text, game_scene.get_basename(), gameData, windowParent)
-	DefaultValues.AddWindowToTaskbar(window, Color.GREEN, $"HBoxContainer/MarginContainer/TextureRect".texture)
+	DefaultValues.AddWindowToTaskbar(window, Color.CRIMSON, taskbarIcon.texture)
 	#$/root/Control.add_child(load(game_scene).instantiate())

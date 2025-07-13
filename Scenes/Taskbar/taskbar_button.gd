@@ -19,23 +19,20 @@ func _ready() -> void:
 	texture_rect.self_modulate = active_color
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == 1 and event.is_pressed():
+	if event.is_action_pressed(&"LeftClick"):
 		if target_window.is_minimized:
 			target_window.show_window()
 		else:
 			target_window.hide_window()
 
 func _on_mouse_entered() -> void:
-	texture_margin.add_theme_constant_override("margin_bottom", 7)
-	texture_margin.add_theme_constant_override("margin_left", 7)
-	texture_margin.add_theme_constant_override("margin_right", 7)
-	texture_margin.add_theme_constant_override("margin_top", 7)
+	TweenAnimator.spotlight_on(self, 1)#(self, 1.3, 0.2)
+	TweenAnimator.float_bob(self, 6, .4)#(self, 1.3, 0.2)
 
 func _on_mouse_exited() -> void:
-	texture_margin.add_theme_constant_override("margin_bottom", 5)
-	texture_margin.add_theme_constant_override("margin_left", 5)
-	texture_margin.add_theme_constant_override("margin_right", 5)
-	texture_margin.add_theme_constant_override("margin_top", 5)
+	TweenAnimator.spotlight_off(self, 1)#(self, 1.3, 0.2)
+	TweenAnimator.float_bob(self, 6, .4)#(self, 1.3, 0.2)
+	#TweenAnimator.snap(self, 1.3, 0.2)
 
 func _on_window_minimized(is_minimized: bool) -> void:
 	var tween: Tween = create_tween()

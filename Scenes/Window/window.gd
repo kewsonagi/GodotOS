@@ -97,6 +97,7 @@ func _ready() -> void:
 				windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
 	
 	SetID(windowID)
+	clamp_window_inside_viewport()#just incase a window gets loaded to an offscreen position
 
 func _process(_delta: float) -> void:
 	if is_dragging:
@@ -199,9 +200,9 @@ func _on_close_button_pressed() -> void:
 	deleted.emit(self)
 	num_of_windows -= 1
 	is_being_deleted = true
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	await tween.tween_property(self, "modulate:a", 0, 0.25).finished
+	TweenAnimator.fade_out(self, 0.3)
+	await get_tree().create_timer(0.3).timeout
+	
 	queue_free()
 
 func SaveWindowState() -> void:
@@ -227,11 +228,8 @@ func hide_window() -> void:
 	is_minimized = true
 	minimized.emit(is_minimized)
 	
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.set_parallel(true)
-	tween.tween_property(self, "position:y", position.y + 20, 0.25)
-	await tween.tween_property(self, "modulate:a", 0, 0.25).finished
+	TweenAnimator.fade_out(self, 0.3)
+
 	if !is_selected:
 		visible = false
 
@@ -245,11 +243,12 @@ func show_window() -> void:
 	minimized.emit(is_minimized)
 	
 	visible = true
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.set_parallel(true)
-	tween.tween_property(self, "position:y", position.y - 20, 0.25)
-	tween.tween_property(self, "modulate:a", 1, 0.25)
+	TweenAnimator.fade_in(self, 0.3)
+	# var tween: Tween = create_tween()
+	# tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	# tween.set_parallel(true)
+	# tween.tween_property(self, "position:y", position.y - 20, 0.25)
+	# tween.tween_property(self, "modulate:a", 1, 0.25)
 
 ## Actually "focuses" the window and brings it to the front
 func select_window(play_fade_animation: bool) -> void:
@@ -260,6 +259,7 @@ func select_window(play_fade_animation: bool) -> void:
 	selected.emit(true)
 	GlobalValues.selected_window = self
 	
+	TweenAnimator.hop(self, 20, 0.2)
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC)
@@ -280,6 +280,7 @@ func deselect_window() -> void:
 	is_selected = false
 	selected.emit(false)
 	
+	# TweenAnimator.snap(self, 0.9, 0.1)
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC)

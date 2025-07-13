@@ -25,14 +25,15 @@ config/icon="res://icon.svg"
 
 IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
 InputHelper="*res://addons/input_helper/input_helper.gd"
+TransitionManager="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldTransition_Manager.gd"
+UIAnimation="*res://addons/godot_ui_animations/UIAnimationHandler.tscn"
 DefaultValues="*res://Scenes/Autoloads/Default Values/default_values.tscn"
 GlobalValues="*res://Scenes/Autoloads/GlobalValues/global_values.tscn"
+CopyPasteManager="*res://Scenes/Autoloads/CopyPaste Manager/copy_paste_manager.tscn"
 UVPosition="*res://Games/Paint Splatter 3D/scripts/uv_position.gd"
 HotkeyManager="res://Scenes/Autoloads/Hotkey Manager/hotkey_manager.tscn"
 ContextMenu="*res://Scenes/Autoloads/Context Menu/context_menu.tscn"
 NotificationManager="*res://Scenes/Autoloads/Notification Manager/notification_manager.tscn"
-CopyPasteManager="*res://Scenes/Autoloads/CopyPaste Manager/copy_paste_manager.tscn"
-TransitionManager="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldTransition_Manager.gd"
 UnderworldGlobal="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldGlobal.gd"
 UnderworldQuest="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldQuestManager.gd"
 
@@ -55,7 +56,7 @@ project/assembly_name="GodotOS"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/Previewer_2D_3D/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/editor_log_highlighter/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/Previewer_2D_3D/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/editor_log_highlighter/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg")
 
 [file_customization]
 

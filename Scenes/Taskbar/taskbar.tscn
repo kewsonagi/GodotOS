@@ -70,9 +70,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_top = -60.0
+offset_right = 60.0
 grow_vertical = 0
+pivot_offset = Vector2(30, 30)
 
 [node name="Start Menu" type="Panel" parent="StartMenuAnchor"]
 layout_mode = 1
@@ -82,44 +83,53 @@ offset_right = 355.0
 offset_bottom = 606.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StartMenuAnchor/Start Menu"]
+[node name="Panel" type="Panel" parent="StartMenuAnchor/Start Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 2
 
-[node name="Godotris Option" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+[node name="VBoxContainer" type="GridContainer" parent="StartMenuAnchor/Start Menu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="Godotris Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
 game_scene = "res://Games/Godotris/Game/boot.tscn"
 gameScene = ExtResource("2_aknao")
 title_text = "Godotris"
 description_text = "Stack blocks, clear lines!"
 
-[node name="Snake Option" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+[node name="Snake Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
 game_scene = "res://Games/Snake/boot.tscn"
 gameScene = ExtResource("3_0yb84")
 title_text = "Snake"
 description_text = "Eat fruit, grow long!"
 
-[node name="Pong Option" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+[node name="Pong Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
 game_scene = "res://Games/Pong/boot.tscn"
 gameScene = ExtResource("4_x4hik")
 title_text = "Pong"
 description_text = "Timeless Classic"
 
-[node name="Cube Scene Option" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+[node name="Cube Scene Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
 game_scene = "res://Games/Cube Scene/boot.tscn"
 gameScene = ExtResource("5_br71q")
 title_text = "Cube Scene"
 description_text = "THE CUBE. THE CUBE. THE CUBE."
 
-[node name="Rocket Lander" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+[node name="Rocket Lander" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
 game_scene = "res://Games/RocketLander/boot.tscn"
 gameScene = ExtResource("6_fgoe0")
@@ -127,7 +137,7 @@ title_text = "Rocket Lander"
 description_text = "Rocket Lander mocup"
 programIcon = ExtResource("7_br71q")
 
-[node name="UnderworldPlatformer" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+[node name="UnderworldPlatformer" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
 game_scene = "res://Games/UnderworldPlatformer/boot.tscn"
 gameScene = ExtResource("7_7g4n6")
@@ -135,7 +145,8 @@ title_text = "Underworld tales"
 description_text = "Underworld platformer with inverting worlds"
 programIcon = ExtResource("9_fgoe0")
 
-[node name="Paint Splatter 3D" parent="StartMenuAnchor/Start Menu/VBoxContainer" instance=ExtResource("2_1ualm")]
+[node name="Paint Splatter 3D" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/Paint Splatter 3D/boot.tscn"
 gameScene = ExtResource("8_nsctb")
@@ -190,21 +201,21 @@ expand_icon = true
 script = ExtResource("6_38i4x")
 
 [node name="Taskbar" type="Panel" parent="."]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mxh1o")
 
 [node name="Start Button" type="MarginContainer" parent="Taskbar"]
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 60.0
+offset_bottom = 60.0
+pivot_offset = Vector2(30, 30)
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
@@ -217,7 +228,8 @@ texture_filter = 4
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_mu355")
-expand_mode = 4
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Taskbar"]
 layout_mode = 1
@@ -233,6 +245,8 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 8
+alignment = 1
 
 [node name="TimeAndDate" type="Control" parent="Taskbar"]
 layout_mode = 1

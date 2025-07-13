@@ -11,15 +11,18 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 1, 0.952941, 1)
 
-[node name="Start Menu Option" type="Panel" node_paths=PackedStringArray("MenuTitle", "MenuDescription", "MenuIcon")]
+[node name="Start Menu Option" type="Panel" node_paths=PackedStringArray("MenuTitle", "MenuDescription", "MenuIcon", "backgroundPanel", "taskbarIcon")]
 clip_contents = true
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(80, 80)
+pivot_offset = Vector2(40, 40)
 script = ExtResource("1_2fneu")
 game_scene = "res://Games/CatPlatformer/scenes/spashscreen.tscn"
 use_generic_pause_menu = true
 MenuTitle = NodePath("HBoxContainer/Control/Menu Title")
 MenuDescription = NodePath("HBoxContainer/Control/Menu Description")
-MenuIcon = NodePath("HBoxContainer/MarginContainer/TextureRect")
+MenuIcon = NodePath("MarginContainer/TextureRect")
+backgroundPanel = NodePath("Background Panel")
+taskbarIcon = NodePath("MarginContainer/TextureRect")
 
 [node name="Background Panel" type="Panel" parent="."]
 visible = false
@@ -32,34 +35,48 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0gkon")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 50.0
 grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 modulate = Color(0.7968209, 0.67204857, 0.8504373, 1)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_j6xxd")
-expand_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -30.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="Menu Title" type="RichTextLabel" parent="HBoxContainer/Control"]
@@ -71,6 +88,9 @@ offset_bottom = 30.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
 bbcode_enabled = true
 text = "[center]Game Title"
 
@@ -87,7 +107,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/normal_font_size = 6
 bbcode_enabled = true
 text = "[center]Your very cool game description"
 

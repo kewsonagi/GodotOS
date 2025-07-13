@@ -13,7 +13,7 @@ func OpenFile() -> void:
 	
 		var windowName:String=szFilePath
 		var windowID:String="%s/%s" % [szFilePath, szFileName]
-		var windowParent:Node=get_tree().current_scene
+		var windowParent:Node=null#get_tree().current_scene
 		var windowData: Dictionary = {}
 
 		windowData["StartPath"] = szFilePath;

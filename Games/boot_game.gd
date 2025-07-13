@@ -6,12 +6,14 @@ class_name BootGame
 var spawnedWindow: Node = null
 @export var gameData: Dictionary = {}
 
-func _ready() -> void:
-	StartGame()
+
 
 func StartGame() -> void:
 	if(!spawnedWindow):
-		spawnedWindow = DefaultValues.spawn_game_window(mainGameScene.resource_path, "","", gameData,null)
+		print(mainGameScene.resource_path)
+		spawnedWindow = mainGameScene.instantiate()#DefaultValues.spawn_window(mainGameScene.resource_path, "","", gameData,self.get_parent())
+		#add_sibling(mainGameScene.instantiate())
+		#queue_free()
 	
 func getStartScene() -> Node:
 	return spawnedWindow

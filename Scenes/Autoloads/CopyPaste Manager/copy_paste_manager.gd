@@ -162,6 +162,71 @@ func instantiate_file_and_sort(file_manager: BaseFileManager, to_path: String) -
 		file_manager.PopulateWithFile(target_folder_name, to_path, target_folder_type)
 	file_manager.sort_folders()
 
+#universal copy/cut paste for any files/folder
+#handles all sub folders and files
+#remember to refresh file managers if moving things around that you can browse in the app
+func CopyAllFilesOrFolders(files: PackedStringArray, to: String = "user://files/", override: bool = true, cut: bool = false) -> void:
+	for thisFile: String in files:
+		var dirToDelete: PackedStringArray
+		#print(thisFile)
+		var filename: String = thisFile.get_file()#get the end of the path/file, including extension
+		
+		#check if the filename has no extension, if so this is a folder to copy
+		if(filename.is_empty() or filename.get_extension().is_empty()):
+			var startingPathOnSystem: String = "%s/" % thisFile.get_base_dir()
+			var startingPathLocal: String = to
+			# print(startingPathOnSystem)
+			# print(startingPathLocal)
+
+			#start with current path
+			var pathsToCreate: PackedStringArray = [thisFile.get_file()]
+			while (pathsToCreate.size()>0):
+				var curPath: String = pathsToCreate.get(0)
+				if(cut):
+					dirToDelete.append(curPath)
+				pathsToCreate.remove_at(0)
+
+				var pathToMake:String = "%s%s" % [startingPathLocal, curPath]
+				var pathOnSystem:String = "%s%s" % [startingPathOnSystem, curPath]
+				if(!DirAccess.dir_exists_absolute(pathToMake)):
+					DirAccess.make_dir_absolute(pathToMake)
+
+				#check for folders in this new directory, if so grab them and add them to the pathsToCreate array
+				var newPathsInThisDir: PackedStringArray = DirAccess.get_directories_at(pathOnSystem)
+				if(!newPathsInThisDir.is_empty()):
+					for nextPath in newPathsInThisDir:
+						var fullNextPath: String = "%s/%s" % [curPath, nextPath.get_file()]
+						pathsToCreate.append(fullNextPath)
+				
+				var filesInThisDir: PackedStringArray = DirAccess.get_files_at(pathOnSystem)
+				if(!filesInThisDir.is_empty()):
+					for nextFile in filesInThisDir:
+						var nextFilePath: String = "%s/%s" % [pathToMake, nextFile.get_file()]
+						var nextFilePathOnSystem: String = "%s/%s" % [pathOnSystem, nextFile.get_file()]
+						if(override or !FileAccess.file_exists(nextFilePath)):
+							if(!cut):
+								DirAccess.copy_absolute(nextFilePathOnSystem, nextFilePath)
+							else:
+								DirAccess.rename_absolute(nextFilePathOnSystem, nextFilePath)
+			if(override or !FileAccess.file_exists("%s%s" % [to,filename])):
+				if(!cut):
+					DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
+				else:
+					DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
+		else:
+			if(override or !FileAccess.file_exists("%s%s" % [to,filename])):
+				if(!cut):
+					DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
+				else:
+					DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
+		if(cut):
+			dirToDelete.reverse()
+			for dir in dirToDelete:
+				DirAccess.remove_absolute("%s/%s" % [thisFile.get_base_dir(),dir])
+			dirToDelete.clear()
+	NotificationManager.ShowNotification("Dropped your files into %s" % to, NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Added files")
+
+
 ## Copies files that get dragged and dropped into GodotOS (if the file format is supported).
 # func _handle_dropped_folders(files: PackedStringArray) -> void:
 # 	for file_name: String in files:
