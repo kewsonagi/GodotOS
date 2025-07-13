@@ -45,7 +45,7 @@ func _on_window_minimized(is_minimized: bool) -> void:
 	else:
 		tween.tween_property(texture_rect, "self_modulate", active_color, 0.25)
 
-func _on_window_deleted() -> void:
+func _on_window_deleted(window: FakeWindow) -> void:
 	queue_free()
 
 func _on_window_selected(selected: bool) -> void:

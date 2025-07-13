@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2hpvnoxdgfvn"]
+[gd_scene load_steps=6 format=3 uid="uid://b2hpvnoxdgfvn"]
 
 [ext_resource type="Script" uid="uid://bqorxst7bapxa" path="res://Scenes/Autoloads/Context Menu/context_menu_manager.gd" id="1_kg358"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_n6wkr"]
 [ext_resource type="PackedScene" uid="uid://ctmotds7d1sr1" path="res://Scenes/Autoloads/Context Menu/context_menu_option.tscn" id="2_v21do"]
 [ext_resource type="PackedScene" uid="uid://dc6higwdbswel" path="res://Scenes/Autoloads/Context Menu/context_menu_seperator.tscn" id="3_ygltd"]
 
@@ -16,6 +17,7 @@ corner_detail = 1
 clip_contents = true
 offset_right = 160.0
 offset_bottom = 200.0
+theme = ExtResource("1_n6wkr")
 theme_override_styles/panel = SubResource("StyleBoxFlat_qnd7w")
 script = ExtResource("1_kg358")
 contextBoxContainer = NodePath("VBoxContainer")

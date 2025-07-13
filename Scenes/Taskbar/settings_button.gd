@@ -6,10 +6,10 @@ extends Button
 
 func _on_pressed() -> void:
 	var window: FakeWindow
-	window = settingsPanel.instantiate()#load("res://Scenes/Window/Settings Window/settings_window.tscn").instantiate()
-	
-	window.title_text = "[center]Settings Menu"
-	get_tree().current_scene.add_child(window)
+	#window = settingsPanel.instantiate()#load("res://Scenes/Window/Settings Window/settings_window.tscn").instantiate()
+	window = DefaultValues.spawn_window(settingsPanel.resource_path, "Settings Menu", "Settings Menu")
+	#window.title_text = "[center]Settings Menu"
+	#get_tree().current_scene.add_child(window)
 	
 	var taskbar_button: Control = taskbarButton.instantiate()#load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()
 	taskbar_button.target_window = window

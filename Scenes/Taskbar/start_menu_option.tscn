@@ -11,12 +11,15 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 1, 0.952941, 1)
 
-[node name="Start Menu Option" type="Panel"]
+[node name="Start Menu Option" type="Panel" node_paths=PackedStringArray("MenuTitle", "MenuDescription", "MenuIcon")]
 clip_contents = true
 custom_minimum_size = Vector2(0, 50)
 script = ExtResource("1_2fneu")
 game_scene = "res://Games/CatPlatformer/scenes/spashscreen.tscn"
 use_generic_pause_menu = true
+MenuTitle = NodePath("HBoxContainer/Control/Menu Title")
+MenuDescription = NodePath("HBoxContainer/Control/Menu Description")
+MenuIcon = NodePath("HBoxContainer/MarginContainer/TextureRect")
 
 [node name="Background Panel" type="Panel" parent="."]
 visible = false

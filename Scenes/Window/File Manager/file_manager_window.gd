@@ -2,7 +2,6 @@ extends BaseFileManager
 class_name FileManagerWindow
 
 ## The file manager window.
-@export var parentWindow: FakeWindow
 @export var resizeSpots: Array[Control]
 
 func _ready() -> void:

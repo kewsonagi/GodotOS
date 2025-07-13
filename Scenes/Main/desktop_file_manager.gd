@@ -25,6 +25,9 @@ func _ready() -> void:
 		copy_from_res("res://Default Files/default wall.webp", "user://default wall.webp")
 		DefaultValues.wallpaper_name = "default wall.webp"
 		DefaultValues.save_state()
+		NotificationManager.ShowNotification("Getting things ready...", NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Welcome!")
+		NotificationManager.ShowNotification("Added some dummy files on your desktop to play with", NotificationManager.E_NOTIFICATION_TYPE.INFO, "Info")
+		NotificationManager.ShowNotification("Don't forget you can drop your own files in here to play with", NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Enjoy")
 	
 	#populate_file_manager()
 	super._ready();
@@ -64,3 +67,32 @@ func _on_window_focus() -> void:
 		if !current_file_names.has(file_name):
 			populate_file_manager()
 			return
+
+func _enter_tree() -> void:
+	masterFileManagerList.append(self)
+	get_viewport().files_dropped.connect(OnDroppedFolders)
+func _exit_tree() -> void:
+	get_viewport().files_dropped.disconnect(OnDroppedFolders)
+	masterFileManagerList.erase(self)
+
+func OnDroppedFolders(files: PackedStringArray) -> void:
+	#default to the desktop path
+	var filepathTo: String = "user://files/"
+
+	#look to see if the pointer is inside a filemanager window
+	for filemanager in masterFileManagerList:
+		var window: FakeWindow = filemanager.parentWindow
+
+		if(window):
+			if(window.is_selected):
+				filepathTo = "user://files/%s/" % filemanager.file_path
+			var pos: Vector2 = window.global_position
+			var windowSize: Vector2 = window.size
+			var mousePos: Vector2 = get_global_mouse_position()
+			#if the mouse pointer is inside this window, add the dropped file here
+			if(mousePos.x > pos.x && mousePos.x < pos.x+windowSize.x && mousePos.y > pos.y && mousePos.y < pos.y+windowSize.y):
+				filepathTo = "user://files/%s/" % filemanager.file_path
+
+	CopyAllFilesOrFolders(files, filepathTo)
+		# get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
+	RefreshAllFileManagers()

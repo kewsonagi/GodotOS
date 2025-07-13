@@ -7,8 +7,8 @@ var wallpaper_stretch_mode: TextureRect.StretchMode # int from 0 to 6
 @onready var wallpaper: Wallpaper = $"/root/Control/Wallpaper"
 #var soundManager2D: AudioStreamPlayer2D
 #var soundManager3D: AudioStreamPlayer3D
-var windows: Array[FakeWindow] = []
-var globalSettingsSave: IndieBlueprintSavedGame
+static var windows: Array[FakeWindow] = []
+static var globalSettingsSave: IndieBlueprintSavedGame
 var saveFileName:String = "Global Settings"
 
 func _ready() -> void:
@@ -80,6 +80,7 @@ func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitle
 		get_tree().current_scene.add_child(window)
 	
 	windows.append(window)
+	window.deleted.connect(CloseWindow)
 		
 	return window as Node
 
@@ -103,6 +104,7 @@ func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Un
 		get_tree().current_scene.add_child(window)
 	
 	windows.append(window)
+	window.deleted.connect(CloseWindow)
 
 	return window as Node
 

@@ -34,7 +34,7 @@ var start_bg_color_alpha: float
 signal minimized(is_minimized: bool)
 signal selected(is_selected: bool)
 signal maximized(is_maximized: bool)
-signal deleted()
+signal deleted(window: FakeWindow)
 
 var saveFileName: String = "window_settings"
 static var windowSaveFile: IndieBlueprintSavedGame
@@ -196,7 +196,7 @@ func _on_close_button_pressed() -> void:
 	
 	SaveWindowState()
 	
-	deleted.emit()
+	deleted.emit(self)
 	num_of_windows -= 1
 	is_being_deleted = true
 	var tween: Tween = create_tween()

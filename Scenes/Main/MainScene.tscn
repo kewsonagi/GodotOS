@@ -81,6 +81,7 @@ baseFile = ExtResource("3_rgj25")
 textFile = ExtResource("3_ctt6t")
 imageFile = ExtResource("4_rgj25")
 folderFile = ExtResource("5_r8g3u")
+pathToIcons = "res://Art/free-file-icons-master/512px/"
 direction = "Vertical"
 horizontal_spacing = 20
 left_margin = 10

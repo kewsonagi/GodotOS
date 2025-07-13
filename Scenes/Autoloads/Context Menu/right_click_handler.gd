@@ -11,5 +11,6 @@ func _ready() -> void:
 	get_parent().gui_input.connect(_parent_gui_input)
 
 func _parent_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == 2 and event.is_pressed():
+	#if event is InputEventMouseButton and event.button_index == 2 and event.is_pressed():
+	if(event.is_action_pressed(&"RightClick")):
 		ContextMenu.handle_right_click(get_parent())

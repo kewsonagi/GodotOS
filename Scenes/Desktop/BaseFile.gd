@@ -47,7 +47,7 @@ func _input(event: InputEvent) -> void:
 				OpenFile()
 	if selectedHighlightControl.visible and !titleEditBox.visible:
 		if event.is_action_pressed("delete"):
-			delete_file()
+			DeleteFile()
 		elif event.is_action_pressed("ui_copy"):
 			CopyPasteManager.copy_file(self)
 		elif event.is_action_pressed("ui_cut"):
@@ -133,6 +133,9 @@ func delete_file() -> void:
 	queue_free()
 
 func OpenFile() -> void:
+	var filePath: String = ProjectSettings.globalize_path("user://files/%s/%s" % [szFilePath, szFileName])
+	OS.shell_open(filePath)
 	return
 func DeleteFile() -> void:
+	delete_file()
 	return

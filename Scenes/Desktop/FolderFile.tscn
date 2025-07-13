@@ -83,7 +83,8 @@ modulate = Color(0.8631563, 0.83977675, 0.6900709, 1)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_y12s4")
-expand_mode = 4
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Double Click" type="Timer" parent="."]
 wait_time = 0.3

@@ -16,16 +16,6 @@ func SetNotificationTitle(text: String) -> void:
 func SetNotificationColor(color: Color) -> void:
 	background.add_theme_color_override("bg_color", color);
 
-func adjust_width() -> void:
-	while true:
-		if mainText.get_line_count() > 1:
-			size.x += 20
-			position.x -= 20
-		else:
-			size.x += 10
-			position.x -= 10
-			return
-
 func BeginNoti(duration: float = defaultDuration) -> void:
 	TweenAnimator.punch_in(self, 0.3)
 	await get_tree().create_timer(duration-1).timeout

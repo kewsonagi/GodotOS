@@ -4,12 +4,14 @@ extends Panel
 
 ## Path to the game scene
 @export var game_scene: String
+@export var gameScene: PackedScene
 
 ## Title shown in start menu option (added at runtime).
 @export var title_text: String
 
 ## Description shown in start menu option (added at runtime).
 @export var description_text: String
+@export var programIcon: Texture2D
 
 ## Whether or not the scene should be instantiated inside a game window or outside one.
 ## (You probably want this on, but it's great if you want to make your own custom window or behavior)
@@ -20,11 +22,16 @@ extends Panel
 
 var is_mouse_over: bool
 @export var gameData: Dictionary = {}
+@export var MenuTitle: RichTextLabel
+@export var MenuDescription: RichTextLabel
+@export var MenuIcon: TextureRect
 
 func _ready() -> void:
 	$"Background Panel".visible = false
-	%"Menu Title".text = "[center]%s" % title_text
-	%"Menu Description".text = "[center]%s" % description_text
+	MenuTitle.text = "[center]%s" % title_text
+	MenuDescription.text = "[center]%s" % description_text
+	if(programIcon):
+		MenuIcon.texture = programIcon
 
 func _gui_input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton and event.button_index == 1 and event.is_pressed():
@@ -52,7 +59,11 @@ func _on_mouse_exited() -> void:
 # TODO find a better way than copying this from desktop_folder.gd
 func spawn_window() -> void:
 	print("spawn regular game window inside itself")
-	var window: FakeWindow = DefaultValues.spawn_game_window(game_scene, %"Menu Title".text, %"Menu Title".text, gameData,self)
+	var window: FakeWindow
+	if(gameScene):
+		window = DefaultValues.spawn_game_window(gameScene.resource_path, title_text, gameScene.resource_path.get_basename(), gameData,self)
+	else:
+		window = DefaultValues.spawn_game_window(game_scene, title_text, game_scene.get_basename(), gameData,self)
 	#var window: FakeWindow
 	#window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	#window.get_node("%Game Window").add_child(load(game_scene).instantiate())
@@ -67,6 +78,10 @@ func spawn_window() -> void:
 func spawn_outside_window() -> void:
 	print("spawn game outside of window")
 	var windowParent:Node = $/root/Control;
-	var window: FakeWindow = DefaultValues.spawn_window(game_scene, game_scene.get_basename(), game_scene.get_basename(), gameData, windowParent)
+	var window: FakeWindow
+	if(gameScene):
+		window = DefaultValues.spawn_window(gameScene.resource_path,title_text, gameScene.resource_path.get_basename(), gameData, windowParent)
+	else:
+		window = DefaultValues.spawn_window(game_scene, title_text, game_scene.get_basename(), gameData, windowParent)
 	DefaultValues.AddWindowToTaskbar(window, Color.GREEN, $"HBoxContainer/MarginContainer/TextureRect".texture)
 	#$/root/Control.add_child(load(game_scene).instantiate())

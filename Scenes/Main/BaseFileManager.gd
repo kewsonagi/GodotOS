@@ -15,6 +15,20 @@ var itemLocations: Dictionary = {}
 @export var imageFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
 @export var extensionsForImage: PackedStringArray = ["png", "jpg", "jpeg", "webp", "tif", "ico", "svg"]
 @export var folderFile: PackedScene # = preload("res://Scenes/Desktop/FolderFile.tscn")
+static var masterFileManagerList: Array[BaseFileManager]
+@export var parentWindow: FakeWindow
+@export var pathToIcons: String
+static var iconList: Dictionary = {}
+
+func _ready() -> void:
+	super._ready()
+	if(iconList.is_empty()):
+		var iconFiles: PackedStringArray = DirAccess.get_files_at(pathToIcons)
+		for iconFile in iconFiles:
+			if(extensionsForImage.has(iconFile.get_extension())):
+				# print("base filename %s" % iconFile.get_basename())
+				# print("path to load %s/%s" % [pathToIcons.get_base_dir(), iconFile])
+				iconList[iconFile.get_basename()] = "%s/%s" % [pathToIcons.get_base_dir(), iconFile]
 
 func populate_file_manager() -> void:
 	for child in get_children():
@@ -44,10 +58,17 @@ func populate_file_manager() -> void:
 		else:
 			PopulateWithFile(file_name, file_path, BaseFile.E_FILE_TYPE.UNKNOWN)
 	
+	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, file_path])):
+		if(parentWindow):
+			parentWindow._on_close_button_pressed()
+		# queue_free()
 	directories.clear()
 	await get_tree().process_frame
 	await get_tree().process_frame # TODO fix whatever's causing a race condition :/
 	sort_folders()
+
+	if(windowTitle):
+		windowTitle.text = "%s" % [file_path]
 
 func PopulateWithFolder(file_name: String, path: String) -> void:
 	#print("adding file or folder in file manager: path: %s - name: %s" % [path, file_name])
@@ -70,6 +91,15 @@ func PopulateWithFile(file_name: String, path: String, file_type: BaseFile.E_FIL
 		file = folderFile.instantiate()
 	else:
 		file = baseFile.instantiate()
+	#load a thumbnail if one exists for this file extension
+	if(iconList.has(file_name.get_extension())):
+		if(iconList.has(file_name.get_basename())):
+			#see if we have an icon for this exact application
+			file.fileIcon = ResourceLoader.load(iconList[file_name.get_basename()])
+		else:
+			file.fileIcon = ResourceLoader.load(iconList[file_name.get_extension()])
+	
+
 	file.szFileName = file_name
 	file.szFilePath = path
 	file.eFileType = file_type
@@ -254,36 +284,51 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 				return;
 		
 		#not an item in this window already, copy or move it
-		CopyPasteManager.cut_folder(currentFile)
-		CopyPasteManager.paste_folder(file_path)
+		# CopyPasteManager.cut_folder(currentFile)
+		# CopyPasteManager.paste_folder(file_path)
+		var from: String = "user://files/%s" % currentFile.szFilePath
+		var to: String = "user://files/%s/" % file_path
+		if(currentFile.eFileType != BaseFile.E_FILE_TYPE.FOLDER):
+			from = "%s/%s" % [from, currentFile.szFileName]
+		CopyAllFilesOrFolders([from], to, true, true)
+		BaseFileManager.RefreshAllFileManagers()
+		# CopyAllFilesOrFolders("%s/%s" % [currentFile.szFilePath, currentFile.szFileName], file_path)
 
-func _ready() -> void:
-	super._ready()
-	get_viewport().files_dropped.connect(OnDroppedFolders)
 
+
+static func RefreshAllFileManagers() -> void:
+	for fileManager: BaseFileManager in masterFileManagerList:
+		fileManager.populate_file_manager()
+
+func _enter_tree() -> void:
+	masterFileManagerList.append(self)
 func _exit_tree() -> void:
-	get_viewport().files_dropped.disconnect(OnDroppedFolders)
-
-
+	masterFileManagerList.erase(self)
+	
 func OnDroppedFolders(files: PackedStringArray) -> void:
 	CopyAllFilesOrFolders(files)
 		# get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
 	populate_file_manager()
 
-func CopyAllFilesOrFolders(files: PackedStringArray, override: bool = true) -> void:
+func CopyAllFilesOrFolders(files: PackedStringArray, to: String = "user://files/", override: bool = true, cut: bool = false) -> void:
 	for thisFile: String in files:
+		var dirToDelete: PackedStringArray
 		#print(thisFile)
 		var filename: String = thisFile.get_file()#get the end of the path/file, including extension
 		
 		#check if the filename has no extension, if so this is a folder to copy
 		if(filename.is_empty() or filename.get_extension().is_empty()):
 			var startingPathOnSystem: String = "%s/" % thisFile.get_base_dir()
-			var startingPathLocal: String = "user://files/"
+			var startingPathLocal: String = to
+			# print(startingPathOnSystem)
+			# print(startingPathLocal)
 
 			#start with current path
 			var pathsToCreate: PackedStringArray = [thisFile.get_file()]
 			while (pathsToCreate.size()>0):
 				var curPath: String = pathsToCreate.get(0)
+				if(cut):
+					dirToDelete.append(curPath)
 				pathsToCreate.remove_at(0)
 
 				var pathToMake:String = "%s%s" % [startingPathLocal, curPath]
@@ -296,7 +341,6 @@ func CopyAllFilesOrFolders(files: PackedStringArray, override: bool = true) -> v
 				if(!newPathsInThisDir.is_empty()):
 					for nextPath in newPathsInThisDir:
 						var fullNextPath: String = "%s/%s" % [curPath, nextPath.get_file()]
-						print(fullNextPath)
 						pathsToCreate.append(fullNextPath)
 				
 				var filesInThisDir: PackedStringArray = DirAccess.get_files_at(pathOnSystem)
@@ -304,12 +348,25 @@ func CopyAllFilesOrFolders(files: PackedStringArray, override: bool = true) -> v
 					for nextFile in filesInThisDir:
 						var nextFilePath: String = "%s/%s" % [pathToMake, nextFile.get_file()]
 						var nextFilePathOnSystem: String = "%s/%s" % [pathOnSystem, nextFile.get_file()]
-						print(nextFilePath)
 						if(override or !FileAccess.file_exists(nextFilePath)):
-							DirAccess.copy_absolute(nextFilePathOnSystem, nextFilePath)
-			if(override or !FileAccess.file_exists("user://files/%s" % filename)):
-				DirAccess.copy_absolute(thisFile, "user://files/%s" % filename)
+							if(!cut):
+								DirAccess.copy_absolute(nextFilePathOnSystem, nextFilePath)
+							else:
+								DirAccess.rename_absolute(nextFilePathOnSystem, nextFilePath)
+			if(override or !FileAccess.file_exists("%s%s" % [to,filename])):
+				if(!cut):
+					DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
+				else:
+					DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
 		else:
-			if(override or !FileAccess.file_exists("user://files/%s" % filename)):
-				DirAccess.copy_absolute(thisFile, "user://files/%s" % filename)
-		print("copying file: %s to internal: user://files/%s" % [thisFile,filename])
+			if(override or !FileAccess.file_exists("%s%s" % [to,filename])):
+				if(!cut):
+					DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
+				else:
+					DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
+		if(cut):
+			dirToDelete.reverse()
+			for dir in dirToDelete:
+				DirAccess.remove_absolute("%s/%s" % [thisFile.get_base_dir(),dir])
+			dirToDelete.clear()
+	NotificationManager.ShowNotification("Dropped your files into %s" % to, NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Added files")
