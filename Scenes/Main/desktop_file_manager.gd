@@ -2,6 +2,7 @@ extends BaseFileManager
 class_name DesktopFileManager
 
 ## The desktop file manager.
+@export var defaultFilesLocation: String
 
 func _ready() -> void:
 	var user_dir: DirAccess = DirAccess.open("user://")
@@ -28,8 +29,8 @@ func _ready() -> void:
 		NotificationManager.ShowNotification("Getting things ready...", NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Welcome!")
 		NotificationManager.ShowNotification("Added some dummy files on your desktop to play with", NotificationManager.E_NOTIFICATION_TYPE.INFO, "Info")
 		NotificationManager.ShowNotification("Don't forget you can drop your own files in here to play with", NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Enjoy")
+		CopyAllFilesOrFolders([defaultFilesLocation])
 	
-	#populate_file_manager()
 	super._ready();
 	get_window().size_changed.connect(update_positions)
 	get_window().focus_entered.connect(_on_window_focus)

@@ -18,9 +18,10 @@ func OpenFile() -> void:
 	
 	windowData["Filename"] = filename;
 	window = DefaultValues.spawn_window("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID, windowData, windowParent)
-	window.title_text = windowName#%"Folder Title".text
+	#window.title_text = windowName#%"Folder Title".text
+	window.titlebarIcon.icon = fileTexture.texture
 	
-	DefaultValues.AddWindowToTaskbar(window, fileColor, $Folder/TextureRect.texture)
+	DefaultValues.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
 	return
 	
 func DeleteFile() -> void:

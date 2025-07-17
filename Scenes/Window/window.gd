@@ -3,7 +3,7 @@ class_name FakeWindow
 
 ## The base class for each window. Handles moving, resizing, minimizing, etc.
 
-@onready var top_bar: Panel = $"Top Bar"
+@export var top_bar: Panel# = $"TransitionAnimationControl/Top Bar"
 
 static var num_of_windows: int
 
@@ -20,16 +20,19 @@ var is_maximized: bool
 var windowID: String
 var windowOpened: bool = true
 
-@onready var maximizeButton: Button = $"Top Bar/HBoxContainer/Maximize Button"
-@onready var resizeButton: Control = $"Resize Drag Spot"
+@export var maximizeButton: Button# = $"Top Bar/HBoxContainer/Maximize Button"
+#@export var resizeButton: Array[Control] = []# = $"Resize Drag Spot"
 @export var maximize_icon: CompressedTexture2D = load("res://Art/shaded/37-plus-sign.png")
 @export var unmaximize_icon: CompressedTexture2D = load("res://Art/Icons/shrink.png")
 var old_unmaximized_position: Vector2
 var old_unmaximized_size: Vector2
-@onready var titleText: RichTextLabel = $"Top Bar/Title Text"
+@export var titleText: RichTextLabel# = $"Top Bar/Title Text"
+@export var titlebarIcon: Button
+@export var previewCaptureViewport: SubViewport
+@export var transitionsNode: Control
 
 
-var start_bg_color_alpha: float
+var startPanelColorAlpha: float
 
 signal minimized(is_minimized: bool)
 signal selected(is_selected: bool)
@@ -42,6 +45,7 @@ var windowSavePosKey: String
 var windowSaveSizeKey: String
 var windowSaveMaximizedKey: String
 var windowOpenedKey: String
+var startShadowSize: int
 
 var creationData: Dictionary
 
@@ -67,13 +71,15 @@ func SetID(id:String) -> void:
 			is_maximized = windowSaveFile.data[windowSaveMaximizedKey]
 		if(is_maximized):
 			is_maximized = false #mark it not maximized so it doesnt minimize on load instead
+		clamp_window_inside_viewport()#just incase a window gets loaded to an offscreen position
 
 func _ready() -> void:
 	windowOpened = true
 	# Duplicate theme override so values can be set without affecting other windows
-	self["theme_override_styles/panel"] = self["theme_override_styles/panel"].duplicate()
+	transitionsNode["theme_override_styles/panel"] = transitionsNode["theme_override_styles/panel"].duplicate()
 	top_bar["theme_override_styles/panel"] = top_bar["theme_override_styles/panel"].duplicate()
-	start_bg_color_alpha = self["theme_override_styles/panel"]["bg_color"].a
+	startPanelColorAlpha = transitionsNode["theme_override_styles/panel"]["bg_color"].a
+	startShadowSize = transitionsNode["theme_override_styles/panel"]["shadow_size"]
 	
 	num_of_windows += 1
 	select_window(false)
@@ -81,11 +87,8 @@ func _ready() -> void:
 	# titleText.text = " ".join(title_text.split("\n"))
 	
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
-	
-	modulate.a = 0
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(self, "modulate:a", 1, 0.5)
+	UIAnimation.animate_pop(transitionsNode)
+	TweenAnimator.fade_in(transitionsNode, 0.2)
 	
 	saveFileName = IndieBlueprintSavedGame.clean_filename(saveFileName)
 	if(!windowSaveFile):
@@ -97,7 +100,6 @@ func _ready() -> void:
 				windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
 	
 	SetID(windowID)
-	clamp_window_inside_viewport()#just incase a window gets loaded to an offscreen position
 
 func _process(_delta: float) -> void:
 	if is_dragging:
@@ -177,9 +179,8 @@ func _on_top_bar_gui_input(event: InputEvent) -> void:
 			maximize_window()
 		timeOfClick = Time.get_ticks_msec()
 		if(!is_dragging):#if we just clicked the title bar, select it
-			select_window(true)
-		
 			is_dragging = true
+			select_window(true)
 			start_drag_position = global_position
 			mouse_start_drag_position = get_global_mouse_position()
 			windowMouseDragOffset = mouse_start_drag_position - start_drag_position
@@ -200,7 +201,8 @@ func _on_close_button_pressed() -> void:
 	deleted.emit(self)
 	num_of_windows -= 1
 	is_being_deleted = true
-	TweenAnimator.fade_out(self, 0.3)
+	UIAnimation.animate_shrink(transitionsNode)
+	TweenAnimator.fade_out(transitionsNode, 0.3)
 	await get_tree().create_timer(0.3).timeout
 	
 	queue_free()
@@ -228,7 +230,11 @@ func hide_window() -> void:
 	is_minimized = true
 	minimized.emit(is_minimized)
 	
-	TweenAnimator.fade_out(self, 0.3)
+	TweenAnimator.fade_out(transitionsNode, 0.3)
+	UIAnimation.animate_shrink(transitionsNode)
+	# var tween: Tween = create_tween()
+	# tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	# tween.tween_property(transitionsNode, "modulate:a", 0, 0.25)
 
 	if !is_selected:
 		visible = false
@@ -243,12 +249,12 @@ func show_window() -> void:
 	minimized.emit(is_minimized)
 	
 	visible = true
-	TweenAnimator.fade_in(self, 0.3)
-	# var tween: Tween = create_tween()
-	# tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	# tween.set_parallel(true)
-	# tween.tween_property(self, "position:y", position.y - 20, 0.25)
-	# tween.tween_property(self, "modulate:a", 1, 0.25)
+	TweenAnimator.fade_in(transitionsNode, 0.3)
+	var tween: Tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.set_parallel(true)
+	tween.tween_property(transitionsNode, "position:y", position.y - 20, 0.25)
+	# tween.tween_property(transitionsNode, "modulate:a", 1, 0.25)
 
 ## Actually "focuses" the window and brings it to the front
 func select_window(play_fade_animation: bool) -> void:
@@ -259,14 +265,13 @@ func select_window(play_fade_animation: bool) -> void:
 	selected.emit(true)
 	GlobalValues.selected_window = self
 	
-	TweenAnimator.hop(self, 20, 0.2)
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(titleText, "modulate", Color("3cffff"), 0.25)
-	tween.tween_property(self["theme_override_styles/panel"], "shadow_size", 20, 0.25)
-	if play_fade_animation:
-		tween.tween_property(self, "modulate:a", 1, 0.1)
+	#if(!is_dragging):
+	#	TweenAnimator.spotlight(transitionsNode,  0.2)
+	tween.tween_property(transitionsNode["theme_override_styles/panel"], "shadow_size", startShadowSize, 0.25)
+	tween.tween_property(transitionsNode, "modulate:a", 1, 0.1)
 	
 	# Move in front of all other windows (+2 to ignore wallpaper and bg color)
 	get_parent().move_child(self, num_of_windows + 2)
@@ -280,13 +285,11 @@ func deselect_window() -> void:
 	is_selected = false
 	selected.emit(false)
 	
-	# TweenAnimator.snap(self, 0.9, 0.1)
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(self, "modulate:a", 0.75, 0.25)
-	tween.tween_property(titleText, "modulate", Color.WHITE, 0.25)
-	tween.tween_property(self["theme_override_styles/panel"], "shadow_size", 0, 0.25)
+	tween.tween_property(transitionsNode, "modulate:a", 0.6, 0.25)
+	tween.tween_property(transitionsNode["theme_override_styles/panel"], "shadow_size", 0, 0.25)
 
 func deselect_other_windows() -> void:
 	for window in get_tree().get_nodes_in_group("window"):
@@ -295,21 +298,23 @@ func deselect_other_windows() -> void:
 		window.deselect_window()
 
 func clamp_window_inside_viewport() -> void:
-	var game_window_size: Vector2 = get_viewport_rect().size
-	if (size.y > game_window_size.y - 40):
-		size.y = game_window_size.y - 40
-	if (size.x > game_window_size.x):
-		size.x = game_window_size.x
+	if(get_viewport()):
+		var game_window_size: Vector2 = get_viewport_rect().size
+		if (size.y > game_window_size.y - 40):
+			size.y = game_window_size.y - 40
+		if (size.x > game_window_size.x):
+			size.x = game_window_size.x
 	
-	global_position.y = clamp(global_position.y, 0, game_window_size.y - size.y - 40)
-	global_position.x = clamp(global_position.x, 0, game_window_size.x - size.x)
+		global_position.y = clamp(global_position.y, 0, game_window_size.y - size.y - 60)
+		global_position.x = clamp(global_position.x, 0, game_window_size.x - size.x)
 
 func _on_viewport_size_changed() -> void:
 	if is_maximized:
-		var new_size: Vector2 = get_viewport_rect().size
-		new_size.y -= 40 #Because taskbar
-		global_position = Vector2.ZERO
-		size = new_size
+		if(get_viewport()):
+			var new_size: Vector2 = get_viewport_rect().size
+			new_size.y -= 60 #Because taskbar
+			global_position = Vector2.ZERO
+			size = new_size
 	
 	clamp_window_inside_viewport()
 
@@ -327,18 +332,14 @@ func maximize_window(animatePos: bool = true) -> void:
 		tween.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 		
 		if(animatePos):
-			tween.tween_property(self, "global_position", old_unmaximized_position, 0.25)
+			tween.tween_property(transitionsNode, "global_position", old_unmaximized_position, 0.25)
 		else:
 			global_position = old_unmaximized_position
 			
-		tween.tween_property(self["theme_override_styles/panel"], "bg_color:a", start_bg_color_alpha, 0.25)
-		await tween.tween_property(self, "size", old_unmaximized_size, 0.25).finished
+		tween.tween_property(transitionsNode["theme_override_styles/panel"], "bg_color:a", startPanelColorAlpha, 0.25)
+		await tween.tween_property(transitionsNode, "size", old_unmaximized_size, 0.25).finished
 		
-		self["theme_override_styles/panel"].set_corner_radius_all(5)
-		top_bar["theme_override_styles/panel"]["corner_radius_top_left"] = 5
-		top_bar["theme_override_styles/panel"]["corner_radius_top_right"] = 5
-		
-		resizeButton.window_resized.emit()
+		#resizeButton.window_resized.emit()
 	else:
 		is_maximized = !is_maximized
 		maximizeButton.icon = unmaximize_icon
@@ -347,24 +348,21 @@ func maximize_window(animatePos: bool = true) -> void:
 		old_unmaximized_position = global_position
 		old_unmaximized_size = size
 		
-		var new_size: Vector2 = get_viewport_rect().size
-		new_size.y -= 40 #Because taskbar
+		if(get_viewport()):
+			var new_size: Vector2 = get_viewport_rect().size
+			new_size.y -= 40 #Because taskbar
 		
-		var tween: Tween = create_tween()
-		tween.set_parallel(true)
-		tween.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		if(animatePos):
-			tween.tween_property(self, "global_position", Vector2.ZERO, 0.25)
-		else:
-			global_position = Vector2.ZERO
-		tween.tween_property(self["theme_override_styles/panel"], "bg_color:a", 1, 0.25)
-		await tween.tween_property(self, "size", new_size, 0.25).finished
+			var tween: Tween = create_tween()
+			tween.set_parallel(true)
+			tween.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+			if(animatePos):
+				tween.tween_property(transitionsNode, "global_position", Vector2.ZERO, 0.25)
+			else:
+				global_position = Vector2.ZERO
+			tween.tween_property(transitionsNode["theme_override_styles/panel"], "bg_color:a", startPanelColorAlpha, 0.25)
+			await tween.tween_property(transitionsNode, "size", new_size, 0.25).finished
 		
-		self["theme_override_styles/panel"].set_corner_radius_all(0)
-		top_bar["theme_override_styles/panel"]["corner_radius_top_left"] = 0
-		top_bar["theme_override_styles/panel"]["corner_radius_top_right"] = 0
-		
-		resizeButton.window_resized.emit()
+		#resizeButton.window_resized.emit()
 		maximized.emit(true)
 
 func GetSize() -> Vector2:
@@ -379,6 +377,7 @@ func MoveWindow(newPos: Vector2) -> void:
 	if is_maximized:
 		is_maximized = !is_maximized
 		maximizeButton.icon = maximize_icon
+	clamp_window_inside_viewport()
 
 #resize window width/height, bottom right corner
 func ResizeWindow(newSize: Vector2) -> void:

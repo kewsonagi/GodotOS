@@ -16,6 +16,11 @@ class_name BootSplash
 func _ready() -> void:
 	visible = true
 	scale /= get_window().content_scale_factor
+	var window_size: Vector2 = DisplayServer.window_get_size() as Vector2
+	bootBackground.global_position = window_size / 2
+	bootImage.global_position = window_size / 2
+	bootImageShadow.global_position = window_size / 2
+
 	if quit_animation:
 		play_quit_animation()
 	else:
@@ -25,43 +30,29 @@ func play_animation() -> void:
 	bootImage.scale = scaleBegin;
 	bootImageShadow.scale = scaleBegin;
 
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
-	tween.set_parallel(true)
-	tween.tween_property(bootImageShadow, "scale", scaleEnd, timeLength)
-	tween.tween_property(bootImage, "scale", scaleEnd, timeLength)
-	
-	tween.tween_property(bootImageShadow, "self_modulate:a", 0, timeLength)
-	
+	TweenAnimator.fade_out(bootBackground, timeLength)
+	TweenAnimator.disappear(bootBackground, timeLength)
+	TweenAnimator.fade_out(bootImage, timeLength*1.5)
+	TweenAnimator.fade_out(bootImageShadow, timeLength*1.5)
+	TweenAnimator.float_bob(bootImage, 10, timeLength/8.0)
+	TweenAnimator.float_bob(bootImageShadow, 10, timeLength/8.0)
+	TweenAnimator.wiggle_scale(bootImage, 0.1, timeLength)
+	TweenAnimator.wiggle_scale(bootImageShadow, 0.1, timeLength)
 	await get_tree().create_timer(timeLength).timeout
+	await get_tree().create_timer(timeLength/2.0).timeout
+	
 	queue_free()
 
 func play_quit_animation() -> void:
 	bootImage.scale = scaleBegin;
 	bootImageShadow.scale = scaleBegin;
-	#Start scaled to max, go to 1
-	#bootImageShadow.scale = scaleAmount
-	bootImageShadow.self_modulate.a = 0
-	#bootImage.scale = scaleAmount
+	TweenAnimator.fade_out(bootBackground, timeLength)
+	TweenAnimator.disappear(bootBackground, timeLength)
+	TweenAnimator.float_bob(bootImage, 10, timeLength/8.0)
+	TweenAnimator.float_bob(bootImageShadow, 10, timeLength/8.0)
+	TweenAnimator.fade_out(bootImage, timeLength*1.5)
+	TweenAnimator.fade_out(bootImageShadow, timeLength*1.5)
 	
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	tween.set_parallel(true)
-	tween.tween_property(bootImageShadow, "scale", scaleEnd, timeLength)
-	tween.tween_property(bootImage, "scale", scaleEnd, timeLength)
+	await get_tree().create_timer(timeLength).timeout
 	
-	await get_tree().create_timer(timeLength/2).timeout
-	
-	var tween2: Tween = create_tween()
-	tween2.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween2.tween_property(bootImageShadow, "self_modulate:a", 1, timeLength/2)
-	
-	await get_tree().create_timer(timeLength/2).timeout
 	get_tree().quit()
-
-func _physics_process(_delta: float) -> void:
-	var window_size: Vector2 = DisplayServer.window_get_size() as Vector2
-	bootBackground.scale = window_size
-	bootBackground.global_position = window_size / 2
-	bootImage.global_position = window_size / 2
-	bootImageShadow.global_position = window_size / 2

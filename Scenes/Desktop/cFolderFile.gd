@@ -18,9 +18,10 @@ func OpenFile() -> void:
 
 		windowData["StartPath"] = szFilePath;
 		window = DefaultValues.spawn_window("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID, windowData,windowParent)
-		window.title_text = windowName#%"Folder Title".text
+		#window.title_text = windowName#%"Folder Title".text
+		window.titlebarIcon.icon = fileTexture.texture
 	
-		DefaultValues.AddWindowToTaskbar(window, fileColor, $Folder/TextureRect.texture)
+		DefaultValues.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
 	return
 	
 func DeleteFile() -> void:

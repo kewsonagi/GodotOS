@@ -13,8 +13,8 @@ border_color = Color(0, 1, 0.952941, 1)
 
 [node name="Start Menu Option" type="Panel" node_paths=PackedStringArray("MenuTitle", "MenuDescription", "MenuIcon", "backgroundPanel", "taskbarIcon")]
 clip_contents = true
-custom_minimum_size = Vector2(80, 80)
-pivot_offset = Vector2(40, 40)
+custom_minimum_size = Vector2(120, 120)
+pivot_offset = Vector2(60, 60)
 script = ExtResource("1_2fneu")
 game_scene = "res://Games/CatPlatformer/scenes/spashscreen.tscn"
 use_generic_pause_menu = true
@@ -38,21 +38,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0gkon")
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -25.0
-offset_right = 25.0
-offset_bottom = 50.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
 grow_horizontal = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
-modulate = Color(0.7968209, 0.67204857, 0.8504373, 1)
+modulate = Color(0.9746259, 0.97744745, 0.9767489, 1)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_j6xxd")
@@ -60,15 +53,12 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="HBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -30.0
-offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -84,7 +74,7 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 30.0
+offset_bottom = 25.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 mouse_filter = 2
@@ -93,23 +83,25 @@ theme_override_font_sizes/bold_font_size = 12
 theme_override_font_sizes/bold_italics_font_size = 12
 bbcode_enabled = true
 text = "[center]Game Title"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Menu Description" type="RichTextLabel" parent="HBoxContainer/Control"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -25.0
-offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 6
+theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "[center]Your very cool game description"
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -2,7 +2,7 @@ extends CodeEdit
 
 ## The text editor window. Is actually a CodeEdit to support line numbers for each row.
 
-@onready var window: FakeWindow = $"../.."
+#@onready var window: FakeWindow = $"../.."
 @export var parentWindow: FakeWindow
 
 var text_edited: bool
@@ -14,12 +14,12 @@ func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
 		populate_text(parentWindow.creationData["Filename"])
 
-	window.selected.connect(_on_window_selected)
+	parentWindow.selected.connect(_on_window_selected)
 	
 	adjust_menu_options()
 
 func _input(event: InputEvent) -> void:
-	if !window.is_selected:
+	if !parentWindow.is_selected:
 		return
 	
 	if event.is_action_pressed("save"):

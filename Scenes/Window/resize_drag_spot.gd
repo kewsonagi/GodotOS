@@ -11,15 +11,23 @@ var bIsDragging: bool
 var startWindowSize: Vector2
 var startDragPosition: Vector2
 var startWindowPosition: Vector2
+@export var parentWindow: Node
 
 signal window_resized()
+
+func _ready() -> void:
+	if(!parentWindow):
+		parentWindow = get_parent()
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == 1:
 		if event.is_pressed():
 			bIsDragging = true
 			startDragPosition = get_global_mouse_position()
-			startWindowSize = get_parent().size
+			if(parentWindow):
+				startWindowSize = parentWindow.size
+			else:
+				startWindowSize = get_viewport_rect().size
 			startWindowPosition = windowToResize.position
 		else:
 			bIsDragging = false

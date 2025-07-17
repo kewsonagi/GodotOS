@@ -12,7 +12,7 @@ width = 1
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_s4q16"]
 
-[node name="TaskbarButton" type="Control"]
+[node name="TaskbarButton" type="Control" node_paths=PackedStringArray("hoverPreviewTexture", "previewNode")]
 custom_minimum_size = Vector2(60, 50)
 layout_mode = 3
 anchors_preset = 0
@@ -21,6 +21,36 @@ offset_bottom = 50.0
 pivot_offset = Vector2(30, 25)
 mouse_filter = 1
 script = ExtResource("1_j5fdb")
+hoverPreviewTexture = NodePath("Control/TextureRect")
+previewNode = NodePath("Control")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -95.0
+offset_top = -150.0
+offset_right = 155.0
+pivot_offset = Vector2(90, 90)
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(90, 90)
+expand_mode = 1
+stretch_mode = 5
 
 [node name="SelectedBackground" type="TextureRect" parent="."]
 modulate = Color(0, 0.498039, 1, 0.470588)

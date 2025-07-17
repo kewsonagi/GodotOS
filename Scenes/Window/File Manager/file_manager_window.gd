@@ -2,7 +2,7 @@ extends BaseFileManager
 class_name FileManagerWindow
 
 ## The file manager window.
-@export var resizeSpots: Array[Control]
+@export var resizeSpots: Array[Node]
 
 func _ready() -> void:
 	if(parentWindow.creationData.has("StartPath")):

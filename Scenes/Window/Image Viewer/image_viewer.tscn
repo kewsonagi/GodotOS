@@ -1,24 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw213qcym41ma"]
+[gd_scene load_steps=4 format=3 uid="uid://bw213qcym41ma"]
 
 [ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_bisfo"]
 [ext_resource type="Script" uid="uid://dy8ijrxds68k6" path="res://Scenes/Window/Image Viewer/image_viewer.gd" id="2_3oyj5"]
-[ext_resource type="Texture2D" uid="uid://bnvcfipxcfprr" path="res://Art/Icons - icones/photo-software.png" id="2_4jqdl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssjd8"]
-bg_color = Color(0.8403105, 0.7825852, 0.5328934, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0, 0, 0, 0.0784314)
+draw_center = false
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [node name="Window" instance=ExtResource("1_bisfo")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_ssjd8")
 
-[node name="Icon" parent="Top Bar" index="2"]
-icon = ExtResource("2_4jqdl")
-
-[node name="Control" type="Control" parent="." index="1"]
+[node name="TransitionNode#Control" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" index="1"]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -28,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Image Viewer" type="TextureRect" parent="Control" index="0" node_paths=PackedStringArray("parentWindow")]
+[node name="Image Viewer" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode/TransitionNode#Control" index="0" node_paths=PackedStringArray("parentWindow")]
 unique_name_in_owner = true
 texture_filter = 6
 layout_mode = 1
@@ -42,4 +35,4 @@ mouse_filter = 2
 expand_mode = 2
 stretch_mode = 5
 script = ExtResource("2_3oyj5")
-parentWindow = NodePath("../..")
+parentWindow = NodePath("../../../../..")

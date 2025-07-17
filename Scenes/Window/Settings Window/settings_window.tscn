@@ -1,8 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://5sdddkl3mfbw"]
+[gd_scene load_steps=26 format=3 uid="uid://5sdddkl3mfbw"]
 
 [ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_rx4sm"]
 [ext_resource type="Script" uid="uid://cthe8oglu2808" path="res://Scenes/Window/Settings Window/scaling_spinbox.gd" id="2_a71vs"]
-[ext_resource type="Texture2D" uid="uid://c52c3p0h1475m" path="res://Art/shaded/02-cog.png" id="2_ocir4"]
 [ext_resource type="Script" uid="uid://bmylb2xf7e5ih" path="res://Scenes/Window/Settings Window/window_options.gd" id="3_7t58g"]
 [ext_resource type="Script" uid="uid://n3mn2lwk6v46" path="res://Scenes/Window/Settings Window/background_color_picker.gd" id="4_vnxcp"]
 [ext_resource type="Script" uid="uid://c84pgsmltldk4" path="res://Scenes/Window/Settings Window/max_fps_options.gd" id="4_xp0bf"]
@@ -75,22 +74,21 @@ LineEdit/styles/normal = SubResource("StyleBoxFlat_3dvlq")
 [node name="Window" instance=ExtResource("1_rx4sm")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_gcdyy")
 
-[node name="Title Text" parent="Top Bar" index="0"]
-text = "[center]Settings"
+[node name="SubViewport" parent="SubViewportContainer" index="0"]
+handle_input_locally = false
+render_target_update_mode = 4
 
-[node name="Icon" parent="Top Bar" index="2"]
-icon = ExtResource("2_ocir4")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="." index="1"]
+[node name="ScrollContainer" type="ScrollContainer" parent="SubViewportContainer/SubViewport/TransitionNode" index="17"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 30.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -98,17 +96,17 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="Screen Scaling" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" index="0"]
+[node name="Screen Scaling" type="HBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer" index="0"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling" index="0"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -116,12 +114,12 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "Screen Scaling"
 
-[node name="Control" type="Control" parent="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling" index="1"]
+[node name="Control" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling" index="1"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="IncrementScaling" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control" index="0"]
+[node name="IncrementScaling" type="Button" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control" index="0"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -139,7 +137,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_2u54r")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8v10x")
 text = "+"
 
-[node name="DecrementScaling" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control" index="1"]
+[node name="DecrementScaling" type="Button" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control" index="1"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -158,7 +156,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_7822x")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jeame")
 text = "-"
 
-[node name="ScalingSpinbox" type="SpinBox" parent="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control" index="2"]
+[node name="ScalingSpinbox" type="SpinBox" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control" index="2"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -190,11 +188,11 @@ alignment = 1
 custom_arrow_step = 0.125
 script = ExtResource("2_a71vs")
 
-[node name="Window Mode" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" index="1"]
+[node name="Window Mode" type="HBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer/VBoxContainer/Window Mode" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Window Mode" index="0"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -202,7 +200,7 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "Window Mode"
 
-[node name="WindowOptions" type="OptionButton" parent="ScrollContainer/MarginContainer/VBoxContainer/Window Mode" index="1"]
+[node name="WindowOptions" type="OptionButton" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Window Mode" index="1"]
 layout_mode = 2
 focus_mode = 0
 selected = 0
@@ -216,11 +214,11 @@ popup/item_2/text = "Exclusive Fullscreen"
 popup/item_2/id = 2
 script = ExtResource("3_7t58g")
 
-[node name="Max Framerate" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" index="2"]
+[node name="Max Framerate" type="HBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer/VBoxContainer/Max Framerate" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Max Framerate" index="0"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -228,7 +226,7 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "Maximum FPS"
 
-[node name="WindowOptions" type="OptionButton" parent="ScrollContainer/MarginContainer/VBoxContainer/Max Framerate" index="1"]
+[node name="WindowOptions" type="OptionButton" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Max Framerate" index="1"]
 layout_mode = 2
 focus_mode = 0
 selected = 1
@@ -252,11 +250,11 @@ popup/item_7/text = "360"
 popup/item_7/id = 7
 script = ExtResource("4_xp0bf")
 
-[node name="Stretch Wallpaper" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" index="3"]
+[node name="Stretch Wallpaper" type="HBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer" index="3"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper" index="0"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -264,7 +262,7 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "Wallpaper Stretching Mode"
 
-[node name="WindowOptions" type="OptionButton" parent="ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper" index="1"]
+[node name="WindowOptions" type="OptionButton" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper" index="1"]
 layout_mode = 2
 focus_mode = 0
 selected = 0
@@ -280,11 +278,11 @@ popup/item_3/text = "Cover"
 popup/item_3/id = 3
 script = ExtResource("7_h8so0")
 
-[node name="Remove Wallpaper" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" index="4"]
+[node name="Remove Wallpaper" type="HBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer" index="4"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper" index="0"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -292,17 +290,17 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "Remove Background"
 
-[node name="RemoveWallpaper" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper" index="1"]
+[node name="RemoveWallpaper" type="Button" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper" index="1"]
 layout_mode = 2
 focus_mode = 0
 text = "Remove BG"
 script = ExtResource("5_p360g")
 
-[node name="Background Color" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" index="5"]
+[node name="Background Color" type="HBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer" index="5"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer/VBoxContainer/Background Color" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Background Color" index="0"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -310,7 +308,7 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "Background Color"
 
-[node name="BackgroundColorPicker" type="ColorPickerButton" parent="ScrollContainer/MarginContainer/VBoxContainer/Background Color" index="1"]
+[node name="BackgroundColorPicker" type="ColorPickerButton" parent="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Background Color" index="1"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -318,13 +316,13 @@ focus_mode = 0
 edit_alpha = false
 script = ExtResource("4_vnxcp")
 
-[connection signal="pressed" from="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/IncrementScaling" to="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_increment_scaling_pressed"]
-[connection signal="pressed" from="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/DecrementScaling" to="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_decrement_scaling_pressed"]
-[connection signal="mouse_entered" from="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" to="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" to="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_mouse_exited"]
-[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" to="ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_value_changed"]
-[connection signal="item_selected" from="ScrollContainer/MarginContainer/VBoxContainer/Window Mode/WindowOptions" to="ScrollContainer/MarginContainer/VBoxContainer/Window Mode/WindowOptions" method="_on_item_selected"]
-[connection signal="item_selected" from="ScrollContainer/MarginContainer/VBoxContainer/Max Framerate/WindowOptions" to="ScrollContainer/MarginContainer/VBoxContainer/Max Framerate/WindowOptions" method="_on_item_selected"]
-[connection signal="item_selected" from="ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper/WindowOptions" to="ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper/WindowOptions" method="_on_item_selected"]
-[connection signal="pressed" from="ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper/RemoveWallpaper" to="ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper/RemoveWallpaper" method="_on_pressed"]
-[connection signal="color_changed" from="ScrollContainer/MarginContainer/VBoxContainer/Background Color/BackgroundColorPicker" to="ScrollContainer/MarginContainer/VBoxContainer/Background Color/BackgroundColorPicker" method="_on_color_changed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/IncrementScaling" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_increment_scaling_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/DecrementScaling" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_decrement_scaling_pressed"]
+[connection signal="mouse_entered" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_mouse_exited"]
+[connection signal="value_changed" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Screen Scaling/Control/ScalingSpinbox" method="_on_value_changed"]
+[connection signal="item_selected" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Window Mode/WindowOptions" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Window Mode/WindowOptions" method="_on_item_selected"]
+[connection signal="item_selected" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Max Framerate/WindowOptions" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Max Framerate/WindowOptions" method="_on_item_selected"]
+[connection signal="item_selected" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper/WindowOptions" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Stretch Wallpaper/WindowOptions" method="_on_item_selected"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper/RemoveWallpaper" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Remove Wallpaper/RemoveWallpaper" method="_on_pressed"]
+[connection signal="color_changed" from="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Background Color/BackgroundColorPicker" to="SubViewportContainer/SubViewport/TransitionNode/ScrollContainer/MarginContainer/VBoxContainer/Background Color/BackgroundColorPicker" method="_on_color_changed"]

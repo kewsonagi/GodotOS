@@ -62,10 +62,6 @@ func delete_wallpaper() -> void:
 	save_state()
 
 func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
-	if(windowName.is_empty()):
-		windowName = "Untitled"
-	if(windowID.is_empty()):
-		windowID = "game"
 	#print("spawning new window: ", sceneToLoadInsideWindow)
 	var window: FakeWindow
 	window = load(sceneToLoadInsideWindow).instantiate()
@@ -85,10 +81,6 @@ func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitle
 	return window as Node
 
 func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
-	if(windowName.is_empty()):
-		windowName = "Untitled"
-	if(windowID.is_empty()):
-		windowID = "game"
 	print("spawning new window: ", sceneToLoadInsideWindow)
 	#var boot: BootGame = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	var window: FakeWindow
