@@ -20,17 +20,17 @@ func _ready() -> void:
 		parentWindow = get_parent()
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == 1:
-		if event.is_pressed():
-			bIsDragging = true
-			startDragPosition = get_global_mouse_position()
-			if(parentWindow):
-				startWindowSize = parentWindow.size
-			else:
-				startWindowSize = get_viewport_rect().size
-			startWindowPosition = windowToResize.position
+	if event.is_action_pressed("LeftClick"):
+		bIsDragging = true
+		startDragPosition = get_global_mouse_position()
+		if(windowToResize):
+			startWindowSize = windowToResize.size
 		else:
+			startWindowSize = get_viewport_rect().size
+		startWindowPosition = windowToResize.position
+	elif event.is_action_released(&"LeftClick"):
 			bIsDragging = false
+		
 
 func _physics_process(_delta: float) -> void:
 	if bIsDragging:

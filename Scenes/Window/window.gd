@@ -231,7 +231,7 @@ func hide_window() -> void:
 	minimized.emit(is_minimized)
 	
 	TweenAnimator.fade_out(transitionsNode, 0.3)
-	UIAnimation.animate_shrink(transitionsNode)
+	#UIAnimation.animate_shrink(transitionsNode)
 	# var tween: Tween = create_tween()
 	# tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	# tween.tween_property(transitionsNode, "modulate:a", 0, 0.25)
@@ -243,8 +243,6 @@ func show_window() -> void:
 	if !is_minimized:
 		return
 	
-	select_window(false)
-	
 	is_minimized = false
 	minimized.emit(is_minimized)
 	
@@ -253,8 +251,9 @@ func show_window() -> void:
 	var tween: Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.set_parallel(true)
-	tween.tween_property(transitionsNode, "position:y", position.y - 20, 0.25)
-	# tween.tween_property(transitionsNode, "modulate:a", 1, 0.25)
+	# tween.tween_property(transitionsNode, "position:y", position.y - 20, 0.25)
+	tween.tween_property(transitionsNode, "modulate:a", 1, 0.25)
+	select_window(false)
 
 ## Actually "focuses" the window and brings it to the front
 func select_window(play_fade_animation: bool) -> void:

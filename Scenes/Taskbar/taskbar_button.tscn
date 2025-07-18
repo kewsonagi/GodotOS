@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7mejsbueubva"]
+[gd_scene load_steps=6 format=3 uid="uid://b7mejsbueubva"]
 
 [ext_resource type="Script" uid="uid://2grdmbycx712" path="res://Scenes/Taskbar/taskbar_button.gd" id="1_j5fdb"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="2_o62jr"]
 
 [sub_resource type="Gradient" id="Gradient_l7111"]
 offsets = PackedFloat32Array(0)
@@ -12,7 +13,7 @@ width = 1
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_s4q16"]
 
-[node name="TaskbarButton" type="Control" node_paths=PackedStringArray("hoverPreviewTexture", "previewNode")]
+[node name="TaskbarButton" type="Control" node_paths=PackedStringArray("texture_rect", "selected_background", "hoverPreviewTexture", "previewNode")]
 custom_minimum_size = Vector2(60, 50)
 layout_mode = 3
 anchors_preset = 0
@@ -21,36 +22,40 @@ offset_bottom = 50.0
 pivot_offset = Vector2(30, 25)
 mouse_filter = 1
 script = ExtResource("1_j5fdb")
-hoverPreviewTexture = NodePath("Control/TextureRect")
-previewNode = NodePath("Control")
+texture_rect = NodePath("TextureMargin/TextureRect")
+selected_background = NodePath("SelectedBackground")
+hoverPreviewTexture = NodePath("PreviewControl/PreviewTexture")
+previewNode = NodePath("PreviewControl")
 
-[node name="Control" type="Control" parent="."]
+[node name="PreviewControl" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_left = -95.0
 offset_top = -150.0
 offset_right = 155.0
-pivot_offset = Vector2(90, 90)
+pivot_offset = Vector2(125, 90)
+mouse_filter = 1
+
+[node name="PreviewTexture" type="TextureRect" parent="PreviewControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(125, 90)
 mouse_filter = 2
-
-[node name="Panel" type="Panel" parent="Control"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(90, 90)
 expand_mode = 1
 stretch_mode = 5
+
+[node name="PreviewBG" type="Panel" parent="PreviewControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="SelectedBackground" type="TextureRect" parent="."]
 modulate = Color(0, 0.498039, 1, 0.470588)
@@ -77,10 +82,11 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="TextureRect" type="TextureRect" parent="TextureMargin"]
-self_modulate = Color(0.427451, 0.905882, 0, 1)
+self_modulate = Color(0.17254902, 0.16078432, 0.14117648, 0.6666667)
 texture_filter = 4
 layout_mode = 2
 mouse_filter = 2
+theme = ExtResource("2_o62jr")
 texture = SubResource("CanvasTexture_s4q16")
 expand_mode = 1
 stretch_mode = 5

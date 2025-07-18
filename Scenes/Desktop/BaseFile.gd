@@ -32,7 +32,7 @@ func _ready() -> void:
 	fileTexture.texture = fileIcon
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
+	if event.is_action_pressed(&"LeftClick"):
 		if !bMouseOver:
 			hide_selected_highlight()
 		else:

@@ -25,7 +25,9 @@ offset_right = 267.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
 
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
+handle_input_locally = false
 size = Vector2i(535, 407)
+render_target_update_mode = 4
 
 [node name="TransitionNode" parent="SubViewportContainer/SubViewport" index="0"]
 mouse_filter = 1
@@ -57,13 +59,16 @@ offset_bottom = -1.6900024
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_qhshh")
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="FileManagerWindow" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode/TransitionNode#MarginContainer" index="0" node_paths=PackedStringArray("resizeSpots", "windowTitle", "parentWindow")]
+clip_contents = true
 layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("3_qhshh")
 script = ExtResource("2_prcfs")
 resizeSpots = [NodePath("../../Resize Drag Spot"), NodePath("../../Resize Drag SpotTopLeft"), NodePath("../../Resize Drag SpotTopRight"), NodePath("../../Resize Drag SpotBottomLeft"), NodePath("../../Resize Drag Spot Left"), NodePath("../../Resize Drag Spot Right"), NodePath("../../Resize Drag Spot Bottom"), NodePath("../../Resize Drag Spot Top")]
 windowTitle = NodePath("../../Top Bar/Title Text")
@@ -73,6 +78,8 @@ imageFile = ExtResource("4_fms8f")
 folderFile = ExtResource("5_qhshh")
 parentWindow = NodePath("../../../../..")
 pathToIcons = "res://Art/free-file-icons-master/512px/"
-horizontal_spacing = 5
-vertical_spacing = 5
+poll_rate = 0.19999999999708962
+animation_speed = 0.3000000000029104
+horizontal_spacing = 15
+vertical_spacing = 15
 metadata/_custom_type_script = "uid://0e08uudim1di"

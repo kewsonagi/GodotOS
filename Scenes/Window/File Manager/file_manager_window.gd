@@ -29,6 +29,7 @@ func reload_window(folder_path: String) -> void:
 	# $"../../Top Bar/Title Text".text = "[center]%s" % file_path
 	if(windowTitle):
 		windowTitle.text = "%s" % [file_path]
+	parentWindow.select_window(true)
 
 # func close_window() -> void:
 # 	$"../.."._on_close_button_pressed()
