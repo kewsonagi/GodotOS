@@ -30,9 +30,7 @@ func _ready() -> void:
 	storeOldTextureRect = texture_rect.texture
 
 	activeBGPanel["theme_override_styles/panel"] = activeBGPanel["theme_override_styles/panel"].duplicate()
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", foregroundColor, 0.25)
+	SetActiveColor()
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"LeftClick"):
@@ -62,34 +60,30 @@ func _on_mouse_exited() -> void:
 func _on_window_minimized(is_minimized: bool) -> void:
 	hoverPreviewTexture.texture = target_window.previewCaptureViewport.get_viewport().get_texture()
 
+	SetActiveColor()
+
+func SetActiveColor() -> void:
 	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	if is_minimized:
+	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SPRING).set_parallel()
+
+	if(target_window.is_minimized):
 		tween.tween_property(texture_rect, "self_modulate", disabled_color, 0.25)
 		tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", hiddenColor, 0.25)
-	else:
+	elif (target_window.is_maximized):
 		tween.tween_property(texture_rect, "self_modulate", active_color, 0.25)
-		tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", foregroundColor, 0.25)
-
-func _on_window_deleted(window: FakeWindow) -> void:
-	queue_free()
-
-func _on_window_selected(selected: bool) -> void:
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	
-	if selected:
-		tween.tween_property(selected_background, "self_modulate:a", 1, 0.25)
+		tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", maximizedColor, 0.25)
+	elif (target_window.is_selected):
+		tween.tween_property(texture_rect, "self_modulate", active_color, 0.25)
 		tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", foregroundColor, 0.25)
 	else:
 		tween.tween_property(selected_background, "self_modulate:a", 0, 0.25)
 		tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", backgroundColor, 0.25)
 
+func _on_window_deleted(window: FakeWindow) -> void:
+	queue_free()
+
+func _on_window_selected(selected: bool) -> void:
+	SetActiveColor()
+
 func _on_window_maximized(is_maximized: bool) -> void:
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
-	
-	if(is_maximized):
-		tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", maximizedColor, 0.25)
-	else:
-		tween.tween_property(activeBGPanel["theme_override_styles/panel"], "bg_color", foregroundColor, 0.25)
+	SetActiveColor()

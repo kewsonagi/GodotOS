@@ -16,6 +16,7 @@ offset_top = 30.0
 offset_bottom = 0.8500061
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_w4ovl")
 baseFile = ExtResource("2_1lel7")
 textFile = ExtResource("3_gg3p0")

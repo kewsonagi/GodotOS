@@ -22,6 +22,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
 size = Vector2i(535, 407)
 
+[node name="MarginContainer" parent="SubViewportContainer/SubViewport" index="0"]
+mouse_filter = 2
+
 [node name="SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="3"]
 custom_minimum_size = Vector2(40, 25)
 layout_mode = 1
@@ -38,8 +41,7 @@ theme_override_colors/icon_hover_pressed_color = Color(0.13756527, 0.5412501, 0.
 icon = ExtResource("3_e3b21")
 expand_icon = true
 
-[node name="FileManagerWindow" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17" node_paths=PackedStringArray("resizeSpots", "windowTitle", "parentWindow") instance=ExtResource("3_x5fsl")]
+[node name="FileManagerWindow" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17" node_paths=PackedStringArray("windowTitle", "parentWindow") instance=ExtResource("3_x5fsl")]
 layout_mode = 1
-resizeSpots = [NodePath("../Resize Drag Spot"), NodePath("../Resize Drag SpotTopLeft"), NodePath("../Resize Drag SpotTopRight"), NodePath("../Resize Drag SpotBottomLeft"), NodePath("../Resize Drag Spot Left"), NodePath("../Resize Drag Spot Right"), NodePath("../Resize Drag Spot Bottom"), NodePath("../Resize Drag Spot Top")]
 windowTitle = NodePath("../Top Bar/Title Text")
 parentWindow = NodePath("../../../../..")

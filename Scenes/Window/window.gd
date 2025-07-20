@@ -46,6 +46,8 @@ var mouse_start_drag_position: Vector2
 @export_category("Window Properties")
 @export var marginContainer: MarginContainer
 @export var transitionsNode: Control
+@export var minWindowSize: Vector2 = Vector2(50,50)
+@export var taskbarSize: float = 60
 var startPanelColorAlpha: float
 var startMarginLeft: float
 var startMarginRight: float
@@ -250,7 +252,11 @@ func hide_window() -> void:
 	is_minimized = true
 	minimized.emit(is_minimized)
 	
-	TweenAnimator.fade_out(transitionsNode, 0.3)
+	var tween: Tween = create_tween()
+	tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
+	tween.set_parallel(true)
+	tween.tween_property(transitionsNode, "modulate:a", 0, 0.25)
+	await get_tree().create_timer(0.25).timeout
 	
 	if !is_selected:
 		visible = false
@@ -265,7 +271,7 @@ func show_window() -> void:
 	visible = true
 	TweenAnimator.fade_in(transitionsNode, 0.3)
 	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
 	tween.set_parallel(true)
 	tween.tween_property(transitionsNode, "modulate:a", 1, 0.25)
 	select_window(false)
@@ -281,7 +287,7 @@ func select_window(play_fade_animation: bool) -> void:
 	
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.set_trans(Tween.TRANS_SPRING)
 	tween.tween_property(transitionsNode["theme_override_styles/panel"], "shadow_size", startShadowSize, 0.25)
 	tween.tween_property(transitionsNode, "modulate:a", 1, 0.1)
 	
@@ -312,13 +318,19 @@ func deselect_other_windows() -> void:
 func clamp_window_inside_viewport() -> void:
 	if(get_viewport()):
 		var game_window_size: Vector2 = get_viewport_rect().size
+		#not bigger than the godot window
 		if (size.y > game_window_size.y - 40):
 			size.y = game_window_size.y - 40
 		if (size.x > game_window_size.x):
 			size.x = game_window_size.x
-	
-		global_position.y = clamp(global_position.y, 0, game_window_size.y - size.y - 40)
-		global_position.x = clamp(global_position.x, 0, game_window_size.x - size.x)
+		
+		size.y = clamp(size.y, minWindowSize.y, game_window_size.y-taskbarSize)
+		size.x = clamp(size.x, minWindowSize.x, game_window_size.x)
+
+		#position is somewhere inside the window
+		#but make sure there is atleast the min window size available so it can still be selected and moved
+		global_position.y = clamp(global_position.y, 0, game_window_size.y-60-minWindowSize.y)
+		global_position.x = clamp(global_position.x, -size.x+minWindowSize.x, game_window_size.x-minWindowSize.x)
 
 func _on_viewport_size_changed() -> void:
 	if is_maximized:
@@ -341,7 +353,7 @@ func maximize_window(animatePos: bool = true) -> void:
 		
 		var tween: Tween = create_tween()
 		tween.set_parallel(true)
-		tween.set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 		
 		if(animatePos):
 			tween.tween_property(self, "global_position", old_unmaximized_position, 0.25)
@@ -376,7 +388,7 @@ func maximize_window(animatePos: bool = true) -> void:
 		
 			var tween: Tween = create_tween()
 			tween.set_parallel(true)
-			tween.set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+			tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 			if(animatePos):
 				tween.tween_property(self, "global_position", Vector2.ZERO, 0.25)
 			else:
@@ -421,3 +433,11 @@ func HandleResize() -> void:
 	var mouseChangeInPosition: Vector2 = get_global_mouse_position() - mouse_start_drag_position;
 	if(bDraggingResize):
 		size += mouseChangeInPosition
+
+
+func _on_top_bar_mouse_entered() -> void:
+	pass # Replace with function body.
+
+
+func _on_top_bar_mouse_exited() -> void:
+	pass # Replace with function body.
