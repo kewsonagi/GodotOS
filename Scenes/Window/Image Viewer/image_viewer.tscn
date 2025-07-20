@@ -11,7 +11,7 @@ corner_radius_top_right = 10
 [node name="Window" instance=ExtResource("1_bisfo")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_ssjd8")
 
-[node name="TransitionNode#Control" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" index="1"]
+[node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17"]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Image Viewer" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode/TransitionNode#Control" index="0" node_paths=PackedStringArray("parentWindow")]
+[node name="Image Viewer" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control" index="0" node_paths=PackedStringArray("parentWindow")]
 unique_name_in_owner = true
 texture_filter = 6
 layout_mode = 1
@@ -35,4 +35,4 @@ mouse_filter = 2
 expand_mode = 2
 stretch_mode = 5
 script = ExtResource("2_3oyj5")
-parentWindow = NodePath("../../../../..")
+parentWindow = NodePath("../../../../../..")

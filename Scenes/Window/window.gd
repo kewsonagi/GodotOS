@@ -3,51 +3,82 @@ class_name FakeWindow
 
 ## The base class for each window. Handles moving, resizing, minimizing, etc.
 
-@export var top_bar: Panel# = $"TransitionAnimationControl/Top Bar"
 
 static var num_of_windows: int
 
+@export_category("Title Bar")
+@export var top_bar: Panel# = $"TransitionAnimationControl/Top Bar"
+@export var maximizeButton: Button# = $"Top Bar/HBoxContainer/Maximize Button"
+#@export var resizeButton: Array[Control] = []# = $"Resize Drag Spot"
+@export var maximize_icon: CompressedTexture2D = load("res://Art/shaded/37-plus-sign.png")
+@export var unmaximize_icon: CompressedTexture2D = load("res://Art/Icons/shrink.png")
+@export var titleText: RichTextLabel# = $"Top Bar/Title Text"
+@export var titlebarIcon: Button
+
 var title_text: String
 
-var is_dragging: bool
+@export_category("Resize Properties")
+var old_unmaximized_position: Vector2
+var old_unmaximized_size: Vector2
+@export var resizeBorderWidth: float
+@export var resizeBorderHeight: float
+var bDraggingResize: bool = false;
+
+@export_category("Dragging properties")
+var mouseClicked: bool
+var leftClick: bool
+var rightClick: bool
+var timeOfClick: int
+@export var doubleClickThreashold: float = 0.5
+
+var scrolled: bool
+var amountScrolledVerticle: float
+var amountScrolledHorizontal: float
+
+var draggingStart: bool
+var draggingEnd: bool
+var dragging: bool
+var windowMouseDragOffset: Vector2
 var start_drag_position: Vector2
 var mouse_start_drag_position: Vector2
 
+
+@export_category("Window Properties")
+@export var marginContainer: MarginContainer
+@export var transitionsNode: Control
+var startPanelColorAlpha: float
+var startMarginLeft: float
+var startMarginRight: float
+var startMarginTop: float
+var startMarginBottom: float
+
+var is_dragging: bool
 var is_being_deleted: bool
 var is_minimized: bool
 var is_selected: bool
 var is_maximized: bool
 var windowID: String
 var windowOpened: bool = true
+var startShadowSize: int
 
-@export var maximizeButton: Button# = $"Top Bar/HBoxContainer/Maximize Button"
-#@export var resizeButton: Array[Control] = []# = $"Resize Drag Spot"
-@export var maximize_icon: CompressedTexture2D = load("res://Art/shaded/37-plus-sign.png")
-@export var unmaximize_icon: CompressedTexture2D = load("res://Art/Icons/shrink.png")
-var old_unmaximized_position: Vector2
-var old_unmaximized_size: Vector2
-@export var titleText: RichTextLabel# = $"Top Bar/Title Text"
-@export var titlebarIcon: Button
+var creationData: Dictionary
+
+@export_category("Preview Window Properties")
 @export var previewCaptureViewport: SubViewport
-@export var transitionsNode: Control
 
-
-var startPanelColorAlpha: float
-
-signal minimized(is_minimized: bool)
-signal selected(is_selected: bool)
-signal maximized(is_maximized: bool)
-signal deleted(window: FakeWindow)
-
+@export_category("Save Settings")
 var saveFileName: String = "window_settings"
 static var windowSaveFile: IndieBlueprintSavedGame
 var windowSavePosKey: String
 var windowSaveSizeKey: String
 var windowSaveMaximizedKey: String
 var windowOpenedKey: String
-var startShadowSize: int
 
-var creationData: Dictionary
+
+signal minimized(is_minimized: bool)
+signal selected(is_selected: bool)
+signal maximized(is_maximized: bool)
+signal deleted(window: FakeWindow)
 
 func SetData(data: Dictionary) -> void:
 	creationData = data;
@@ -80,11 +111,14 @@ func _ready() -> void:
 	top_bar["theme_override_styles/panel"] = top_bar["theme_override_styles/panel"].duplicate()
 	startPanelColorAlpha = transitionsNode["theme_override_styles/panel"]["bg_color"].a
 	startShadowSize = transitionsNode["theme_override_styles/panel"]["shadow_size"]
-	
+
+	startMarginLeft = marginContainer["theme_override_constants/margin_left"]
+	startMarginRight = marginContainer["theme_override_constants/margin_right"]
+	startMarginTop = marginContainer["theme_override_constants/margin_top"]
+	startMarginBottom = marginContainer["theme_override_constants/margin_bottom"]
+
 	num_of_windows += 1
 	select_window(false)
-	
-	# titleText.text = " ".join(title_text.split("\n"))
 	
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	UIAnimation.animate_pop(transitionsNode)
@@ -124,20 +158,6 @@ func _process(_delta: float) -> void:
 	
 	if(bDraggingResize):
 		HandleResize()
-
-
-var mouseClicked: bool
-var leftClick: bool
-var rightClick: bool
-var timeOfClick: int
-@export var doubleClickThreashold: float = 0.5
-var scrolled: bool
-var amountScrolledVerticle: float
-var amountScrolledHorizontal: float
-var draggingStart: bool
-var draggingEnd: bool
-var dragging: bool
-var windowMouseDragOffset: Vector2
 
 #clicked inside the window itself
 func _gui_input(event: InputEvent) -> void:
@@ -201,7 +221,7 @@ func _on_close_button_pressed() -> void:
 	deleted.emit(self)
 	num_of_windows -= 1
 	is_being_deleted = true
-	UIAnimation.animate_shrink(transitionsNode)
+	TweenAnimator.creep_out(self, 0.3)
 	TweenAnimator.fade_out(transitionsNode, 0.3)
 	await get_tree().create_timer(0.3).timeout
 	
@@ -231,11 +251,7 @@ func hide_window() -> void:
 	minimized.emit(is_minimized)
 	
 	TweenAnimator.fade_out(transitionsNode, 0.3)
-	#UIAnimation.animate_shrink(transitionsNode)
-	# var tween: Tween = create_tween()
-	# tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	# tween.tween_property(transitionsNode, "modulate:a", 0, 0.25)
-
+	
 	if !is_selected:
 		visible = false
 
@@ -249,9 +265,8 @@ func show_window() -> void:
 	visible = true
 	TweenAnimator.fade_in(transitionsNode, 0.3)
 	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 	tween.set_parallel(true)
-	# tween.tween_property(transitionsNode, "position:y", position.y - 20, 0.25)
 	tween.tween_property(transitionsNode, "modulate:a", 1, 0.25)
 	select_window(false)
 
@@ -266,9 +281,7 @@ func select_window(play_fade_animation: bool) -> void:
 	
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	#if(!is_dragging):
-	#	TweenAnimator.spotlight(transitionsNode,  0.2)
+	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(transitionsNode["theme_override_styles/panel"], "shadow_size", startShadowSize, 0.25)
 	tween.tween_property(transitionsNode, "modulate:a", 1, 0.1)
 	
@@ -286,7 +299,7 @@ func deselect_window() -> void:
 	
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(transitionsNode, "modulate:a", 0.6, 0.25)
 	tween.tween_property(transitionsNode["theme_override_styles/panel"], "shadow_size", 0, 0.25)
 
@@ -304,7 +317,7 @@ func clamp_window_inside_viewport() -> void:
 		if (size.x > game_window_size.x):
 			size.x = game_window_size.x
 	
-		global_position.y = clamp(global_position.y, 0, game_window_size.y - size.y - 60)
+		global_position.y = clamp(global_position.y, 0, game_window_size.y - size.y - 40)
 		global_position.x = clamp(global_position.x, 0, game_window_size.x - size.x)
 
 func _on_viewport_size_changed() -> void:
@@ -328,15 +341,20 @@ func maximize_window(animatePos: bool = true) -> void:
 		
 		var tween: Tween = create_tween()
 		tween.set_parallel(true)
-		tween.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 		
 		if(animatePos):
-			tween.tween_property(transitionsNode, "global_position", old_unmaximized_position, 0.25)
+			tween.tween_property(self, "global_position", old_unmaximized_position, 0.25)
 		else:
 			global_position = old_unmaximized_position
 			
 		tween.tween_property(transitionsNode["theme_override_styles/panel"], "bg_color:a", startPanelColorAlpha, 0.25)
-		await tween.tween_property(transitionsNode, "size", old_unmaximized_size, 0.25).finished
+		await tween.tween_property(self, "size", old_unmaximized_size, 0.25).finished
+
+		marginContainer["theme_override_constants/margin_left"] = startMarginLeft
+		marginContainer["theme_override_constants/margin_right"] = startMarginRight
+		marginContainer["theme_override_constants/margin_top"] = startMarginTop
+		marginContainer["theme_override_constants/margin_bottom"] = startMarginBottom
 		
 		#resizeButton.window_resized.emit()
 	else:
@@ -346,6 +364,11 @@ func maximize_window(animatePos: bool = true) -> void:
 		
 		old_unmaximized_position = global_position
 		old_unmaximized_size = size
+
+		marginContainer["theme_override_constants/margin_left"] = 0
+		marginContainer["theme_override_constants/margin_right"] = 0
+		marginContainer["theme_override_constants/margin_top"] = 0
+		marginContainer["theme_override_constants/margin_bottom"] = 0
 		
 		if(get_viewport()):
 			var new_size: Vector2 = get_viewport_rect().size
@@ -353,13 +376,13 @@ func maximize_window(animatePos: bool = true) -> void:
 		
 			var tween: Tween = create_tween()
 			tween.set_parallel(true)
-			tween.set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+			tween.set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 			if(animatePos):
-				tween.tween_property(transitionsNode, "global_position", Vector2.ZERO, 0.25)
+				tween.tween_property(self, "global_position", Vector2.ZERO, 0.25)
 			else:
 				global_position = Vector2.ZERO
 			tween.tween_property(transitionsNode["theme_override_styles/panel"], "bg_color:a", startPanelColorAlpha, 0.25)
-			await tween.tween_property(transitionsNode, "size", new_size, 0.25).finished
+			await tween.tween_property(self, "size", new_size, 0.25).finished
 		
 		#resizeButton.window_resized.emit()
 		maximized.emit(true)
@@ -386,9 +409,7 @@ func ResizeWindow(newSize: Vector2) -> void:
 		is_maximized = !is_maximized
 		maximizeButton.icon = maximize_icon
 
-@export var resizeBorderWidth: float
-@export var resizeBorderHeight: float
-var bDraggingResize: bool = false;
+
 # @export var resizeBorders: Array[Control]
 
 func ClickedResizeWindowArea() -> bool:

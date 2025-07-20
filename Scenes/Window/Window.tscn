@@ -57,7 +57,7 @@ corner_radius_top_right = 5
 bg_color = Color(0.666667, 0, 0, 0.392157)
 corner_radius_top_right = 5
 
-[node name="Window" type="Panel" node_paths=PackedStringArray("top_bar", "maximizeButton", "titleText", "titlebarIcon", "previewCaptureViewport", "transitionsNode") groups=["window"]]
+[node name="Window" type="Panel" node_paths=PackedStringArray("top_bar", "maximizeButton", "titleText", "titlebarIcon", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
 custom_minimum_size = Vector2(250, 150)
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,14 +73,15 @@ grow_vertical = 2
 theme = ExtResource("1_kp4o0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_kp4o0")
 script = ExtResource("1_c3iwi")
-top_bar = NodePath("SubViewportContainer/SubViewport/TransitionNode/Top Bar")
-maximizeButton = NodePath("SubViewportContainer/SubViewport/TransitionNode/Top Bar/HBoxContainer/Maximize Button")
+top_bar = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar")
+maximizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Maximize Button")
 maximize_icon = ExtResource("2_5ph6y")
 unmaximize_icon = ExtResource("3_kp4o0")
-titleText = NodePath("SubViewportContainer/SubViewport/TransitionNode/Top Bar/Title Text")
-titlebarIcon = NodePath("SubViewportContainer/SubViewport/TransitionNode/Top Bar/Icon")
+titleText = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Title Text")
+titlebarIcon = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Icon")
+marginContainer = NodePath("SubViewportContainer/SubViewport/MarginContainer")
+transitionsNode = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode")
 previewCaptureViewport = NodePath("SubViewportContainer/SubViewport")
-transitionsNode = NodePath("SubViewportContainer/SubViewport/TransitionNode")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 1
@@ -95,24 +96,28 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(632, 407)
-size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="TransitionNode" type="Panel" parent="SubViewportContainer/SubViewport"]
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -15.0
-offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TransitionNode" type="Panel" parent="SubViewportContainer/SubViewport/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 theme = ExtResource("1_kp4o0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_gwhiu")
 
-[node name="Top Bar" type="Panel" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="Top Bar" type="Panel" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 1
 anchors_preset = 10
@@ -122,7 +127,7 @@ grow_horizontal = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_4otup")
 
-[node name="Title Text" type="RichTextLabel" parent="SubViewportContainer/SubViewport/TransitionNode/Top Bar"]
+[node name="Title Text" type="RichTextLabel" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 1
 anchors_preset = 14
@@ -139,7 +144,7 @@ text = "Hello World!"
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/TransitionNode/Top Bar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -152,7 +157,7 @@ offset_bottom = 15.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Minimize Button" type="Button" parent="SubViewportContainer/SubViewport/TransitionNode/Top Bar/HBoxContainer"]
+[node name="Minimize Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
@@ -165,7 +170,7 @@ icon = ExtResource("4_2b4j0")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Maximize Button" type="Button" parent="SubViewportContainer/SubViewport/TransitionNode/Top Bar/HBoxContainer"]
+[node name="Maximize Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
@@ -178,7 +183,7 @@ icon = ExtResource("2_5ph6y")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Close Button" type="Button" parent="SubViewportContainer/SubViewport/TransitionNode/Top Bar/HBoxContainer"]
+[node name="Close Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
@@ -190,7 +195,7 @@ icon = ExtResource("4_5ph6y")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Icon" type="Button" parent="SubViewportContainer/SubViewport/TransitionNode/Top Bar"]
+[node name="Icon" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
 texture_filter = 6
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 0
@@ -204,7 +209,7 @@ icon = ExtResource("5_kp4o0")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Resize Drag Spot" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag Spot" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -220,10 +225,10 @@ grow_vertical = 0
 mouse_filter = 1
 mouse_default_cursor_shape = 12
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
-parentWindow = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandle" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandle" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
 layout_mode = 1
@@ -244,27 +249,27 @@ mouse_filter = 2
 texture = ExtResource("4_qn6o7")
 expand_mode = 1
 
-[node name="Resize Drag SpotTopLeft" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag SpotTopLeft" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 anchors_preset = 0
 offset_right = 23.0
-offset_bottom = 23.0
+offset_bottom = 23.000008
 scale = Vector2(-1, -1)
 pivot_offset = Vector2(6, 6)
 mouse_filter = 1
 mouse_default_cursor_shape = 12
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
 bTopLeft = true
-parentWindow = NodePath("../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandleTopLeft" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandleTopLeft" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
 layout_mode = 0
 offset_left = -3.0
 offset_top = -3.0
 offset_right = 21.0
-offset_bottom = 21.0
+offset_bottom = 21.000015
 scale = Vector2(-1, -1)
 pivot_offset = Vector2(12, 12)
 mouse_filter = 2
@@ -272,7 +277,7 @@ texture = ExtResource("4_qn6o7")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Resize Drag SpotTopRight" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag SpotTopRight" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -281,16 +286,16 @@ anchor_right = 1.0
 offset_left = -15.0
 offset_top = 12.0
 offset_right = 8.0
-offset_bottom = 35.0
+offset_bottom = 35.000008
 grow_horizontal = 0
 scale = Vector2(1, -1)
 mouse_filter = 1
 mouse_default_cursor_shape = 11
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
-parentWindow = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandleTopRight" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandleTopRight" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 visible = false
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
@@ -301,7 +306,7 @@ anchor_right = 1.0
 offset_left = -21.0
 offset_top = 15.0
 offset_right = 3.0
-offset_bottom = 38.999985
+offset_bottom = 39.000015
 grow_horizontal = 0
 scale = Vector2(1, -1)
 pivot_offset = Vector2(3, 3)
@@ -309,7 +314,7 @@ mouse_filter = 2
 texture = ExtResource("4_qn6o7")
 expand_mode = 1
 
-[node name="Resize Drag SpotBottomLeft" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag SpotBottomLeft" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 visible = false
 layout_mode = 1
 anchors_preset = 2
@@ -325,10 +330,10 @@ pivot_offset = Vector2(12, 12)
 mouse_filter = 1
 mouse_default_cursor_shape = 11
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
-parentWindow = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandleBottomLeft" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandleBottomLeft" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 visible = false
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
@@ -348,22 +353,23 @@ texture = ExtResource("4_qn6o7")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Resize Drag Spot Left" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag Spot Left" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = -10.0
+offset_bottom = -0.00030517578
 grow_vertical = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 10
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
 bTopLeft = true
 bResizeY = false
-parentWindow = NodePath("../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandleLeft" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandleLeft" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
 custom_minimum_size = Vector2(5, 0)
@@ -371,12 +377,13 @@ layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = -5.0
+offset_bottom = -0.00030517578
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("9_5ph6y")
 expand_mode = 1
 
-[node name="Resize Drag Spot Right" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag Spot Right" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -384,6 +391,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -10.0
+offset_bottom = -0.00030517578
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(-1, 1)
@@ -391,11 +399,11 @@ pivot_offset = Vector2(10, 0)
 mouse_filter = 1
 mouse_default_cursor_shape = 10
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
 bResizeY = false
-parentWindow = NodePath("../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandleRight" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandleRight" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
 custom_minimum_size = Vector2(5, 0)
@@ -405,6 +413,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -5.0
+offset_bottom = -0.00030517578
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(-1, 1)
@@ -413,7 +422,7 @@ mouse_filter = 2
 texture = ExtResource("9_5ph6y")
 expand_mode = 1
 
-[node name="Resize Drag Spot Bottom" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag Spot Bottom" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 1
 anchors_preset = 12
@@ -429,11 +438,11 @@ pivot_offset = Vector2(0, 10)
 mouse_filter = 1
 mouse_default_cursor_shape = 9
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
 bResizeX = false
-parentWindow = NodePath("../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandleRightBottom" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandleRightBottom" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
 custom_minimum_size = Vector2(0, 5)
@@ -451,23 +460,23 @@ mouse_filter = 2
 texture = ExtResource("9_5ph6y")
 expand_mode = 1
 
-[node name="Resize Drag Spot Top" type="Control" parent="SubViewportContainer/SubViewport/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+[node name="Resize Drag Spot Top" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" node_paths=PackedStringArray("windowToResize", "parentWindow")]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 10.0
+offset_bottom = 10.000008
 grow_horizontal = 2
 scale = Vector2(1, -1)
 mouse_filter = 1
 mouse_default_cursor_shape = 9
 script = ExtResource("2_xymxc")
-windowToResize = NodePath("../../../..")
+windowToResize = NodePath("../../../../..")
 bTopLeft = true
 bResizeX = false
-parentWindow = NodePath("../../../..")
+parentWindow = NodePath("../../../../..")
 
-[node name="CornerHandleRightTop" type="TextureRect" parent="SubViewportContainer/SubViewport/TransitionNode"]
+[node name="CornerHandleRightTop" type="TextureRect" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 modulate = Color(1, 1, 1, 0.76862746)
 self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
 custom_minimum_size = Vector2(0, 5)
@@ -480,7 +489,7 @@ mouse_filter = 2
 texture = ExtResource("9_5ph6y")
 expand_mode = 1
 
-[connection signal="gui_input" from="SubViewportContainer/SubViewport/TransitionNode/Top Bar" to="." method="_on_top_bar_gui_input"]
-[connection signal="pressed" from="SubViewportContainer/SubViewport/TransitionNode/Top Bar/HBoxContainer/Minimize Button" to="." method="_on_minimize_button_pressed"]
-[connection signal="pressed" from="SubViewportContainer/SubViewport/TransitionNode/Top Bar/HBoxContainer/Maximize Button" to="." method="_on_maximize_button_pressed"]
-[connection signal="pressed" from="SubViewportContainer/SubViewport/TransitionNode/Top Bar/HBoxContainer/Close Button" to="." method="_on_close_button_pressed"]
+[connection signal="gui_input" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_gui_input"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Minimize Button" to="." method="_on_minimize_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Maximize Button" to="." method="_on_maximize_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Close Button" to="." method="_on_close_button_pressed"]

@@ -56,7 +56,7 @@ project/assembly_name="GodotOS"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/ColorPreview/plugin.cfg", "res://addons/FreeControl/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/editor_log_highlighter/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/ColorPreview/plugin.cfg", "res://addons/FreeControl/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/custom_theme_overrides/plugin.cfg", "res://addons/editor_log_highlighter/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg")
 
 [file_customization]
 

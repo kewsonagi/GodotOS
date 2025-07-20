@@ -20,22 +20,18 @@ shadow_color = Color(0, 0, 0, 0.0784314)
 [node name="Window" instance=ExtResource("1_sycuj")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_plqrr")
 
-[node name="TransitionNode#MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/TransitionNode" index="17"]
+[node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 30.0
-offset_bottom = -1.5700073
+offset_bottom = 0.33499146
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_i7yd4")
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
-[node name="Text Editor" type="CodeEdit" parent="SubViewportContainer/SubViewport/TransitionNode/TransitionNode#MarginContainer" index="0" node_paths=PackedStringArray("parentWindow") groups=["text_editor_window"]]
+[node name="Text Editor" type="CodeEdit" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer" index="0" node_paths=PackedStringArray("parentWindow") groups=["text_editor_window"]]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
@@ -50,6 +46,6 @@ highlight_all_occurrences = true
 draw_tabs = true
 gutters_draw_line_numbers = true
 script = ExtResource("2_4wajo")
-parentWindow = NodePath("../../../../..")
+parentWindow = NodePath("../../../../../..")
 
-[connection signal="text_changed" from="SubViewportContainer/SubViewport/TransitionNode/TransitionNode#MarginContainer/Text Editor" to="SubViewportContainer/SubViewport/TransitionNode/TransitionNode#MarginContainer/Text Editor" method="_on_text_changed"]
+[connection signal="text_changed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" method="_on_text_changed"]
