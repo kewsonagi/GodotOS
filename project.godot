@@ -32,7 +32,8 @@ GlobalValues="*res://Scenes/Autoloads/GlobalValues/global_values.tscn"
 CopyPasteManager="*res://Scenes/Autoloads/CopyPaste Manager/copy_paste_manager.tscn"
 UVPosition="*res://Games/Paint Splatter 3D/scripts/uv_position.gd"
 HotkeyManager="res://Scenes/Autoloads/Hotkey Manager/hotkey_manager.tscn"
-ContextMenu="*res://Scenes/Autoloads/Context Menu/context_menu.tscn"
+ContextMenu="res://Scenes/Autoloads/Context Menu/context_menu.tscn"
+RClickManager="*res://Scenes/Autoloads/RClick Menu Manager/RClickMenu.tscn"
 NotificationManager="*res://Scenes/Autoloads/Notification Manager/notification_manager.tscn"
 UnderworldGlobal="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldGlobal.gd"
 UnderworldQuest="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldQuestManager.gd"
@@ -56,7 +57,7 @@ project/assembly_name="GodotOS"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/ColorPreview/plugin.cfg", "res://addons/FreeControl/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/custom_theme_overrides/plugin.cfg", "res://addons/editor_log_highlighter/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/ColorPreview/plugin.cfg", "res://addons/FreeControl/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/custom_theme_overrides/plugin.cfg", "res://addons/editor_log_highlighter/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
 
 [file_customization]
 
@@ -279,6 +280,20 @@ reveal={
 flag={
 "deadzone": 0.1,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+Enter={
+"deadzone": 0.1,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194310,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+Escape={
+"deadzone": 0.1,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 

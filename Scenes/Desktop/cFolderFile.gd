@@ -32,9 +32,9 @@ func DeleteFile() -> void:
 	#looking for a file manager currently open with the deleted folder
 	#if found, close it
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-		if file_manager.file_path.begins_with(szFilePath):
+		if file_manager.szFilePath.begins_with(szFilePath):
 			file_manager.close_window()
-		elif get_parent() is FileManagerWindow and file_manager.file_path == get_parent().file_path:
+		elif get_parent() is FileManagerWindow and file_manager.szFilePath == get_parent().szFilePath:
 			file_manager.delete_file_with_name(szFileName)
 			file_manager.update_positions()
 

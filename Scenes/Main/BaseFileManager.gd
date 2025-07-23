@@ -5,7 +5,7 @@ class_name BaseFileManager
 
 ## The file manager's path (relative to user://files/)
 @export var windowTitle: RichTextLabel
-@export var file_path: String
+@export var szFilePath: String
 var directories: PackedStringArray
 var itemLocations: Dictionary = {}
 @export var startingUserDirectory: String = "user://files/"
@@ -36,29 +36,29 @@ func populate_file_manager() -> void:
 			child.queue_free()
 
 	directories.clear()
-	directories = DirAccess.get_directories_at("%s%s" % [startingUserDirectory, file_path])
+	directories = DirAccess.get_directories_at("%s%s" % [startingUserDirectory, szFilePath])
 	itemLocations.clear()
 	if (directories):
 		for folder_name in directories:
-			if file_path.is_empty():
+			if szFilePath.is_empty():
 				PopulateWithFolder(folder_name, folder_name)
 			else:
-				PopulateWithFolder(folder_name, "%s/%s" % [file_path, folder_name])
+				PopulateWithFolder(folder_name, "%s/%s" % [szFilePath, folder_name])
 	
 	directories.clear()
-	directories = DirAccess.get_files_at("%s%s" % [startingUserDirectory, file_path])
+	directories = DirAccess.get_files_at("%s%s" % [startingUserDirectory, szFilePath])
 	for file_name: String in directories:
 		if(extensionsForText.has(file_name.get_extension())):
 		# if file_name.ends_with(".txt") or file_name.ends_with(".md"):
-			PopulateWithFile(file_name, file_path, BaseFile.E_FILE_TYPE.TEXT_FILE)
+			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.TEXT_FILE)
 		# elif file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".jpeg") \
 		# or file_name.ends_with(".webp"):
 		elif (extensionsForImage.has(file_name.get_extension())):
-			PopulateWithFile(file_name, file_path, BaseFile.E_FILE_TYPE.IMAGE)
+			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.IMAGE)
 		else:
-			PopulateWithFile(file_name, file_path, BaseFile.E_FILE_TYPE.UNKNOWN)
+			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.UNKNOWN)
 	
-	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, file_path])):
+	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, szFilePath])):
 		if(parentWindow):
 			parentWindow._on_close_button_pressed()
 		# queue_free()
@@ -68,7 +68,7 @@ func populate_file_manager() -> void:
 	sort_folders()
 
 	if(windowTitle):
-		windowTitle.text = "%s" % [file_path]
+		windowTitle.text = "%s" % [szFilePath]
 
 func PopulateWithFolder(file_name: String, path: String) -> void:
 	#print("adding file or folder in file manager: path: %s - name: %s" % [path, file_name])
@@ -130,8 +130,8 @@ func sort_folders() -> void:
 func new_folder() -> void:
 	var new_folder_name: String = "New Folder"
 	var padded_file_path: String # Since I sometimes want the / and sometimes not
-	if !file_path.is_empty():
-		padded_file_path = "%s/" % file_path
+	if !szFilePath.is_empty():
+		padded_file_path = "%s/" % szFilePath
 	if DirAccess.dir_exists_absolute("%s%s%s" % [startingUserDirectory, padded_file_path, new_folder_name]):
 		for i in range(2, 1000):
 			new_folder_name = "New Folder %d" % i
@@ -140,12 +140,12 @@ func new_folder() -> void:
 	
 	DirAccess.make_dir_absolute("%s%s%s" % [startingUserDirectory, padded_file_path, new_folder_name])
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-		if file_manager.file_path == file_path:
+		if file_manager.szFilePath == szFilePath:
 			file_manager.PopulateWithFile(new_folder_name, "%s%s" % [padded_file_path, new_folder_name], BaseFile.E_FILE_TYPE.FOLDER)
 			await get_tree().process_frame # Waiting for child to get added...
 			sort_folders()
 	
-	if file_path.is_empty():
+	if szFilePath.is_empty():
 		PopulateWithFolder(new_folder_name, "%s" % new_folder_name)
 		sort_folders()
 
@@ -154,8 +154,8 @@ func new_folder() -> void:
 func new_file(extension: String, file_type: BaseFile.E_FILE_TYPE) -> void:
 	var new_file_name: String = "New File%s" % extension
 	var padded_file_path: String # Since I sometimes want the / and sometimes not
-	if !file_path.is_empty():
-		padded_file_path = "%s/" % file_path
+	if !szFilePath.is_empty():
+		padded_file_path = "%s/" % szFilePath
 	
 	if FileAccess.file_exists("%s%s%s" % [startingUserDirectory, padded_file_path, new_file_name]):
 		for i in range(2, 1000):
@@ -167,16 +167,16 @@ func new_file(extension: String, file_type: BaseFile.E_FILE_TYPE) -> void:
 	var _file: FileAccess = FileAccess.open("%s%s%s" % [startingUserDirectory, padded_file_path, new_file_name], FileAccess.WRITE)
 	
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-		if file_manager.file_path == file_path:
-			file_manager.PopulateWithFile(new_file_name, file_path, file_type)
+		if file_manager.szFilePath == szFilePath:
+			file_manager.PopulateWithFile(new_file_name, szFilePath, file_type)
 			await get_tree().process_frame # Waiting for child to get added...
 			file_manager.sort_folders()
 	
-	if file_path.is_empty():
+	if szFilePath.is_empty():
 		if (file_type == BaseFile.E_FILE_TYPE.FOLDER):
-			PopulateWithFolder(new_file_name, file_path)
+			PopulateWithFolder(new_file_name, szFilePath)
 		else:
-			PopulateWithFile(new_file_name, file_path, file_type)
+			PopulateWithFile(new_file_name, szFilePath, file_type)
 		sort_folders()
 
 ## Finds a file/folder based on name and frees it (but doesn't delete it from the actual system)
@@ -269,7 +269,7 @@ func _custom_folders_first_sort(a: BaseFile, b: BaseFile) -> bool:
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 	if(data is BaseFile):
-		if((data as BaseFile).szFilePath == self.file_path):
+		if((data as BaseFile).szFilePath == self.szFilePath):
 			return false
 		return true
 	return false
@@ -285,14 +285,14 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 		
 		#not an item in this window already, copy or move it
 		# CopyPasteManager.cut_folder(currentFile)
-		# CopyPasteManager.paste_folder(file_path)
+		# CopyPasteManager.paste_folder(szFilePath)
 		var from: String = "user://files/%s" % currentFile.szFilePath
-		var to: String = "user://files/%s/" % file_path
+		var to: String = "user://files/%s/" % szFilePath
 		if(currentFile.eFileType != BaseFile.E_FILE_TYPE.FOLDER):
 			from = "%s/%s" % [from, currentFile.szFileName]
 		CopyAllFilesOrFolders([from], to, true, true)
 		BaseFileManager.RefreshAllFileManagers()
-		# CopyAllFilesOrFolders("%s/%s" % [currentFile.szFilePath, currentFile.szFileName], file_path)
+		# CopyAllFilesOrFolders("%s/%s" % [currentFile.szFilePath, currentFile.szFileName], szFilePath)
 
 
 

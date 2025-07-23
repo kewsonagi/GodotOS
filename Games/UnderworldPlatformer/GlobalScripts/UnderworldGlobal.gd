@@ -169,10 +169,10 @@ func change_vignette(value : float):
 
 func toggle_fullscreen(value : bool):
 	fullscreen = value
-	if value:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	# if value:
+	# 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	# else:
+	# 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 #----------------------------------------------------------
 

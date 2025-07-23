@@ -21,6 +21,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
 
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
 size = Vector2i(535, 407)
+render_target_update_mode = 2
 
 [node name="MarginContainer" parent="SubViewportContainer/SubViewport" index="0"]
 mouse_filter = 2
@@ -41,7 +42,12 @@ theme_override_colors/icon_hover_pressed_color = Color(0.13756527, 0.5412501, 0.
 icon = ExtResource("3_e3b21")
 expand_icon = true
 
-[node name="FileManagerWindow" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17" node_paths=PackedStringArray("windowTitle", "parentWindow") instance=ExtResource("3_x5fsl")]
+[node name="FileManagerWindow" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2" node_paths=PackedStringArray("windowTitle", "parentWindow") groups=["file_manager_window"] instance=ExtResource("3_x5fsl")]
 layout_mode = 1
 windowTitle = NodePath("../Top Bar/Title Text")
 parentWindow = NodePath("../../../../..")
+
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow" method="_on_back_button_pressed"]
+
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots"]

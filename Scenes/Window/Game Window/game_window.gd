@@ -2,8 +2,8 @@ extends SubViewport
 
 ## The game window, used to show games.
 
-@onready var window: FakeWindow = $"../../.."
-@onready var game_pause_manager: GamePauseManager = %"GamePauseManager"
+@export var window: FakeWindow# = $"../../.."
+@export var game_pause_manager: GamePauseManager# = %"GamePauseManager"
 
 func _ready() -> void:
 	window.minimized.connect(_handle_window_minimized)

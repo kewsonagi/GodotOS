@@ -171,7 +171,7 @@ func _handle_cut_folder() -> void:
 	CopyPasteManager.cut_folder(target)
 
 func _handle_paste_folder() -> void:
-	CopyPasteManager.paste_folder(target.file_path)
+	CopyPasteManager.paste_folder(target.szFilePath)
 # ----------
 
 func _on_mouse_entered() -> void:

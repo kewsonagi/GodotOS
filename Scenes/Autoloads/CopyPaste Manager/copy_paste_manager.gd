@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 		
 		var file_manager_window: FileManagerWindow = selected_window.get_node_or_null("%File Manager Window")
 		if selected_window and file_manager_window != null:
-			paste_folder(file_manager_window.file_path)
+			paste_folder(file_manager_window.szFilePath)
 
 func copy_folder(folder: BaseFile) -> void:
 	if target_folder:
@@ -111,7 +111,7 @@ func paste_folder_copy(to_path: String) -> void:
 		instantiate_file_and_sort(desktop_file_manager, to_path)
 	else:
 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-			if file_manager.file_path == to_path:
+			if file_manager.szFilePath == to_path:
 				file_manager.delete_file_with_name(target_folder_name)
 				instantiate_file_and_sort(file_manager, to_path)
 	
@@ -124,15 +124,15 @@ func paste_folder_cut(to_path: String) -> void:
 		var from: String = "user://files/%s" % target_folder_path
 		DirAccess.rename_absolute(from, to)
 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-			if file_manager.file_path.begins_with(target_folder_path):
+			if file_manager.szFilePath.begins_with(target_folder_path):
 				file_manager.close_window()
-			elif file_manager.file_path == to_path:
+			elif file_manager.szFilePath == to_path:
 				instantiate_file_and_sort(file_manager, to_path)
 	else:
 		var from: String = "user://files/%s/%s" % [target_folder_path, target_folder_name]
 		DirAccess.rename_absolute(from, to)
 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-			if file_manager.file_path == to_path:
+			if file_manager.szFilePath == to_path:
 				instantiate_file_and_sort(file_manager, to_path)
 	
 	if target_folder != null:

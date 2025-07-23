@@ -26,6 +26,7 @@ func _ready() -> void:
 	target_window.deleted.connect(_on_window_deleted)
 	target_window.selected.connect(_on_window_selected)
 	target_window.maximized.connect(_on_window_maximized)
+	target_window.resized.connect(_on_window_Resized)
 	texture_rect.self_modulate = active_color
 	storeOldTextureRect = texture_rect.texture
 
@@ -86,4 +87,7 @@ func _on_window_selected(selected: bool) -> void:
 	SetActiveColor()
 
 func _on_window_maximized(is_maximized: bool) -> void:
+	SetActiveColor()
+
+func _on_window_Resized() -> void:
 	SetActiveColor()

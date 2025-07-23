@@ -86,13 +86,13 @@ func OnDroppedFolders(files: PackedStringArray) -> void:
 
 		if(window):
 			if(window.is_selected):
-				filepathTo = "user://files/%s/" % filemanager.file_path
+				filepathTo = "user://files/%s/" % filemanager.szFilePath
 			var pos: Vector2 = window.global_position
 			var windowSize: Vector2 = window.size
 			var mousePos: Vector2 = get_global_mouse_position()
 			#if the mouse pointer is inside this window, add the dropped file here
 			if(mousePos.x > pos.x && mousePos.x < pos.x+windowSize.x && mousePos.y > pos.y && mousePos.y < pos.y+windowSize.y):
-				filepathTo = "user://files/%s/" % filemanager.file_path
+				filepathTo = "user://files/%s/" % filemanager.szFilePath
 
 	CopyAllFilesOrFolders(files, filepathTo)
 		# get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()

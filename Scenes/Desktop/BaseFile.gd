@@ -26,19 +26,30 @@ var bMouseOver: bool
 func _ready() -> void:
 	hoverHighlightControl.self_modulate.a = 0
 	selectedHighlightControl.visible = false
-	fileTitleControl.text = "[center]%s" % szFileName
+	fileTitleControl.text = "%s" % szFileName.get_file().get_basename()
+	titleEditBox.text = fileTitleControl.text
 	
 	fileTexture.modulate = fileColor
 	fileTexture.texture = fileIcon
 
 func _input(event: InputEvent) -> void:
+	#handle setting up right click menu
+	if event.is_action_pressed(&"RightClick"):
+		if bMouseOver:
+			HandleRightClick()
+
 	if event.is_action_pressed(&"LeftClick"):
+		#handle title pressed, for renaming
+		#if(bHoveringTitle):
+		#	ShowRename()
+		#else:
+		#	RenameFile()
+
+		#checking hover to show selection effect
 		if !bMouseOver:
 			hide_selected_highlight()
 		else:
 			show_selected_highlight()
-			if !bMouseOver or event.button_index != 1:
-				return
 			
 			if doubleClickTimer.is_stopped():
 				doubleClickTimer.start()
@@ -67,7 +78,6 @@ func _input(event: InputEvent) -> void:
 			get_parent().select_folder_right(self)
 		elif event.is_action_pressed("ui_accept"):
 			accept_event()
-			# open_folder()
 			OpenFile()
 
 func _on_mouse_entered() -> void:
@@ -109,9 +119,9 @@ func delete_file() -> void:
 		#looking for a file manager currently open with the deleted folder
 		#if found, close it
 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-			if file_manager.file_path.begins_with(szFilePath):
+			if file_manager.szFilePath.begins_with(szFilePath):
 				file_manager.close_window()
-			elif get_parent() is FileManagerWindow and file_manager.file_path == get_parent().file_path:
+			elif get_parent() is FileManagerWindow and file_manager.szFilePath == get_parent().szFilePath:
 				file_manager.delete_file_with_name(szFileName)
 				file_manager.update_positions()
 	else:
@@ -120,7 +130,7 @@ func delete_file() -> void:
 			return
 		OS.move_to_trash(delete_path)
 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-			if file_manager.file_path == szFilePath:
+			if file_manager.szFilePath == szFilePath:
 				file_manager.delete_file_with_name(szFileName)
 				file_manager.sort_folders()
 	
@@ -139,3 +149,39 @@ func OpenFile() -> void:
 func DeleteFile() -> void:
 	delete_file()
 	return
+
+func HandleRightClick() -> void:
+	RClickMenuManager.instance.ShowMenu("Base File Menu", self)
+	RClickMenuManager.instance.AddMenuItem("Open Me!", OpenFile)
+	RClickMenuManager.instance.AddMenuItem("Copy", CopyFile)
+	RClickMenuManager.instance.AddMenuItem("Cut", CutFile)
+	RClickMenuManager.instance.AddMenuItem("Rename", ShowRename)
+	RClickMenuManager.instance.AddMenuItem("Delete Me", DeleteFile)
+
+func CopyFile() -> void:
+	CopyPasteManager.copy_file(self)
+
+func CutFile() -> void:
+	CopyPasteManager.cut_file(self)
+
+#handle renaming controls
+func RenameFile() -> void:
+	if(!titleEditBox.text.is_empty()):
+		#titleEditBox.visible = false
+		#fileTitleControl.text = titleEditBox.text
+		await get_tree().process_frame
+	
+func ShowRename() -> void:
+	if(!titleEditBox.visible):
+		titleEditBox.visible = true
+		titleEditBox.text = fileTitleControl.text.get_file().get_basename()#.trim_suffix(".")
+		titleEditBox.grab_focus()
+		titleEditBox.select_all()
+
+func _on_folder_title_edit_text_changed() -> void:
+	RenameFile()
+	#titleEditBox.visible = text
+	await get_tree().process_frame
+
+func _on_title_button_pressed() -> void:
+	ShowRename()

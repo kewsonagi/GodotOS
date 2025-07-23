@@ -5,14 +5,14 @@ class_name FileManagerWindow
 
 func _ready() -> void:
 	if(parentWindow.creationData.has("StartPath")):
-		file_path = parentWindow.creationData["StartPath"]
+		szFilePath = parentWindow.creationData["StartPath"]
 	populate_file_manager()
 	parentWindow.resized.connect(update_positions)
 
 func reload_window(folder_path: String) -> void:
 	# Reload the same path if not given folder_path
 	if !folder_path.is_empty():
-		file_path = folder_path
+		szFilePath = folder_path
 	
 	for child in get_children():
 		if child is BaseFile:
@@ -22,7 +22,7 @@ func reload_window(folder_path: String) -> void:
 	
 	#TODO make this less dumb
 	if(windowTitle):
-		windowTitle.text = "%s" % [file_path]
+		windowTitle.text = "%s" % [szFilePath]
 	parentWindow.select_window(true)
 
 # func close_window() -> void:
@@ -31,13 +31,11 @@ func reload_window(folder_path: String) -> void:
 ## Goes to the folder above the currently shown one. Can't go higher than user://files/
 func _on_back_button_pressed() -> void:
 	#TODO move it to a position that's less stupid
-	var split_path: PackedStringArray = file_path.split("/")
+	var split_path: PackedStringArray = szFilePath.split("/")
 	if split_path.size() <= 1:
 		return
-	#if(file_path.ends_with("user:///files/".simplify_path())):
-	#	return
-	#file_path = ("%s../" % file_path).simplify_path()
+
 	split_path.remove_at(split_path.size() - 1)
-	file_path = "/".join(split_path)
+	szFilePath = "/".join(split_path)
 	
-	reload_window(file_path)
+	reload_window(szFilePath)

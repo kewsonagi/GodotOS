@@ -68,7 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_agg5v")
 
-[node name="DesktopFileManager" type="Control" parent="." groups=["desktop_file_manager", "right_click_enabled"]]
+[node name="DesktopFileManager" type="Control" parent="." groups=["desktop_file_manager"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

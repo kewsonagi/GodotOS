@@ -6,9 +6,9 @@ extends CodeEdit
 @export var parentWindow: FakeWindow
 
 var text_edited: bool
-var file_path: String : 
+var szFileName: String : 
 	set(value):
-		file_path = value
+		szFileName = value
 
 func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
@@ -27,8 +27,8 @@ func _input(event: InputEvent) -> void:
 		save_file()
 
 func populate_text(path: String) -> void:
-	file_path = path
-	var file: FileAccess = FileAccess.open("user://files/%s" % file_path, FileAccess.READ)
+	szFileName = path
+	var file: FileAccess = FileAccess.open("user://files/%s" % szFileName, FileAccess.READ)
 	text = file.get_as_text()
 
 func _on_text_changed() -> void:
@@ -42,11 +42,11 @@ func save_file() -> void:
 	if !text_edited:
 		return
 	
-	if !FileAccess.file_exists("user://files/%s" % file_path):
+	if !FileAccess.file_exists("user://files/%s" % szFileName):
 		NotificationManager.ShowNotification("[color=fc6c64]Couldn't save text file: File no longer exists")
 		return
 	
-	var file: FileAccess = FileAccess.open("user://files/%s" % file_path, FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open("user://files/%s" % szFileName, FileAccess.WRITE)
 	file.store_string(text)
 	
 	parentWindow.titleText.text = parentWindow.titleText.text.trim_suffix("*")

@@ -2,17 +2,14 @@ extends Panel
 class_name FakeWindow
 
 ## The base class for each window. Handles moving, resizing, minimizing, etc.
-
-
 static var num_of_windows: int
 
 @export_category("Title Bar")
-@export var top_bar: Panel# = $"TransitionAnimationControl/Top Bar"
-@export var maximizeButton: Button# = $"Top Bar/HBoxContainer/Maximize Button"
-#@export var resizeButton: Array[Control] = []# = $"Resize Drag Spot"
+@export var top_bar: Panel
+@export var maximizeButton: Button
 @export var maximize_icon: CompressedTexture2D = load("res://Art/shaded/37-plus-sign.png")
 @export var unmaximize_icon: CompressedTexture2D = load("res://Art/Icons/shrink.png")
-@export var titleText: RichTextLabel# = $"Top Bar/Title Text"
+@export var titleText: RichTextLabel
 @export var titlebarIcon: Button
 
 var title_text: String
@@ -76,6 +73,7 @@ var windowSaveSizeKey: String
 var windowSaveMaximizedKey: String
 var windowOpenedKey: String
 
+#region signals and initialization of data
 
 signal minimized(is_minimized: bool)
 signal selected(is_selected: bool)
@@ -92,7 +90,6 @@ func SetID(id:String) -> void:
 	windowSaveSizeKey = "%s%s" % [windowID, "size"]
 	windowSaveMaximizedKey = "%s%s" % [windowID, "maximized"]
 	windowOpenedKey = "%s%s" % [windowID, "opened"]
-
 
 	#save section
 	if(!windowSaveFile):return
@@ -137,6 +134,17 @@ func _ready() -> void:
 	
 	SetID(windowID)
 
+func SaveWindowState() -> void:
+	windowSaveFile.data[windowSavePosKey] = position
+	windowSaveFile.data[windowSaveSizeKey] = size
+	windowSaveFile.data[windowSaveMaximizedKey] = is_maximized
+	windowSaveFile.data[windowOpenedKey] = true
+	windowSaveFile.write_savegame();
+
+
+#endregion
+#region processing inputs
+
 func _process(_delta: float) -> void:
 	if is_dragging:
 		var mouseChangeInPosition: Vector2 = get_global_mouse_position() - mouse_start_drag_position;
@@ -147,6 +155,7 @@ func _process(_delta: float) -> void:
 				windowSaveFile.data[windowSaveSizeKey] = size
 
 				maximize_window(false)
+				#self.resized.emit()
 				global_position = get_global_mouse_position() - Vector2(size.x/2.0, 20)
 				
 				start_drag_position = global_position
@@ -209,6 +218,9 @@ func _on_top_bar_gui_input(event: InputEvent) -> void:
 	if(event.is_action_released(&"LeftClick")):
 		is_dragging = false
 
+#endregion
+#region handling interface interactions
+
 func _on_close_button_pressed() -> void:
 	if is_being_deleted:
 		return
@@ -229,21 +241,28 @@ func _on_close_button_pressed() -> void:
 	
 	queue_free()
 
-func SaveWindowState() -> void:
-	windowSaveFile.data[windowSavePosKey] = position
-	windowSaveFile.data[windowSaveSizeKey] = size
-	windowSaveFile.data[windowSaveMaximizedKey] = is_maximized
-	windowSaveFile.data[windowOpenedKey] = true
-	windowSaveFile.write_savegame();
-
 func _on_minimize_button_pressed() -> void:
 	hide_window()
 
-#should only be called when the godot window closes
+func _on_maximize_button_pressed() -> void:
+	maximize_window()
+
 func _exit_tree() -> void:
 	#_on_close_button_pressed()
 	SaveWindowState()
 
+func _on_top_bar_mouse_entered() -> void:
+	pass # Replace with function body.
+
+func _on_top_bar_mouse_exited() -> void:
+	pass # Replace with function body.
+
+
+#endregion
+
+#region internal funtion handling
+
+#minimize window
 func hide_window() -> void:
 	if is_minimized:
 		return
@@ -260,7 +279,7 @@ func hide_window() -> void:
 	
 	if !is_selected:
 		visible = false
-
+#restore window from minimize
 func show_window() -> void:
 	if !is_minimized:
 		return
@@ -276,7 +295,7 @@ func show_window() -> void:
 	tween.tween_property(transitionsNode, "modulate:a", 1, 0.25)
 	select_window(false)
 
-## Actually "focuses" the window and brings it to the front
+#makes window active
 func select_window(play_fade_animation: bool) -> void:
 	if is_selected:
 		return
@@ -296,6 +315,7 @@ func select_window(play_fade_animation: bool) -> void:
 	
 	deselect_other_windows()
 
+#deselected window fade out a bit
 func deselect_window() -> void:
 	if !is_selected:
 		return
@@ -314,6 +334,7 @@ func deselect_other_windows() -> void:
 		if window == self:
 			continue
 		window.deselect_window()
+
 
 func clamp_window_inside_viewport() -> void:
 	if(get_viewport()):
@@ -342,8 +363,7 @@ func _on_viewport_size_changed() -> void:
 	
 	clamp_window_inside_viewport()
 
-func _on_maximize_button_pressed() -> void:
-	maximize_window()
+
 
 func maximize_window(animatePos: bool = true) -> void:
 	select_window(true)
@@ -397,7 +417,7 @@ func maximize_window(animatePos: bool = true) -> void:
 			await tween.tween_property(self, "size", new_size, 0.25).finished
 		
 		#resizeButton.window_resized.emit()
-		maximized.emit(true)
+	maximized.emit(is_maximized)
 
 func GetSize() -> Vector2:
 	return size;
@@ -421,9 +441,6 @@ func ResizeWindow(newSize: Vector2) -> void:
 		is_maximized = !is_maximized
 		maximizeButton.icon = maximize_icon
 
-
-# @export var resizeBorders: Array[Control]
-
 func ClickedResizeWindowArea() -> bool:
 	if(get_global_mouse_position().x > global_position.x+size.x-resizeBorderWidth and get_global_mouse_position().x < global_position.x + size.x + resizeBorderWidth):
 		if(get_global_mouse_position().y > global_position.y + size.x - resizeBorderHeight and get_global_mouse_position().y < global_position.y + size.y + resizeBorderHeight):
@@ -435,9 +452,4 @@ func HandleResize() -> void:
 		size += mouseChangeInPosition
 
 
-func _on_top_bar_mouse_entered() -> void:
-	pass # Replace with function body.
-
-
-func _on_top_bar_mouse_exited() -> void:
-	pass # Replace with function body.
+#endregion

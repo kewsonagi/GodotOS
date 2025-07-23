@@ -114,7 +114,6 @@ Hello World."
 fit_content = true
 
 [node name="Title Edit Container" type="CenterContainer" parent="Control"]
-visible = false
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 40.0
@@ -122,6 +121,7 @@ mouse_filter = 2
 
 [node name="Folder Title Edit" type="TextEdit" parent="Control/Title Edit Container"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(95, 40)
 layout_mode = 2
 theme_override_constants/line_spacing = 0

@@ -30,7 +30,7 @@ func DeleteFile() -> void:
 		return
 	OS.move_to_trash(delete_path)
 	for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-		if file_manager.file_path == szFilePath:
+		if file_manager.szFilePath == szFilePath:
 			file_manager.delete_file_with_name(szFileName)
 			file_manager.sort_folders()
 

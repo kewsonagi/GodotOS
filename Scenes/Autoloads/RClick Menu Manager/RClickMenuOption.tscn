@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctmotds7d1sr1"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_mcrnf"]
+[ext_resource type="Script" uid="uid://byviqoelki8mk" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenuOption.gd" id="2_n2bka"]
+[ext_resource type="Texture2D" uid="uid://b34jpilo33jmk" path="res://Art/shaded/27-pen-edit.png" id="3_3x2p3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn8jj"]
+bg_color = Color(0, 0.792157, 0.952941, 0.72549)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="Context Menu Option" type="Panel" node_paths=PackedStringArray("optionText", "optionIcon")]
+self_modulate = Color(1, 1, 1, 0.2)
+custom_minimum_size = Vector2(0, 30)
+offset_right = 170.0
+offset_bottom = 30.0
+mouse_filter = 1
+theme = ExtResource("1_mcrnf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xn8jj")
+script = ExtResource("2_n2bka")
+optionText = NodePath("CenterContainer/Option Text")
+optionIcon = NodePath("TextureRect")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Option Text" type="RichTextLabel" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_mcrnf")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/italics_font_size = 12
+text = "Hello, World!"
+fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_vertical = 2
+texture = ExtResource("3_3x2p3")
+expand_mode = 1
+stretch_mode = 4
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
