@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b0s8ey703a0i6"]
+[gd_scene load_steps=82 format=3 uid="uid://b0s8ey703a0i6"]
 
 [ext_resource type="Script" uid="uid://y57u7bdnh015" path="res://Scenes/Autoloads/ResourceManager/DefaultResources.gd" id="1_s4c1d"]
 [ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="2_32g4d"]
@@ -10,15 +10,37 @@
 [ext_resource type="Texture2D" uid="uid://c0ovs3dnopxua" path="res://Art/Icons - icones/games-01.png" id="8_p8eai"]
 [ext_resource type="Texture2D" uid="uid://cmf11afmi3sol" path="res://examples/icon_texture/icons/actions/action_copy.svg" id="9_5vjn4"]
 [ext_resource type="Texture2D" uid="uid://cwika7au3grfq" path="res://examples/icon_texture/icons/actions/action_paste.svg" id="10_p4bhy"]
-[ext_resource type="Texture2D" uid="uid://r75qu6pgewn8" path="res://examples/icon_texture/icons/actions/action_cut.svg" id="11_037xx"]
-[ext_resource type="Texture2D" uid="uid://5keoj0cl6q7q" path="res://Art/free-file-icons-master/512px/changelog.svg" id="12_xlyev"]
+[ext_resource type="Texture2D" uid="uid://dmwwybx1uv3mt" path="res://Art/shaded/Scissors.png" id="11_vogka"]
+[ext_resource type="Texture2D" uid="uid://dsvsrbvc48oxs" path="res://Art/Cartoony/elements/DoubleCircleArrows1.png" id="12_nw14q"]
 [ext_resource type="Texture2D" uid="uid://ck8rymxwu8fmp" path="res://examples/icon_texture/icons/nodes/menu_button.svg" id="13_hyoq3"]
-[ext_resource type="Texture2D" uid="uid://bc50743u8gijh" path="res://examples/icon_texture/icons/actions/remove.svg" id="14_0uxsa"]
+[ext_resource type="Texture2D" uid="uid://dj6uxnp8pet0o" path="res://Art/shaded/Trashbin.png" id="14_cl5xl"]
 [ext_resource type="Texture2D" uid="uid://b34jpilo33jmk" path="res://Art/shaded/27-pen-edit.png" id="15_sddh6"]
+[ext_resource type="Texture2D" uid="uid://c52c3p0h1475m" path="res://Art/shaded/02-cog.png" id="16_1r5ku"]
 [ext_resource type="Texture2D" uid="uid://4y34hbn86hjh" path="res://Art/free-file-icons-master/512px/settings.svg" id="16_u6mnn"]
 [ext_resource type="Texture2D" uid="uid://bd8n4be7b4478" path="res://Art/shaded/30-x-mark.png" id="17_s8e62"]
 [ext_resource type="Texture2D" uid="uid://d2kxbh4jj7p6v" path="res://Art/shaded/29-check-mark.png" id="18_ycnn0"]
-[ext_resource type="Texture2D" uid="uid://5h8ubnij3eyw" path="res://Art/free-file-icons-master/512px/makefile.svg" id="19_p4bhy"]
+[ext_resource type="Texture2D" uid="uid://yy4nxixj48qs" path="res://Art/shaded/Enter.png" id="19_8b5ay"]
+[ext_resource type="Texture2D" uid="uid://clwme7bv4vexo" path="res://Art/Cartoony/elements/UnknownMonster1.png" id="20_caim1"]
+[ext_resource type="Texture2D" uid="uid://5hi3jgtfmst2" path="res://Art/shaded/01-save.png" id="21_jrtb8"]
+[ext_resource type="Texture2D" uid="uid://c76mefvskmeuq" path="res://Art/shaded/10-notification-bell-circle.png" id="23_1t5wi"]
+[ext_resource type="Texture2D" uid="uid://b8dgh2w4gnpml" path="res://Art/shaded/11-language.png" id="24_m0i5v"]
+[ext_resource type="Texture2D" uid="uid://bpbxkcr4u6p6x" path="res://Art/shaded/33-eye-view.png" id="25_wp2hs"]
+[ext_resource type="Texture2D" uid="uid://b55mf8e00fysf" path="res://Art/shaded/34-eye-view-off.png" id="26_rhnpk"]
+[ext_resource type="Texture2D" uid="uid://crida3cwloykb" path="res://Art/shaded/39-star.png" id="27_a32gk"]
+[ext_resource type="Texture2D" uid="uid://bcgml7i2xvsk3" path="res://Art/shaded/45-lock.png" id="28_a10kg"]
+[ext_resource type="Texture2D" uid="uid://dacu7cej1xakn" path="res://Art/shaded/Exit.png" id="29_fi7pf"]
+[ext_resource type="Texture2D" uid="uid://dwh6hr3ex3poi" path="res://Art/shaded/46-lock-open.png" id="30_stj78"]
+[ext_resource type="Texture2D" uid="uid://bxoo67ooc2p7l" path="res://Art/shaded/Info.png" id="31_52tvc"]
+[ext_resource type="Texture2D" uid="uid://nxsfhif8ir1k" path="res://Art/GuiAssets/icons/shaded/circle-exclamtion.png" id="32_5p2wt"]
+[ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="33_dpmh6"]
+[ext_resource type="Texture2D" uid="uid://wd02o8nb6ru6" path="res://Art/Crunchycons/Caution_20220327175031.png" id="34_sgd5v"]
+[ext_resource type="Texture2D" path="res://Art/GuiAssets/icons/shaded/skull_bones_shaded.tres" id="35_ailjk"]
+[ext_resource type="Texture2D" uid="uid://lwqcys4ltg7x" path="res://Art/Crunchycons/Message_20220327175432.png" id="36_gd1nv"]
+[ext_resource type="Texture2D" uid="uid://cyj76mywaaoby" path="res://Art/GuiAssets/icons/shaded/comment.png" id="37_7je3n"]
+[ext_resource type="Texture2D" uid="uid://twjfhuvfh4m0" path="res://Art/Crunchycons/Pause_20220327173959.png" id="38_hhi5a"]
+[ext_resource type="Texture2D" uid="uid://dsrvmeelqeaj5" path="res://Art/Crunchycons/Play_20220327173942.png" id="39_oijan"]
+[ext_resource type="Texture2D" uid="uid://f2bapyn1arlw" path="res://Art/Crunchycons/Plus_20220327175332.png" id="40_j285p"]
+[ext_resource type="Texture2D" uid="uid://d4b5ivkrs1pjs" path="res://Art/Crunchycons/Minus_20220327175348.png" id="41_u1khr"]
 
 [sub_resource type="Resource" id="Resource_mupru"]
 script = ExtResource("3_ut5xl")
@@ -71,13 +93,13 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_4g2ku"]
 script = ExtResource("3_ut5xl")
 key = "Cut"
-res = ExtResource("11_037xx")
+res = ExtResource("11_vogka")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_7htkm"]
 script = ExtResource("3_ut5xl")
 key = "Refresh"
-res = ExtResource("12_xlyev")
+res = ExtResource("12_nw14q")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_o4pw1"]
@@ -89,7 +111,7 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_klj0d"]
 script = ExtResource("3_ut5xl")
 key = "Delete"
-res = ExtResource("14_0uxsa")
+res = ExtResource("14_cl5xl")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_4ae43"]
@@ -100,8 +122,8 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_xavhe"]
 script = ExtResource("3_ut5xl")
-key = "Settings"
-res = ExtResource("16_u6mnn")
+key = "Options"
+res = ExtResource("16_1r5ku")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_o87w6"]
@@ -119,7 +141,145 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_yje0t"]
 script = ExtResource("3_ut5xl")
 key = "Open"
-res = ExtResource("19_p4bhy")
+res = ExtResource("19_8b5ay")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_xqxrs"]
+script = ExtResource("3_ut5xl")
+key = "Unknown"
+res = ExtResource("20_caim1")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_s8i5f"]
+script = ExtResource("3_ut5xl")
+key = "Save"
+res = ExtResource("21_jrtb8")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_f2142"]
+script = ExtResource("3_ut5xl")
+key = "Settings"
+res = ExtResource("16_u6mnn")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_qr5wc"]
+script = ExtResource("3_ut5xl")
+key = "Notification"
+res = ExtResource("23_1t5wi")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_a0fke"]
+script = ExtResource("3_ut5xl")
+key = "NotificationUnknown"
+res = ExtResource("24_m0i5v")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_i7obc"]
+script = ExtResource("3_ut5xl")
+key = "Edit"
+res = ExtResource("15_sddh6")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_1qq8t"]
+script = ExtResource("3_ut5xl")
+key = "Visible"
+res = ExtResource("25_wp2hs")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_h7gd5"]
+script = ExtResource("3_ut5xl")
+key = "NotVisible"
+res = ExtResource("26_rhnpk")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_giqt4"]
+script = ExtResource("3_ut5xl")
+key = "Star"
+res = ExtResource("27_a32gk")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_1n6bk"]
+script = ExtResource("3_ut5xl")
+key = "Lock"
+res = ExtResource("28_a10kg")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_1pp1g"]
+script = ExtResource("3_ut5xl")
+key = "Exit"
+res = ExtResource("29_fi7pf")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_dnqsk"]
+script = ExtResource("3_ut5xl")
+key = "Unlock"
+res = ExtResource("30_stj78")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_e4vw1"]
+script = ExtResource("3_ut5xl")
+key = "Info"
+res = ExtResource("31_52tvc")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_bm7ln"]
+script = ExtResource("3_ut5xl")
+key = "Error"
+res = ExtResource("32_5p2wt")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_njn73"]
+script = ExtResource("3_ut5xl")
+key = "PowerOff"
+res = ExtResource("33_dpmh6")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_f37qp"]
+script = ExtResource("3_ut5xl")
+key = "Warning"
+res = ExtResource("34_sgd5v")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_v2pt2"]
+script = ExtResource("3_ut5xl")
+key = "Death"
+res = ExtResource("35_ailjk")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_kij7c"]
+script = ExtResource("3_ut5xl")
+key = "Message"
+res = ExtResource("36_gd1nv")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_1phvw"]
+script = ExtResource("3_ut5xl")
+key = "Emote"
+res = ExtResource("37_7je3n")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_pk0a4"]
+script = ExtResource("3_ut5xl")
+key = "Pause"
+res = ExtResource("38_hhi5a")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_6rm25"]
+script = ExtResource("3_ut5xl")
+key = "Play"
+res = ExtResource("39_oijan")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_ihmb0"]
+script = ExtResource("3_ut5xl")
+key = "Plus"
+res = ExtResource("40_j285p")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_3aray"]
+script = ExtResource("3_ut5xl")
+key = "Minus"
+res = ExtResource("41_u1khr")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [node name="DefaultResources" type="Control"]
@@ -131,4 +291,4 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_s4c1d")
-defaultInterfaceIcons = Array[ExtResource("3_ut5xl")]([SubResource("Resource_mupru"), SubResource("Resource_htykk"), SubResource("Resource_ifm5x"), SubResource("Resource_qq1af"), SubResource("Resource_ecm56"), SubResource("Resource_xivnn"), SubResource("Resource_t2n8d"), SubResource("Resource_uaf1q"), SubResource("Resource_4g2ku"), SubResource("Resource_7htkm"), SubResource("Resource_o4pw1"), SubResource("Resource_klj0d"), SubResource("Resource_4ae43"), SubResource("Resource_xavhe"), SubResource("Resource_o87w6"), SubResource("Resource_rlbho"), SubResource("Resource_yje0t")])
+defaultInterfaceIcons = Array[ExtResource("3_ut5xl")]([SubResource("Resource_mupru"), SubResource("Resource_htykk"), SubResource("Resource_ifm5x"), SubResource("Resource_qq1af"), SubResource("Resource_ecm56"), SubResource("Resource_xivnn"), SubResource("Resource_t2n8d"), SubResource("Resource_uaf1q"), SubResource("Resource_4g2ku"), SubResource("Resource_7htkm"), SubResource("Resource_o4pw1"), SubResource("Resource_klj0d"), SubResource("Resource_4ae43"), SubResource("Resource_xavhe"), SubResource("Resource_o87w6"), SubResource("Resource_rlbho"), SubResource("Resource_yje0t"), SubResource("Resource_xqxrs"), SubResource("Resource_s8i5f"), SubResource("Resource_f2142"), SubResource("Resource_qr5wc"), SubResource("Resource_a0fke"), SubResource("Resource_i7obc"), SubResource("Resource_1qq8t"), SubResource("Resource_h7gd5"), SubResource("Resource_giqt4"), SubResource("Resource_1n6bk"), SubResource("Resource_1pp1g"), SubResource("Resource_dnqsk"), SubResource("Resource_e4vw1"), SubResource("Resource_bm7ln"), SubResource("Resource_njn73"), SubResource("Resource_f37qp"), SubResource("Resource_v2pt2"), SubResource("Resource_kij7c"), SubResource("Resource_1phvw"), SubResource("Resource_pk0a4"), SubResource("Resource_6rm25"), SubResource("Resource_ihmb0"), SubResource("Resource_3aray")])

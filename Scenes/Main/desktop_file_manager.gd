@@ -69,6 +69,30 @@ func _on_window_focus() -> void:
 			populate_file_manager()
 			return
 
+func HandleRightClick() -> void:
+	RClickMenuManager.instance.ShowMenu("Desktop Menu", self)
+	RClickMenuManager.instance.AddMenuItem("Paste", Paste, ResourceManager.GetResource("Paste"))
+	RClickMenuManager.instance.AddMenuItem("New Folder", NewFolder, ResourceManager.GetResource("Folder"))
+	RClickMenuManager.instance.AddMenuItem("New File", NewFile, ResourceManager.GetResource("File"))
+	RClickMenuManager.instance.AddMenuItem("Refresh", Refresh, ResourceManager.GetResource("Refresh"))
+	RClickMenuManager.instance.AddMenuItem("Properties", Properties)
+
+func Paste() -> void:
+	CopyPasteManager.paste_folder(szFilePath)
+
+func NewFolder() -> void:
+	new_folder()
+
+func NewFile() -> void:
+	new_file("txt", BaseFile.E_FILE_TYPE.TEXT_FILE)
+
+func Refresh() -> void:
+	populate_file_manager()
+
+func Properties() -> void:
+	populate_file_manager()
+
+
 func _enter_tree() -> void:
 	masterFileManagerList.append(self)
 	get_viewport().files_dropped.connect(OnDroppedFolders)

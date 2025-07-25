@@ -34,7 +34,6 @@ custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
-mouse_filter = 1
 script = ExtResource("1_y12s4")
 fileIcon = ExtResource("2_y12s4")
 fileColor = Color(0.8417413, 0.84973186, 0.6599077, 1)

@@ -371,8 +371,13 @@ func CopyAllFilesOrFolders(files: PackedStringArray, to: String = "user://files/
 			dirToDelete.clear()
 	NotificationManager.ShowNotification("Dropped your files into %s" % to, NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Added files")
 
+func _gui_input(event: InputEvent) -> void:
+	if(event.is_action_pressed(&"RightClick")):
+		HandleRightClick()
+
 func HandleRightClick() -> void:
 	RClickMenuManager.instance.ShowMenu("File Manager Menu", self)
+	RClickMenuManager.instance.AddMenuItem("Paste", Paste, ResourceManager.GetResource("Paste"))
 	RClickMenuManager.instance.AddMenuItem("New Folder", NewFolder, ResourceManager.GetResource("Folder"))
 	RClickMenuManager.instance.AddMenuItem("New File", NewFile, ResourceManager.GetResource("File"))
 	RClickMenuManager.instance.AddMenuItem("Refresh", Refresh, ResourceManager.GetResource("Refresh"))
@@ -381,6 +386,9 @@ func HandleRightClick() -> void:
 
 func NewFolder() -> void:
 	new_folder()
+
+func Paste() -> void:
+	CopyPasteManager.paste_folder(szFilePath)
 
 func NewFile() -> void:
 	new_file("txt", BaseFile.E_FILE_TYPE.TEXT_FILE)

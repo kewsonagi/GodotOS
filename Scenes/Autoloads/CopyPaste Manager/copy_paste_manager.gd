@@ -33,8 +33,8 @@ func _input(event: InputEvent) -> void:
 			paste_folder(file_manager_window.szFilePath)
 
 func copy_folder(folder: BaseFile) -> void:
-	if target_folder:
-		target_folder.modulate.a = 1
+	#if target_folder:
+	#	target_folder.modulate.a = 1
 	target_folder = folder
 	
 	target_folder_name = folder.szFileName
@@ -45,8 +45,8 @@ func copy_folder(folder: BaseFile) -> void:
 	NotificationManager.ShowNotification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
 func copy_file(file: BaseFile) -> void:
-	if target_file:
-		target_file.modulate.a = 1
+	#if target_file:
+	#	target_file.modulate.a = 1
 	target_file = file
 	
 	target_file_name = file.szFileName
@@ -57,10 +57,10 @@ func copy_file(file: BaseFile) -> void:
 	NotificationManager.ShowNotification("Copied [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
 func cut_folder(folder: BaseFile) -> void:
-	if target_folder:
-		target_folder.modulate.a = 1
+	#if target_folder:
+	#	target_folder.modulate.a = 1
 	target_folder = folder
-	target_folder.modulate.a = 0.8
+	#target_folder.modulate.a = 0.8
 	
 	target_folder_name = folder.szFileName
 	target_folder_path = folder.szFilePath
@@ -69,10 +69,10 @@ func cut_folder(folder: BaseFile) -> void:
 	NotificationManager.ShowNotification("Cutting [color=59ea90][wave freq=7]%s[/wave][/color]" % target_folder_name)
 
 func cut_file(file: BaseFile) -> void:
-	if target_file:
-		target_file.modulate.a = 1
+	#if target_file:
+	#	target_file.modulate.a = 1
 	target_file = file
-	target_folder.modulate.a = 0.8
+	#target_folder.modulate.a = 0.8
 	
 	target_file_name = file.szFileName
 	target_file_path = file.szFilePath

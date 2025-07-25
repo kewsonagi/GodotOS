@@ -32,11 +32,18 @@ func _ready() -> void:
 	fileTexture.modulate = fileColor
 	fileTexture.texture = fileIcon
 
+# func _gui_input(event: InputEvent) -> void:
+# 	if(event.is_action_pressed(&"RightClick")):
+# 		HandleRightClick()
+# 	elif(event.is_action_pressed(&"LeftClick")):
+# 		if(menuUp):
+# 			menuUp = false
+# 			RClickManager.instance.DismissMenu()
+
 func _input(event: InputEvent) -> void:
 	#handle setting up right click menu
-	if event.is_action_pressed(&"RightClick"):
-		if bMouseOver:
-			HandleRightClick()
+	if event.is_action_pressed(&"RightClick") and hoverHighlightControl.visible and bMouseOver:
+		HandleRightClick()
 
 	if event.is_action_pressed(&"LeftClick"):
 		#handle title pressed, for renaming
@@ -158,11 +165,16 @@ func HandleRightClick() -> void:
 	RClickMenuManager.instance.AddMenuItem("Rename", ShowRename, ResourceManager.GetResource("Edit"))
 	RClickMenuManager.instance.AddMenuItem("Delete Me", DeleteFile, ResourceManager.GetResource("Delete"))
 
+	NotificationManager.ShowNotification("Base File Right Click")
+
+	titleEditBox.release_focus()
+	titleEditBox.visible = false
+
 func CopyFile() -> void:
-	CopyPasteManager.copy_file(self)
+	CopyPasteManager.copy_folder(self)
 
 func CutFile() -> void:
-	CopyPasteManager.cut_file(self)
+	CopyPasteManager.cut_folder(self)
 
 #handle renaming controls
 func RenameFile() -> void:

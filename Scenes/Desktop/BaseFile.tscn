@@ -36,7 +36,6 @@ custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
-mouse_filter = 1
 script = ExtResource("1_01gt0")
 eFileType = 1
 fileIcon = ExtResource("2_01gt0")
@@ -100,6 +99,7 @@ offset_bottom = 112.5
 mouse_filter = 1
 
 [node name="TitleButton" type="Button" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -78,16 +78,24 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c0q37")
 defaultFilesLocation = "res://Default Files/"
+szFilePath = null
+startingUserDirectory = null
 baseFile = ExtResource("3_rgj25")
 textFile = ExtResource("3_ctt6t")
+extensionsForText = null
 imageFile = ExtResource("4_rgj25")
+extensionsForImage = null
 folderFile = ExtResource("5_r8g3u")
 pathToIcons = "res://Art/free-file-icons-master/512px/"
 direction = "Vertical"
+poll_rate = null
+animation_speed = null
 horizontal_spacing = 20
+vertical_spacing = null
 left_margin = 10
 up_margin = 10
 right_margin = 10
+down_margin = null
 
 [node name="Taskbar" parent="." instance=ExtResource("2_35ao4")]
 layout_mode = 1

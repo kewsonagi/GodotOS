@@ -14,6 +14,7 @@ var currentMenuItems: Array[RClickMenuOption]
 var startSize: Vector2
 
 static var instance: RClickMenuManager = null
+signal Dismissed()
 
 ## Checks if the mouse is currently over the menu
 var is_mouse_over: bool
@@ -70,7 +71,12 @@ func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null)
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed(&"LeftClick")):
 		if(self.visible and !is_mouse_over):
-			await get_tree().process_frame
+			var thisContainer: Rect2
+			thisContainer.position = self.global_position
+			thisContainer.size = self.size
+			if(!thisContainer.has_point(get_global_mouse_position())):
+				await get_tree().process_frame
+				DismissMenu()
 			#HideMenu()
 	# if event is InputEventMouseButton and event.is_pressed():
 	# 	if event.button_index == 1 and self.visible:
@@ -84,6 +90,7 @@ func DismissMenu() -> void:
 	for item:RClickMenuOption in currentMenuItems:
 		if(item.optionIcon):
 			ResourceManager.ReturnResourceByResource(item.optionIcon.texture)
+	Dismissed.emit()
 
 func _on_mouse_entered() -> void:
 	is_mouse_over = true

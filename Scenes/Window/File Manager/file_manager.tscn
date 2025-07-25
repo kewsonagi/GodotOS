@@ -26,16 +26,3 @@ pathToIcons = "res://Art/free-file-icons-master/512px/"
 horizontal_spacing = 15
 vertical_spacing = 12
 metadata/_custom_type_script = "uid://0e08uudim1di"
-
-[node name="BackdropButton" type="Button" parent="."]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-button_mask = 2
-
-[connection signal="pressed" from="BackdropButton" to="." method="HandleRightClick"]

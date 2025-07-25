@@ -7,12 +7,17 @@ extends Control
 static var notificationOffset: Vector2 = Vector2(0,0)
 @export var defaultNotiSize: Vector2 = Vector2(400, 150)
 static var notiList: Array[Notification]
-@export var errorIcon: Texture2D
-@export var warningIcon: Texture2D
-@export var infoIcon: Texture2D
-@export var unknownIcon: Texture2D
+var errorIcon: Texture2D
+var warningIcon: Texture2D
+var infoIcon: Texture2D
+var unknownIcon: Texture2D
 enum E_NOTIFICATION_TYPE {NORMAL, ERROR, WARNING, INFO, UNKNOWN}
 
+func _ready() -> void:
+	errorIcon = ResourceManager.GetResource("Error")
+	warningIcon = ResourceManager.GetResource("Warning")
+	infoIcon = ResourceManager.GetResource("Info")
+	unknownIcon = ResourceManager.GetResource("Unknown")
 
 func ShowNotification(text: String, type: E_NOTIFICATION_TYPE = E_NOTIFICATION_TYPE.NORMAL, title: String = "Notification", pos: Vector2 = get_viewport_rect().size, notiSize: Vector2 = defaultNotiSize) -> void:
 	ShowNotificationCustom(defaultNotification, type, text, title, pos - notiSize + notificationOffset, notiSize)

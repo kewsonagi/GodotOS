@@ -34,7 +34,6 @@ custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
-mouse_filter = 1
 script = ExtResource("1_q4wq1")
 eFileType = 2
 fileIcon = ExtResource("2_q4wq1")
