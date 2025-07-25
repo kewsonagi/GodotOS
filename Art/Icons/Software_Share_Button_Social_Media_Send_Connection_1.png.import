@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfieyaghtfxv1"
-path.s3tc="res://.godot/imported/Software_Share_Button_Social_Media_Send_Connection_1.png-7acc5e584eaf39673cf542e237ebdd13.s3tc.ctex"
+path="res://.godot/imported/Software_Share_Button_Social_Media_Send_Connection_1.png-7acc5e584eaf39673cf542e237ebdd13.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Share_Button_Social_Media_Send_Connection_1.png"
-dest_files=["res://.godot/imported/Software_Share_Button_Social_Media_Send_Connection_1.png-7acc5e584eaf39673cf542e237ebdd13.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Share_Button_Social_Media_Send_Connection_1.png-7acc5e584eaf39673cf542e237ebdd13.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

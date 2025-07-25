@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvb8jqoa0npl7"
-path.s3tc="res://.godot/imported/Software_Hardware_Keyboard_Text_Input.png-0c93aba3de25b4f0d6c4c9a9e36cd9de.s3tc.ctex"
+path="res://.godot/imported/Software_Hardware_Keyboard_Text_Input.png-0c93aba3de25b4f0d6c4c9a9e36cd9de.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Hardware_Keyboard_Text_Input.png"
-dest_files=["res://.godot/imported/Software_Hardware_Keyboard_Text_Input.png-0c93aba3de25b4f0d6c4c9a9e36cd9de.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Hardware_Keyboard_Text_Input.png-0c93aba3de25b4f0d6c4c9a9e36cd9de.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

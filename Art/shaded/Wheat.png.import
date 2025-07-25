@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ct0jpvl0li5ms"
-path="res://.godot/imported/Wheat.png-d00359c71be8b981185f87f1b1b9ef48.ctex"
+path.s3tc="res://.godot/imported/Wheat.png-d00359c71be8b981185f87f1b1b9ef48.s3tc.ctex"
+path.etc2="res://.godot/imported/Wheat.png-d00359c71be8b981185f87f1b1b9ef48.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Wheat.png"
-dest_files=["res://.godot/imported/Wheat.png-d00359c71be8b981185f87f1b1b9ef48.ctex"]
+dest_files=["res://.godot/imported/Wheat.png-d00359c71be8b981185f87f1b1b9ef48.s3tc.ctex", "res://.godot/imported/Wheat.png-d00359c71be8b981185f87f1b1b9ef48.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

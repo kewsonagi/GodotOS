@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c85qt5e8q5oq1"
-path="res://.godot/imported/06-music.png-646e4822afba8ba1e1ad9afa9a76e448.ctex"
+path.s3tc="res://.godot/imported/06-music.png-646e4822afba8ba1e1ad9afa9a76e448.s3tc.ctex"
+path.etc2="res://.godot/imported/06-music.png-646e4822afba8ba1e1ad9afa9a76e448.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/06-music.png"
-dest_files=["res://.godot/imported/06-music.png-646e4822afba8ba1e1ad9afa9a76e448.ctex"]
+dest_files=["res://.godot/imported/06-music.png-646e4822afba8ba1e1ad9afa9a76e448.s3tc.ctex", "res://.godot/imported/06-music.png-646e4822afba8ba1e1ad9afa9a76e448.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

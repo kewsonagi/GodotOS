@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://lrv1nua51lkr"
-path="res://.godot/imported/Lightbulb.png-315e9678b2e94b3740edd81c4a3fcc22.ctex"
+path.s3tc="res://.godot/imported/Lightbulb.png-315e9678b2e94b3740edd81c4a3fcc22.s3tc.ctex"
+path.etc2="res://.godot/imported/Lightbulb.png-315e9678b2e94b3740edd81c4a3fcc22.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Lightbulb.png"
-dest_files=["res://.godot/imported/Lightbulb.png-315e9678b2e94b3740edd81c4a3fcc22.ctex"]
+dest_files=["res://.godot/imported/Lightbulb.png-315e9678b2e94b3740edd81c4a3fcc22.s3tc.ctex", "res://.godot/imported/Lightbulb.png-315e9678b2e94b3740edd81c4a3fcc22.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://buot7yo8e13ie"
+path="res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Error 1 (Square).ogg-eff25d87e6cd70ce6817098ef4b6f65d.oggvorbisstr"
+
+[deps]
+
+source_file="res://Art/JDSherbert - Pixel UI SFX Pack (FREE)/Free/Stereo/ogg/JDSherbert - Pixel UI SFX Pack - Error 1 (Square).ogg"
+dest_files=["res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Error 1 (Square).ogg-eff25d87e6cd70ce6817098ef4b6f65d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

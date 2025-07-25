@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1onu01uap3tw"
-path.s3tc="res://.godot/imported/Software_Power_Electricity_Battery_Thunder_Lightning_Bolt_Zap_Danger.png-d1da0894fa5e47cc0064bea16cf257ae.s3tc.ctex"
+path="res://.godot/imported/Software_Power_Electricity_Battery_Thunder_Lightning_Bolt_Zap_Danger.png-d1da0894fa5e47cc0064bea16cf257ae.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Power_Electricity_Battery_Thunder_Lightning_Bolt_Zap_Danger.png"
-dest_files=["res://.godot/imported/Software_Power_Electricity_Battery_Thunder_Lightning_Bolt_Zap_Danger.png-d1da0894fa5e47cc0064bea16cf257ae.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Power_Electricity_Battery_Thunder_Lightning_Bolt_Zap_Danger.png-d1da0894fa5e47cc0064bea16cf257ae.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

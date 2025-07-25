@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnaw4xjoieo4d"
-path="res://.godot/imported/Locked.png-2278c7858aadfd06946a9cb1f3a02e29.ctex"
+path.s3tc="res://.godot/imported/Locked.png-2278c7858aadfd06946a9cb1f3a02e29.s3tc.ctex"
+path.etc2="res://.godot/imported/Locked.png-2278c7858aadfd06946a9cb1f3a02e29.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Locked.png"
-dest_files=["res://.godot/imported/Locked.png-2278c7858aadfd06946a9cb1f3a02e29.ctex"]
+dest_files=["res://.godot/imported/Locked.png-2278c7858aadfd06946a9cb1f3a02e29.s3tc.ctex", "res://.godot/imported/Locked.png-2278c7858aadfd06946a9cb1f3a02e29.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cj3n701adpp2e"
-path.s3tc="res://.godot/imported/Software_Options_Settings_Sliders_Knobs_Audio.png-9abfa7d79c44598c6227bbe818e66dff.s3tc.ctex"
+path="res://.godot/imported/Software_Options_Settings_Sliders_Knobs_Audio.png-9abfa7d79c44598c6227bbe818e66dff.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Options_Settings_Sliders_Knobs_Audio.png"
-dest_files=["res://.godot/imported/Software_Options_Settings_Sliders_Knobs_Audio.png-9abfa7d79c44598c6227bbe818e66dff.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Options_Settings_Sliders_Knobs_Audio.png-9abfa7d79c44598c6227bbe818e66dff.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

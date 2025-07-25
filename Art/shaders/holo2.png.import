@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ucejblfepmkb"
 path.s3tc="res://.godot/imported/holo2.png-2b7223a01ae95a1b8bd62f56778d5e82.s3tc.ctex"
+path.etc2="res://.godot/imported/holo2.png-2b7223a01ae95a1b8bd62f56778d5e82.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaders/holo2.png"
-dest_files=["res://.godot/imported/holo2.png-2b7223a01ae95a1b8bd62f56778d5e82.s3tc.ctex"]
+dest_files=["res://.godot/imported/holo2.png-2b7223a01ae95a1b8bd62f56778d5e82.s3tc.ctex", "res://.godot/imported/holo2.png-2b7223a01ae95a1b8bd62f56778d5e82.etc2.ctex"]
 
 [params]
 

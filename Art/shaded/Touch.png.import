@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://iy8q8vf2j0gi"
-path="res://.godot/imported/Touch.png-1ec67b439e5dd56636a9d17c2f52e032.ctex"
+path.s3tc="res://.godot/imported/Touch.png-1ec67b439e5dd56636a9d17c2f52e032.s3tc.ctex"
+path.etc2="res://.godot/imported/Touch.png-1ec67b439e5dd56636a9d17c2f52e032.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Touch.png"
-dest_files=["res://.godot/imported/Touch.png-1ec67b439e5dd56636a9d17c2f52e032.ctex"]
+dest_files=["res://.godot/imported/Touch.png-1ec67b439e5dd56636a9d17c2f52e032.s3tc.ctex", "res://.godot/imported/Touch.png-1ec67b439e5dd56636a9d17c2f52e032.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

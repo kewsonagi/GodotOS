@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqnmglu3o0cmj"
-path="res://.godot/imported/Telephone.png-d5eda47d595b9f62d2a42e93f0c62d0a.ctex"
+path.s3tc="res://.godot/imported/Telephone.png-d5eda47d595b9f62d2a42e93f0c62d0a.s3tc.ctex"
+path.etc2="res://.godot/imported/Telephone.png-d5eda47d595b9f62d2a42e93f0c62d0a.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Telephone.png"
-dest_files=["res://.godot/imported/Telephone.png-d5eda47d595b9f62d2a42e93f0c62d0a.ctex"]
+dest_files=["res://.godot/imported/Telephone.png-d5eda47d595b9f62d2a42e93f0c62d0a.s3tc.ctex", "res://.godot/imported/Telephone.png-d5eda47d595b9f62d2a42e93f0c62d0a.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

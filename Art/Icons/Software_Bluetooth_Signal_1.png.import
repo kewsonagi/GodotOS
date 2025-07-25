@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6d3sfrhu767y"
-path.s3tc="res://.godot/imported/Software_Bluetooth_Signal_1.png-76a8fa3ff417922d5e2c32b1fbe071e0.s3tc.ctex"
+path="res://.godot/imported/Software_Bluetooth_Signal_1.png-76a8fa3ff417922d5e2c32b1fbe071e0.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Bluetooth_Signal_1.png"
-dest_files=["res://.godot/imported/Software_Bluetooth_Signal_1.png-76a8fa3ff417922d5e2c32b1fbe071e0.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Bluetooth_Signal_1.png-76a8fa3ff417922d5e2c32b1fbe071e0.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

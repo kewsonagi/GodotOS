@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6poxf7fm32kl"
-path.s3tc="res://.godot/imported/Software_Windowed_Mode_Floating_Minimize_2.png-34fdc75dc4297ba47cd46ea1d25f1a08.s3tc.ctex"
+path="res://.godot/imported/Software_Windowed_Mode_Floating_Minimize_2.png-34fdc75dc4297ba47cd46ea1d25f1a08.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Windowed_Mode_Floating_Minimize_2.png"
-dest_files=["res://.godot/imported/Software_Windowed_Mode_Floating_Minimize_2.png-34fdc75dc4297ba47cd46ea1d25f1a08.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Windowed_Mode_Floating_Minimize_2.png-34fdc75dc4297ba47cd46ea1d25f1a08.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7t7y4f1uctp0"
-path="res://.godot/imported/Restart.png-69e4756e6ab3b06254a39aeea7ed10d8.ctex"
+path.s3tc="res://.godot/imported/Restart.png-69e4756e6ab3b06254a39aeea7ed10d8.s3tc.ctex"
+path.etc2="res://.godot/imported/Restart.png-69e4756e6ab3b06254a39aeea7ed10d8.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Restart.png"
-dest_files=["res://.godot/imported/Restart.png-69e4756e6ab3b06254a39aeea7ed10d8.ctex"]
+dest_files=["res://.godot/imported/Restart.png-69e4756e6ab3b06254a39aeea7ed10d8.s3tc.ctex", "res://.godot/imported/Restart.png-69e4756e6ab3b06254a39aeea7ed10d8.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

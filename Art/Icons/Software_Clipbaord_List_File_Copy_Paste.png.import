@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cg6g78m8n3j3d"
-path.s3tc="res://.godot/imported/Software_Clipbaord_List_File_Copy_Paste.png-88445e009d18d3258e531b4d1f8ed2a1.s3tc.ctex"
+path="res://.godot/imported/Software_Clipbaord_List_File_Copy_Paste.png-88445e009d18d3258e531b4d1f8ed2a1.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Clipbaord_List_File_Copy_Paste.png"
-dest_files=["res://.godot/imported/Software_Clipbaord_List_File_Copy_Paste.png-88445e009d18d3258e531b4d1f8ed2a1.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Clipbaord_List_File_Copy_Paste.png-88445e009d18d3258e531b4d1f8ed2a1.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

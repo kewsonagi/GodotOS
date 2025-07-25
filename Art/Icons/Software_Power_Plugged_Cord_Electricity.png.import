@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6u26bkbe1uca"
-path.s3tc="res://.godot/imported/Software_Power_Plugged_Cord_Electricity.png-a84193ec0694c00fb3c47fbb65c8063c.s3tc.ctex"
+path="res://.godot/imported/Software_Power_Plugged_Cord_Electricity.png-a84193ec0694c00fb3c47fbb65c8063c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Power_Plugged_Cord_Electricity.png"
-dest_files=["res://.godot/imported/Software_Power_Plugged_Cord_Electricity.png-a84193ec0694c00fb3c47fbb65c8063c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Power_Plugged_Cord_Electricity.png-a84193ec0694c00fb3c47fbb65c8063c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

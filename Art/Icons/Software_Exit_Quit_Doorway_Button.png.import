@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxs02pxnwn2ma"
-path.s3tc="res://.godot/imported/Software_Exit_Quit_Doorway_Button.png-72b91dd80603f2a5a94ed1214cab75ab.s3tc.ctex"
+path="res://.godot/imported/Software_Exit_Quit_Doorway_Button.png-72b91dd80603f2a5a94ed1214cab75ab.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Exit_Quit_Doorway_Button.png"
-dest_files=["res://.godot/imported/Software_Exit_Quit_Doorway_Button.png-72b91dd80603f2a5a94ed1214cab75ab.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Exit_Quit_Doorway_Button.png-72b91dd80603f2a5a94ed1214cab75ab.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

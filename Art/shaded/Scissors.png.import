@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmwwybx1uv3mt"
-path="res://.godot/imported/Scissors.png-3a0694808a38426445fe33141a00b1db.ctex"
+path.s3tc="res://.godot/imported/Scissors.png-3a0694808a38426445fe33141a00b1db.s3tc.ctex"
+path.etc2="res://.godot/imported/Scissors.png-3a0694808a38426445fe33141a00b1db.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Scissors.png"
-dest_files=["res://.godot/imported/Scissors.png-3a0694808a38426445fe33141a00b1db.ctex"]
+dest_files=["res://.godot/imported/Scissors.png-3a0694808a38426445fe33141a00b1db.s3tc.ctex", "res://.godot/imported/Scissors.png-3a0694808a38426445fe33141a00b1db.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

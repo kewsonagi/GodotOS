@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chi656sgm8vcu"
-path.s3tc="res://.godot/imported/Software_Clock_Time_Wait_Alarm_Sleep_Wake_Up.png-9d1a9dc1adf07b60461a987ad6ef0311.s3tc.ctex"
+path="res://.godot/imported/Software_Clock_Time_Wait_Alarm_Sleep_Wake_Up.png-9d1a9dc1adf07b60461a987ad6ef0311.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Clock_Time_Wait_Alarm_Sleep_Wake_Up.png"
-dest_files=["res://.godot/imported/Software_Clock_Time_Wait_Alarm_Sleep_Wake_Up.png-9d1a9dc1adf07b60461a987ad6ef0311.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Clock_Time_Wait_Alarm_Sleep_Wake_Up.png-9d1a9dc1adf07b60461a987ad6ef0311.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

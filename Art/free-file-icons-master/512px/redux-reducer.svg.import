@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqad2piiduj7v"
-path="res://.godot/imported/redux-reducer.svg-96cf850668fd32a3b3320b036d72fc2d.ctex"
+path.s3tc="res://.godot/imported/redux-reducer.svg-96cf850668fd32a3b3320b036d72fc2d.s3tc.ctex"
+path.etc2="res://.godot/imported/redux-reducer.svg-96cf850668fd32a3b3320b036d72fc2d.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/free-file-icons-master/512px/redux-reducer.svg"
-dest_files=["res://.godot/imported/redux-reducer.svg-96cf850668fd32a3b3320b036d72fc2d.ctex"]
+dest_files=["res://.godot/imported/redux-reducer.svg-96cf850668fd32a3b3320b036d72fc2d.s3tc.ctex", "res://.godot/imported/redux-reducer.svg-96cf850668fd32a3b3320b036d72fc2d.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

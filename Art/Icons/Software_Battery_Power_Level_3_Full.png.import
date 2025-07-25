@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b875qjmc3skl3"
-path.s3tc="res://.godot/imported/Software_Battery_Power_Level_3_Full.png-1d46ff1cb2ec110d1ad29de88f1a6eb9.s3tc.ctex"
+path="res://.godot/imported/Software_Battery_Power_Level_3_Full.png-1d46ff1cb2ec110d1ad29de88f1a6eb9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Battery_Power_Level_3_Full.png"
-dest_files=["res://.godot/imported/Software_Battery_Power_Level_3_Full.png-1d46ff1cb2ec110d1ad29de88f1a6eb9.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Battery_Power_Level_3_Full.png-1d46ff1cb2ec110d1ad29de88f1a6eb9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

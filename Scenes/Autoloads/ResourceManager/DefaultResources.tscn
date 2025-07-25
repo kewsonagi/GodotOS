@@ -1,0 +1,134 @@
+[gd_scene load_steps=37 format=3 uid="uid://b0s8ey703a0i6"]
+
+[ext_resource type="Script" uid="uid://y57u7bdnh015" path="res://Scenes/Autoloads/ResourceManager/DefaultResources.gd" id="1_s4c1d"]
+[ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="2_32g4d"]
+[ext_resource type="Script" uid="uid://xpwum3qxxtem" path="res://Scenes/Autoloads/ResourceManager/InterfaceIcon.gd" id="3_ut5xl"]
+[ext_resource type="Texture2D" uid="uid://dc7np2e656ouf" path="res://Art/free-file-icons-master/512px/_blank.png" id="4_kils5"]
+[ext_resource type="Texture2D" uid="uid://pl8b5yw4idqp" path="res://Art/Icons - icones/notepad-01.png" id="5_38gyi"]
+[ext_resource type="Texture2D" uid="uid://bnvcfipxcfprr" path="res://Art/Icons - icones/photo-software.png" id="6_ik481"]
+[ext_resource type="Texture2D" uid="uid://dy3r7m23n6g71" path="res://Art/Icons - icones/music-01.png" id="7_vh6uj"]
+[ext_resource type="Texture2D" uid="uid://c0ovs3dnopxua" path="res://Art/Icons - icones/games-01.png" id="8_p8eai"]
+[ext_resource type="Texture2D" uid="uid://cmf11afmi3sol" path="res://examples/icon_texture/icons/actions/action_copy.svg" id="9_5vjn4"]
+[ext_resource type="Texture2D" uid="uid://cwika7au3grfq" path="res://examples/icon_texture/icons/actions/action_paste.svg" id="10_p4bhy"]
+[ext_resource type="Texture2D" uid="uid://r75qu6pgewn8" path="res://examples/icon_texture/icons/actions/action_cut.svg" id="11_037xx"]
+[ext_resource type="Texture2D" uid="uid://5keoj0cl6q7q" path="res://Art/free-file-icons-master/512px/changelog.svg" id="12_xlyev"]
+[ext_resource type="Texture2D" uid="uid://ck8rymxwu8fmp" path="res://examples/icon_texture/icons/nodes/menu_button.svg" id="13_hyoq3"]
+[ext_resource type="Texture2D" uid="uid://bc50743u8gijh" path="res://examples/icon_texture/icons/actions/remove.svg" id="14_0uxsa"]
+[ext_resource type="Texture2D" uid="uid://b34jpilo33jmk" path="res://Art/shaded/27-pen-edit.png" id="15_sddh6"]
+[ext_resource type="Texture2D" uid="uid://4y34hbn86hjh" path="res://Art/free-file-icons-master/512px/settings.svg" id="16_u6mnn"]
+[ext_resource type="Texture2D" uid="uid://bd8n4be7b4478" path="res://Art/shaded/30-x-mark.png" id="17_s8e62"]
+[ext_resource type="Texture2D" uid="uid://d2kxbh4jj7p6v" path="res://Art/shaded/29-check-mark.png" id="18_ycnn0"]
+[ext_resource type="Texture2D" uid="uid://5h8ubnij3eyw" path="res://Art/free-file-icons-master/512px/makefile.svg" id="19_p4bhy"]
+
+[sub_resource type="Resource" id="Resource_mupru"]
+script = ExtResource("3_ut5xl")
+key = "Folder"
+res = ExtResource("2_32g4d")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_htykk"]
+script = ExtResource("3_ut5xl")
+key = "File"
+res = ExtResource("4_kils5")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_ifm5x"]
+script = ExtResource("3_ut5xl")
+key = "Text"
+res = ExtResource("5_38gyi")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_qq1af"]
+script = ExtResource("3_ut5xl")
+key = "Image"
+res = ExtResource("6_ik481")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_ecm56"]
+script = ExtResource("3_ut5xl")
+key = "Music"
+res = ExtResource("7_vh6uj")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_xivnn"]
+script = ExtResource("3_ut5xl")
+key = "Game"
+res = ExtResource("8_p8eai")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_t2n8d"]
+script = ExtResource("3_ut5xl")
+key = "Copy"
+res = ExtResource("9_5vjn4")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_uaf1q"]
+script = ExtResource("3_ut5xl")
+key = "Paste"
+res = ExtResource("10_p4bhy")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_4g2ku"]
+script = ExtResource("3_ut5xl")
+key = "Cut"
+res = ExtResource("11_037xx")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_7htkm"]
+script = ExtResource("3_ut5xl")
+key = "Refresh"
+res = ExtResource("12_xlyev")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_o4pw1"]
+script = ExtResource("3_ut5xl")
+key = "Menu"
+res = ExtResource("13_hyoq3")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_klj0d"]
+script = ExtResource("3_ut5xl")
+key = "Delete"
+res = ExtResource("14_0uxsa")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_4ae43"]
+script = ExtResource("3_ut5xl")
+key = "Edit"
+res = ExtResource("15_sddh6")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_xavhe"]
+script = ExtResource("3_ut5xl")
+key = "Settings"
+res = ExtResource("16_u6mnn")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_o87w6"]
+script = ExtResource("3_ut5xl")
+key = "Close"
+res = ExtResource("17_s8e62")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_rlbho"]
+script = ExtResource("3_ut5xl")
+key = "Accept"
+res = ExtResource("18_ycnn0")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="Resource" id="Resource_yje0t"]
+script = ExtResource("3_ut5xl")
+key = "Open"
+res = ExtResource("19_p4bhy")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[node name="DefaultResources" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_s4c1d")
+defaultInterfaceIcons = Array[ExtResource("3_ut5xl")]([SubResource("Resource_mupru"), SubResource("Resource_htykk"), SubResource("Resource_ifm5x"), SubResource("Resource_qq1af"), SubResource("Resource_ecm56"), SubResource("Resource_xivnn"), SubResource("Resource_t2n8d"), SubResource("Resource_uaf1q"), SubResource("Resource_4g2ku"), SubResource("Resource_7htkm"), SubResource("Resource_o4pw1"), SubResource("Resource_klj0d"), SubResource("Resource_4ae43"), SubResource("Resource_xavhe"), SubResource("Resource_o87w6"), SubResource("Resource_rlbho"), SubResource("Resource_yje0t")])

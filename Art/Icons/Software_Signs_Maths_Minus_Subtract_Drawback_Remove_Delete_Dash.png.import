@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bh8fwmn1hkvl7"
-path.s3tc="res://.godot/imported/Software_Signs_Maths_Minus_Subtract_Drawback_Remove_Delete_Dash.png-375f6855eb676abfd1a6d54eb2c1aa7c.s3tc.ctex"
+path="res://.godot/imported/Software_Signs_Maths_Minus_Subtract_Drawback_Remove_Delete_Dash.png-375f6855eb676abfd1a6d54eb2c1aa7c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Signs_Maths_Minus_Subtract_Drawback_Remove_Delete_Dash.png"
-dest_files=["res://.godot/imported/Software_Signs_Maths_Minus_Subtract_Drawback_Remove_Delete_Dash.png-375f6855eb676abfd1a6d54eb2c1aa7c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Signs_Maths_Minus_Subtract_Drawback_Remove_Delete_Dash.png-375f6855eb676abfd1a6d54eb2c1aa7c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

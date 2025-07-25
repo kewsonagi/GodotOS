@@ -26,7 +26,7 @@ var bMouseOver: bool
 func _ready() -> void:
 	hoverHighlightControl.self_modulate.a = 0
 	selectedHighlightControl.visible = false
-	fileTitleControl.text = "%s" % szFileName.get_file().get_basename()
+	fileTitleControl.text = "%s" % szFileName.get_basename()
 	titleEditBox.text = fileTitleControl.text
 	
 	fileTexture.modulate = fileColor
@@ -152,11 +152,11 @@ func DeleteFile() -> void:
 
 func HandleRightClick() -> void:
 	RClickMenuManager.instance.ShowMenu("Base File Menu", self)
-	RClickMenuManager.instance.AddMenuItem("Open Me!", OpenFile)
-	RClickMenuManager.instance.AddMenuItem("Copy", CopyFile)
-	RClickMenuManager.instance.AddMenuItem("Cut", CutFile)
-	RClickMenuManager.instance.AddMenuItem("Rename", ShowRename)
-	RClickMenuManager.instance.AddMenuItem("Delete Me", DeleteFile)
+	RClickMenuManager.instance.AddMenuItem("Open Me!", OpenFile, ResourceManager.GetResource("Open"))
+	RClickMenuManager.instance.AddMenuItem("Copy", CopyFile, ResourceManager.GetResource("Copy"))
+	RClickMenuManager.instance.AddMenuItem("Cut", CutFile, ResourceManager.GetResource("Cut"))
+	RClickMenuManager.instance.AddMenuItem("Rename", ShowRename, ResourceManager.GetResource("Edit"))
+	RClickMenuManager.instance.AddMenuItem("Delete Me", DeleteFile, ResourceManager.GetResource("Delete"))
 
 func CopyFile() -> void:
 	CopyPasteManager.copy_file(self)
@@ -174,7 +174,7 @@ func RenameFile() -> void:
 func ShowRename() -> void:
 	if(!titleEditBox.visible):
 		titleEditBox.visible = true
-		titleEditBox.text = fileTitleControl.text.get_file().get_basename()#.trim_suffix(".")
+		titleEditBox.text = fileTitleControl.text.get_basename()#.trim_suffix(".")
 		titleEditBox.grab_focus()
 		titleEditBox.select_all()
 

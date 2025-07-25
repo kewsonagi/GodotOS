@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dva6vf8vwnusa"
-path="res://.godot/imported/Enter2.png-c88ad486dbf7e9859d3fc6335e05f20a.ctex"
+path.s3tc="res://.godot/imported/Enter2.png-c88ad486dbf7e9859d3fc6335e05f20a.s3tc.ctex"
+path.etc2="res://.godot/imported/Enter2.png-c88ad486dbf7e9859d3fc6335e05f20a.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Enter2.png"
-dest_files=["res://.godot/imported/Enter2.png-c88ad486dbf7e9859d3fc6335e05f20a.ctex"]
+dest_files=["res://.godot/imported/Enter2.png-c88ad486dbf7e9859d3fc6335e05f20a.s3tc.ctex", "res://.godot/imported/Enter2.png-c88ad486dbf7e9859d3fc6335e05f20a.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

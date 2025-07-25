@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dg60boxuyaixn"
-path="res://.godot/imported/Unlocked.png-be4e716dbb96f5c9bf6a90dd0e27651f.ctex"
+path.s3tc="res://.godot/imported/Unlocked.png-be4e716dbb96f5c9bf6a90dd0e27651f.s3tc.ctex"
+path.etc2="res://.godot/imported/Unlocked.png-be4e716dbb96f5c9bf6a90dd0e27651f.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Unlocked.png"
-dest_files=["res://.godot/imported/Unlocked.png-be4e716dbb96f5c9bf6a90dd0e27651f.ctex"]
+dest_files=["res://.godot/imported/Unlocked.png-be4e716dbb96f5c9bf6a90dd0e27651f.s3tc.ctex", "res://.godot/imported/Unlocked.png-be4e716dbb96f5c9bf6a90dd0e27651f.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

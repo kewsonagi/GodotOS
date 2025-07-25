@@ -5,6 +5,7 @@ class_name RClickMenuManager
 
 @export var menuItem: PackedScene = preload("res://Scenes/Autoloads/RClick Menu Manager/RClickMenuOption.tscn")
 @export var menuItemSeparator: PackedScene = preload("res://Scenes/Autoloads/RClick Menu Manager/RClickMenuSeparator.tscn")
+
 @export var itemContainer: Node
 @export var title: RichTextLabel
 ## The Control node that got right clicked.
@@ -26,7 +27,7 @@ func _ready() -> void:
 	else:
 		queue_free()
 	visible = false
-	startSize = size
+	startSize = size + Vector2(0, 10)
 
 #setup the menu and list with name and caller
 func ShowMenu(menuName: String, caller: Control) -> void:
@@ -80,6 +81,9 @@ func DismissMenu() -> void:
 	await tween.tween_property(self, "modulate:a", 0, 0.10).finished
 	if modulate.a == 0:
 		self.visible = false
+	for item:RClickMenuOption in currentMenuItems:
+		if(item.optionIcon):
+			ResourceManager.ReturnResourceByResource(item.optionIcon.texture)
 
 func _on_mouse_entered() -> void:
 	is_mouse_over = true

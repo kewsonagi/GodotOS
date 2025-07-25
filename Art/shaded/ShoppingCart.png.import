@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbi3jb3sgejmh"
-path="res://.godot/imported/ShoppingCart.png-29f49d5bd72a854f1cff74bcd68809f1.ctex"
+path.s3tc="res://.godot/imported/ShoppingCart.png-29f49d5bd72a854f1cff74bcd68809f1.s3tc.ctex"
+path.etc2="res://.godot/imported/ShoppingCart.png-29f49d5bd72a854f1cff74bcd68809f1.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/ShoppingCart.png"
-dest_files=["res://.godot/imported/ShoppingCart.png-29f49d5bd72a854f1cff74bcd68809f1.ctex"]
+dest_files=["res://.godot/imported/ShoppingCart.png-29f49d5bd72a854f1cff74bcd68809f1.s3tc.ctex", "res://.godot/imported/ShoppingCart.png-29f49d5bd72a854f1cff74bcd68809f1.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djewdli0tpwfg"
-path.s3tc="res://.godot/imported/Software_Flashlight_Torch_Illumination_Lighting.png-c7bab7207d3272d51812a3985e66b5f5.s3tc.ctex"
+path="res://.godot/imported/Software_Flashlight_Torch_Illumination_Lighting.png-c7bab7207d3272d51812a3985e66b5f5.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Flashlight_Torch_Illumination_Lighting.png"
-dest_files=["res://.godot/imported/Software_Flashlight_Torch_Illumination_Lighting.png-c7bab7207d3272d51812a3985e66b5f5.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Flashlight_Torch_Illumination_Lighting.png-c7bab7207d3272d51812a3985e66b5f5.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

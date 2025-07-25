@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwmf7p2q6h8ms"
-path="res://.godot/imported/gitattributes.svg-75724bbf146c26a8c415748fe837f170.ctex"
+path.s3tc="res://.godot/imported/gitattributes.svg-75724bbf146c26a8c415748fe837f170.s3tc.ctex"
+path.etc2="res://.godot/imported/gitattributes.svg-75724bbf146c26a8c415748fe837f170.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/free-file-icons-master/512px/gitattributes.svg"
-dest_files=["res://.godot/imported/gitattributes.svg-75724bbf146c26a8c415748fe837f170.ctex"]
+dest_files=["res://.godot/imported/gitattributes.svg-75724bbf146c26a8c415748fe837f170.s3tc.ctex", "res://.godot/imported/gitattributes.svg-75724bbf146c26a8c415748fe837f170.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

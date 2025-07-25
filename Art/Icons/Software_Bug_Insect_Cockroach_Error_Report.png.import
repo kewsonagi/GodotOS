@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vm7ryywd01gm"
-path.s3tc="res://.godot/imported/Software_Bug_Insect_Cockroach_Error_Report.png-8ddd9b8cf5a27fbde2ce7b3aa472a3b2.s3tc.ctex"
+path="res://.godot/imported/Software_Bug_Insect_Cockroach_Error_Report.png-8ddd9b8cf5a27fbde2ce7b3aa472a3b2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Bug_Insect_Cockroach_Error_Report.png"
-dest_files=["res://.godot/imported/Software_Bug_Insect_Cockroach_Error_Report.png-8ddd9b8cf5a27fbde2ce7b3aa472a3b2.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Bug_Insect_Cockroach_Error_Report.png-8ddd9b8cf5a27fbde2ce7b3aa472a3b2.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

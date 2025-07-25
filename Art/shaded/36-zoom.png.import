@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://baqgj0xugbssy"
-path="res://.godot/imported/36-zoom.png-d5a728570f7734febe604eabe09157aa.ctex"
+path.s3tc="res://.godot/imported/36-zoom.png-d5a728570f7734febe604eabe09157aa.s3tc.ctex"
+path.etc2="res://.godot/imported/36-zoom.png-d5a728570f7734febe604eabe09157aa.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/36-zoom.png"
-dest_files=["res://.godot/imported/36-zoom.png-d5a728570f7734febe604eabe09157aa.ctex"]
+dest_files=["res://.godot/imported/36-zoom.png-d5a728570f7734febe604eabe09157aa.s3tc.ctex", "res://.godot/imported/36-zoom.png-d5a728570f7734febe604eabe09157aa.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

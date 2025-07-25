@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://byqhxdbclscwo"
-path.s3tc="res://.godot/imported/Software_Save_Button_Floppy_Disk_Plus_New_As.png-aac282b901d513eef421adc92c9373f9.s3tc.ctex"
+path="res://.godot/imported/Software_Save_Button_Floppy_Disk_Plus_New_As.png-aac282b901d513eef421adc92c9373f9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Save_Button_Floppy_Disk_Plus_New_As.png"
-dest_files=["res://.godot/imported/Software_Save_Button_Floppy_Disk_Plus_New_As.png-aac282b901d513eef421adc92c9373f9.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Save_Button_Floppy_Disk_Plus_New_As.png-aac282b901d513eef421adc92c9373f9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

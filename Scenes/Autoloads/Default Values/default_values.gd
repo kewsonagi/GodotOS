@@ -29,20 +29,25 @@ func _ready() -> void:
 func save_state() -> void:
 	globalSettingsSave.data["WallpaperName"] = wallpaper_name
 	globalSettingsSave.data["WallpaperStretchMode"] = wallpaper_stretch_mode
-	globalSettingsSave.data["BackgroundColor"] = background_color_rect.color#.to_html()
+	if(background_color_rect):
+		globalSettingsSave.data["BackgroundColor"] = background_color_rect.color#.to_html()
+	else:
+		globalSettingsSave.data["BackgroundColor"] = Color.GRAY
 	globalSettingsSave.data["WindowScale"] = get_window().content_scale_factor
 	globalSettingsSave.write_savegame()
 
 func load_state() -> void:
 	wallpaper_name = globalSettingsSave.data["WallpaperName"]
 	wallpaper_stretch_mode = globalSettingsSave.data["WallpaperStretchMode"]
-	background_color_rect.color = globalSettingsSave.data["BackgroundColor"]
+	if(background_color_rect):
+		background_color_rect.color = globalSettingsSave.data["BackgroundColor"]
+		print("loading defaults\nwallpaper name: %s\nbackground color: %s" % [wallpaper_name, background_color_rect.color])
 	get_window().content_scale_factor = globalSettingsSave.data["WindowScale"]
-	if (!wallpaper_name.is_empty()):
+	if (!wallpaper_name.is_empty() and wallpaper):
 		wallpaper.apply_wallpaper_from_path(wallpaper_name)
 	
-	wallpaper.apply_wallpaper_stretch_mode(wallpaper_stretch_mode)
-	print("loading defaults\nwallpaper name: %s\nbackground color: %s" % [wallpaper_name, background_color_rect.color])
+	if(wallpaper):
+		wallpaper.apply_wallpaper_stretch_mode(wallpaper_stretch_mode)
 
 ## Copies the wallpaper to root GodotOS folder so it can load it again later. 
 ## It doesn't use the actual wallpaper file since it can be removed/deleted.

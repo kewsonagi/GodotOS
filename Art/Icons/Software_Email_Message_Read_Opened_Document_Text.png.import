@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d35ckb3d1rpuv"
-path.s3tc="res://.godot/imported/Software_Email_Message_Read_Opened_Document_Text.png-a7997c26af87f1c36a086f00113dce8c.s3tc.ctex"
+path="res://.godot/imported/Software_Email_Message_Read_Opened_Document_Text.png-a7997c26af87f1c36a086f00113dce8c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Email_Message_Read_Opened_Document_Text.png"
-dest_files=["res://.godot/imported/Software_Email_Message_Read_Opened_Document_Text.png-a7997c26af87f1c36a086f00113dce8c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Email_Message_Read_Opened_Document_Text.png-a7997c26af87f1c36a086f00113dce8c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1iiqpnh8s2nm"
-path="res://.godot/imported/CatchingNet.png-e9b6345643da6c23fc1b99b26bdfae9f.ctex"
+path.s3tc="res://.godot/imported/CatchingNet.png-e9b6345643da6c23fc1b99b26bdfae9f.s3tc.ctex"
+path.etc2="res://.godot/imported/CatchingNet.png-e9b6345643da6c23fc1b99b26bdfae9f.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/CatchingNet.png"
-dest_files=["res://.godot/imported/CatchingNet.png-e9b6345643da6c23fc1b99b26bdfae9f.ctex"]
+dest_files=["res://.godot/imported/CatchingNet.png-e9b6345643da6c23fc1b99b26bdfae9f.s3tc.ctex", "res://.godot/imported/CatchingNet.png-e9b6345643da6c23fc1b99b26bdfae9f.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

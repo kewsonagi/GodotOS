@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://biyx07eqv6pcu"
-path.s3tc="res://.godot/imported/Software_Magnifier_Zoom_Looking_Magnifying_Glass.png-8572c5855a7c73fe5f30c0aca8e17625.s3tc.ctex"
+path="res://.godot/imported/Software_Magnifier_Zoom_Looking_Magnifying_Glass.png-8572c5855a7c73fe5f30c0aca8e17625.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Magnifier_Zoom_Looking_Magnifying_Glass.png"
-dest_files=["res://.godot/imported/Software_Magnifier_Zoom_Looking_Magnifying_Glass.png-8572c5855a7c73fe5f30c0aca8e17625.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Magnifier_Zoom_Looking_Magnifying_Glass.png-8572c5855a7c73fe5f30c0aca8e17625.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

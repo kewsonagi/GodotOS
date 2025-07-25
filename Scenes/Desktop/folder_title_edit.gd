@@ -61,7 +61,7 @@ func trigger_rename() -> void:
 			return
 		folder.szFileName = new_folder_name
 		DirAccess.rename_absolute("user://files/%s/%s" % [folder.szFilePath, old_folder_name], "user://files/%s/%s" % [folder.szFilePath, folder.szFileName])
-		fileLabelControl.text = "%s" % folder.szFileName.get_file().get_basename()
+		fileLabelControl.text = "%s" % folder.szFileName.get_basename()
 		
 		FileManagerWindow.RefreshAllFileManagers()
 		# if folder.get_parent() is DesktopFileManager:

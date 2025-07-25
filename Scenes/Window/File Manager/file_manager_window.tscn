@@ -21,7 +21,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
 
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
 size = Vector2i(535, 407)
-render_target_update_mode = 2
 
 [node name="MarginContainer" parent="SubViewportContainer/SubViewport" index="0"]
 mouse_filter = 2

@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1tw248gyevrh"
-path.s3tc="res://.godot/imported/Software_Terminal_Window_CMD_Command_Line_Development_Code_Programming.png-7dac833ccf68d2c393bb2d57ed3383de.s3tc.ctex"
+path="res://.godot/imported/Software_Terminal_Window_CMD_Command_Line_Development_Code_Programming.png-7dac833ccf68d2c393bb2d57ed3383de.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Terminal_Window_CMD_Command_Line_Development_Code_Programming.png"
-dest_files=["res://.godot/imported/Software_Terminal_Window_CMD_Command_Line_Development_Code_Programming.png-7dac833ccf68d2c393bb2d57ed3383de.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Terminal_Window_CMD_Command_Line_Development_Code_Programming.png-7dac833ccf68d2c393bb2d57ed3383de.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

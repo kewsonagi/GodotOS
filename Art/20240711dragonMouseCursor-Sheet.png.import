@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4bqh3yg88p1v"
-path="res://.godot/imported/20240711dragonMouseCursor-Sheet.png-f259318452d774741cf8e80d17c4605e.ctex"
+path.s3tc="res://.godot/imported/20240711dragonMouseCursor-Sheet.png-f259318452d774741cf8e80d17c4605e.s3tc.ctex"
+path.etc2="res://.godot/imported/20240711dragonMouseCursor-Sheet.png-f259318452d774741cf8e80d17c4605e.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/20240711dragonMouseCursor-Sheet.png"
-dest_files=["res://.godot/imported/20240711dragonMouseCursor-Sheet.png-f259318452d774741cf8e80d17c4605e.ctex"]
+dest_files=["res://.godot/imported/20240711dragonMouseCursor-Sheet.png-f259318452d774741cf8e80d17c4605e.s3tc.ctex", "res://.godot/imported/20240711dragonMouseCursor-Sheet.png-f259318452d774741cf8e80d17c4605e.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

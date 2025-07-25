@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://crqojmkr2u57i"
 path.s3tc="res://.godot/imported/level_texture_checkerboard.png-2b897359b0b84ee4ac4b3507f5cdf2ea.s3tc.ctex"
+path.etc2="res://.godot/imported/level_texture_checkerboard.png-2b897359b0b84ee4ac4b3507f5cdf2ea.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Games/Paint Splatter 3D/assets/level_texture_checkerboard.png"
-dest_files=["res://.godot/imported/level_texture_checkerboard.png-2b897359b0b84ee4ac4b3507f5cdf2ea.s3tc.ctex"]
+dest_files=["res://.godot/imported/level_texture_checkerboard.png-2b897359b0b84ee4ac4b3507f5cdf2ea.s3tc.ctex", "res://.godot/imported/level_texture_checkerboard.png-2b897359b0b84ee4ac4b3507f5cdf2ea.etc2.ctex"]
 
 [params]
 

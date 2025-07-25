@@ -370,3 +370,26 @@ func CopyAllFilesOrFolders(files: PackedStringArray, to: String = "user://files/
 				DirAccess.remove_absolute("%s/%s" % [thisFile.get_base_dir(),dir])
 			dirToDelete.clear()
 	NotificationManager.ShowNotification("Dropped your files into %s" % to, NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Added files")
+
+func HandleRightClick() -> void:
+	RClickMenuManager.instance.ShowMenu("File Manager Menu", self)
+	RClickMenuManager.instance.AddMenuItem("New Folder", NewFolder, ResourceManager.GetResource("Folder"))
+	RClickMenuManager.instance.AddMenuItem("New File", NewFile, ResourceManager.GetResource("File"))
+	RClickMenuManager.instance.AddMenuItem("Refresh", Refresh, ResourceManager.GetResource("Refresh"))
+	RClickMenuManager.instance.AddMenuItem("Close", Close, ResourceManager.GetResource("Close"))
+	RClickMenuManager.instance.AddMenuItem("Properties", Properties)
+
+func NewFolder() -> void:
+	new_folder()
+
+func NewFile() -> void:
+	new_file("txt", BaseFile.E_FILE_TYPE.TEXT_FILE)
+
+func Refresh() -> void:
+	populate_file_manager()
+
+func Close() -> void:
+	parentWindow._on_close_button_pressed()
+
+func Properties() -> void:
+	populate_file_manager()

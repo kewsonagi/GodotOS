@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4gflvefwfhgv"
-path.s3tc="res://.godot/imported/Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration.png-24dd2a2002c867cf563dd86bf46e4780.s3tc.ctex"
+path="res://.godot/imported/Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration.png-24dd2a2002c867cf563dd86bf46e4780.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration.png"
-dest_files=["res://.godot/imported/Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration.png-24dd2a2002c867cf563dd86bf46e4780.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Image_File_Picture_Framed_Painting_Landscape_Photo_Decoration.png-24dd2a2002c867cf563dd86bf46e4780.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

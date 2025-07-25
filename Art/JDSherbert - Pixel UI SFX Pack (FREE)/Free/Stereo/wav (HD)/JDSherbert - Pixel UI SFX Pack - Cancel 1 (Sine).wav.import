@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cklyx1gd76g73"
+path="res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Cancel 1 (Sine).wav-3f1c9a9a061fa849b1615f7f593ae461.sample"
+
+[deps]
+
+source_file="res://Art/JDSherbert - Pixel UI SFX Pack (FREE)/Free/Stereo/wav (HD)/JDSherbert - Pixel UI SFX Pack - Cancel 1 (Sine).wav"
+dest_files=["res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Cancel 1 (Sine).wav-3f1c9a9a061fa849b1615f7f593ae461.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

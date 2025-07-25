@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5bnrft4jvuyf"
-path.s3tc="res://.godot/imported/Software_Speech_Bubble_Information_Guide_Tutorial.png-b4766743f6e3270447b9b0f41c8bee2c.s3tc.ctex"
+path="res://.godot/imported/Software_Speech_Bubble_Information_Guide_Tutorial.png-b4766743f6e3270447b9b0f41c8bee2c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Speech_Bubble_Information_Guide_Tutorial.png"
-dest_files=["res://.godot/imported/Software_Speech_Bubble_Information_Guide_Tutorial.png-b4766743f6e3270447b9b0f41c8bee2c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Speech_Bubble_Information_Guide_Tutorial.png-b4766743f6e3270447b9b0f41c8bee2c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

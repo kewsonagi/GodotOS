@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://h8gd5duahuv4"
-path.s3tc="res://.godot/imported/Software_Sign_Crossout_Cancel_Forbidden_Illegal_2.png-b87a03f6cafb2466cc8bd42f88395882.s3tc.ctex"
+path="res://.godot/imported/Software_Sign_Crossout_Cancel_Forbidden_Illegal_2.png-b87a03f6cafb2466cc8bd42f88395882.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Art/Icons/Software_Sign_Crossout_Cancel_Forbidden_Illegal_2.png"
-dest_files=["res://.godot/imported/Software_Sign_Crossout_Cancel_Forbidden_Illegal_2.png-b87a03f6cafb2466cc8bd42f88395882.s3tc.ctex"]
+dest_files=["res://.godot/imported/Software_Sign_Crossout_Cancel_Forbidden_Illegal_2.png-b87a03f6cafb2466cc8bd42f88395882.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dx4pfc3cmno4v"
-path="res://.godot/imported/Hammer.png-dfd5efb77795324537bcf384762aa100.ctex"
+path.s3tc="res://.godot/imported/Hammer.png-dfd5efb77795324537bcf384762aa100.s3tc.ctex"
+path.etc2="res://.godot/imported/Hammer.png-dfd5efb77795324537bcf384762aa100.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/shaded/Hammer.png"
-dest_files=["res://.godot/imported/Hammer.png-dfd5efb77795324537bcf384762aa100.ctex"]
+dest_files=["res://.godot/imported/Hammer.png-dfd5efb77795324537bcf384762aa100.s3tc.ctex", "res://.godot/imported/Hammer.png-dfd5efb77795324537bcf384762aa100.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0bm8d3s263h7"
-path="res://.godot/imported/gitignore.svg-83b2d9908914f9646683168dbc4c87e8.ctex"
+path.s3tc="res://.godot/imported/gitignore.svg-83b2d9908914f9646683168dbc4c87e8.s3tc.ctex"
+path.etc2="res://.godot/imported/gitignore.svg-83b2d9908914f9646683168dbc4c87e8.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/free-file-icons-master/512px/gitignore.svg"
-dest_files=["res://.godot/imported/gitignore.svg-83b2d9908914f9646683168dbc4c87e8.ctex"]
+dest_files=["res://.godot/imported/gitignore.svg-83b2d9908914f9646683168dbc4c87e8.s3tc.ctex", "res://.godot/imported/gitignore.svg-83b2d9908914f9646683168dbc4c87e8.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
