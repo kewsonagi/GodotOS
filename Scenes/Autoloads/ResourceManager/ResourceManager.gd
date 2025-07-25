@@ -50,7 +50,9 @@ static func RegisterResource(key: String, resource: Resource) -> void:
 		registeredAssetsByResource[resource.resource_path] = assetList.size() - 1
 
 static func GetResource(key: String) -> Resource:
-	var indx: int = registeredAssets[key]
+	var indx: int = 0
+	if(registeredAssets.has(key)):
+		indx = registeredAssets[key]
 	return assetList[indx].GetResource()
 
 static func ReturnResourceByResource(res: Resource) -> void:
@@ -61,7 +63,9 @@ static func ReturnResourceByResource(res: Resource) -> void:
 		assetList[indx].ReturnResource()
 
 static func ReturnResource(key: String) -> void:
-	var indx: int = registeredAssets[key]
+	var indx: int = 0
+	if(registeredAssets.has(key)):
+		indx = registeredAssets[key]
 	assetList[indx].ReturnResource()
 
 static func DeregisterResource(key: String) -> void:

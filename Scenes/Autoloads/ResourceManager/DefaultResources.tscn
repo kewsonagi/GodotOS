@@ -42,6 +42,12 @@
 [ext_resource type="Texture2D" uid="uid://f2bapyn1arlw" path="res://Art/Crunchycons/Plus_20220327175332.png" id="40_j285p"]
 [ext_resource type="Texture2D" uid="uid://d4b5ivkrs1pjs" path="res://Art/Crunchycons/Minus_20220327175348.png" id="41_u1khr"]
 
+[sub_resource type="Resource" id="Resource_xqxrs"]
+script = ExtResource("3_ut5xl")
+key = "Unknown"
+res = ExtResource("20_caim1")
+metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
 [sub_resource type="Resource" id="Resource_mupru"]
 script = ExtResource("3_ut5xl")
 key = "Folder"
@@ -142,12 +148,6 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 script = ExtResource("3_ut5xl")
 key = "Open"
 res = ExtResource("19_8b5ay")
-metadata/_custom_type_script = "uid://xpwum3qxxtem"
-
-[sub_resource type="Resource" id="Resource_xqxrs"]
-script = ExtResource("3_ut5xl")
-key = "Unknown"
-res = ExtResource("20_caim1")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_s8i5f"]
@@ -291,4 +291,4 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_s4c1d")
-defaultInterfaceIcons = Array[ExtResource("3_ut5xl")]([SubResource("Resource_mupru"), SubResource("Resource_htykk"), SubResource("Resource_ifm5x"), SubResource("Resource_qq1af"), SubResource("Resource_ecm56"), SubResource("Resource_xivnn"), SubResource("Resource_t2n8d"), SubResource("Resource_uaf1q"), SubResource("Resource_4g2ku"), SubResource("Resource_7htkm"), SubResource("Resource_o4pw1"), SubResource("Resource_klj0d"), SubResource("Resource_4ae43"), SubResource("Resource_xavhe"), SubResource("Resource_o87w6"), SubResource("Resource_rlbho"), SubResource("Resource_yje0t"), SubResource("Resource_xqxrs"), SubResource("Resource_s8i5f"), SubResource("Resource_f2142"), SubResource("Resource_qr5wc"), SubResource("Resource_a0fke"), SubResource("Resource_i7obc"), SubResource("Resource_1qq8t"), SubResource("Resource_h7gd5"), SubResource("Resource_giqt4"), SubResource("Resource_1n6bk"), SubResource("Resource_1pp1g"), SubResource("Resource_dnqsk"), SubResource("Resource_e4vw1"), SubResource("Resource_bm7ln"), SubResource("Resource_njn73"), SubResource("Resource_f37qp"), SubResource("Resource_v2pt2"), SubResource("Resource_kij7c"), SubResource("Resource_1phvw"), SubResource("Resource_pk0a4"), SubResource("Resource_6rm25"), SubResource("Resource_ihmb0"), SubResource("Resource_3aray")])
+defaultInterfaceIcons = Array[ExtResource("3_ut5xl")]([SubResource("Resource_xqxrs"), SubResource("Resource_mupru"), SubResource("Resource_htykk"), SubResource("Resource_ifm5x"), SubResource("Resource_qq1af"), SubResource("Resource_ecm56"), SubResource("Resource_xivnn"), SubResource("Resource_t2n8d"), SubResource("Resource_uaf1q"), SubResource("Resource_4g2ku"), SubResource("Resource_7htkm"), SubResource("Resource_o4pw1"), SubResource("Resource_klj0d"), SubResource("Resource_4ae43"), SubResource("Resource_xavhe"), SubResource("Resource_o87w6"), SubResource("Resource_rlbho"), SubResource("Resource_yje0t"), SubResource("Resource_s8i5f"), SubResource("Resource_f2142"), SubResource("Resource_qr5wc"), SubResource("Resource_a0fke"), SubResource("Resource_i7obc"), SubResource("Resource_1qq8t"), SubResource("Resource_h7gd5"), SubResource("Resource_giqt4"), SubResource("Resource_1n6bk"), SubResource("Resource_1pp1g"), SubResource("Resource_dnqsk"), SubResource("Resource_e4vw1"), SubResource("Resource_bm7ln"), SubResource("Resource_njn73"), SubResource("Resource_f37qp"), SubResource("Resource_v2pt2"), SubResource("Resource_kij7c"), SubResource("Resource_1phvw"), SubResource("Resource_pk0a4"), SubResource("Resource_6rm25"), SubResource("Resource_ihmb0"), SubResource("Resource_3aray")])

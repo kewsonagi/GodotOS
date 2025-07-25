@@ -67,6 +67,8 @@ func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null)
 		size.x = newItem.size.x
 	size.y += newItem.size.y + separator.size.y
 
+	clamp_inside_viewport()
+
 
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed(&"LeftClick")):

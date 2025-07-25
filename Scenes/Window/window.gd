@@ -266,10 +266,10 @@ func _on_top_bar_mouse_exited() -> void:
 func hide_window() -> void:
 	if is_minimized:
 		return
+	minimized.emit(is_minimized)
 	
 	deselect_window()
 	is_minimized = true
-	minimized.emit(is_minimized)
 	
 	var tween: Tween = create_tween()
 	tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
@@ -285,7 +285,6 @@ func show_window() -> void:
 		return
 	
 	is_minimized = false
-	minimized.emit(is_minimized)
 	
 	visible = true
 	TweenAnimator.fade_in(transitionsNode, 0.3)
@@ -294,6 +293,7 @@ func show_window() -> void:
 	tween.set_parallel(true)
 	tween.tween_property(transitionsNode, "modulate:a", 1, 0.25)
 	select_window(false)
+	minimized.emit(is_minimized)
 
 #makes window active
 func select_window(play_fade_animation: bool) -> void:

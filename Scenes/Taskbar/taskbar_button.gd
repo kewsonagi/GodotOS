@@ -34,6 +34,8 @@ func _ready() -> void:
 	SetActiveColor()
 
 func _gui_input(event: InputEvent) -> void:
+	if(event.is_action_pressed(&"RightClick")):
+		HandleRightClick()
 	if event.is_action_pressed(&"LeftClick"):
 		if target_window.is_minimized:
 			target_window.show_window()
@@ -53,13 +55,13 @@ func _on_mouse_entered() -> void:
 		hoverPreviewTexture.texture = target_window.previewCaptureViewport.get_viewport().get_texture()
 
 func _on_mouse_exited() -> void:
-	print("mouse exit")
 	TweenAnimator.float_bob(self, 6, .4)#(self, 1.3, 0.2)
 	TweenAnimator.fade_out(previewNode, 0.3)
 	previewNode.visible = false;
 
 func _on_window_minimized(is_minimized: bool) -> void:
-	hoverPreviewTexture.texture = target_window.previewCaptureViewport.get_viewport().get_texture()
+	if(!is_minimized):
+		hoverPreviewTexture.texture = target_window.previewCaptureViewport.get_viewport().get_texture()
 
 	SetActiveColor()
 
@@ -91,3 +93,18 @@ func _on_window_maximized(is_maximized: bool) -> void:
 
 func _on_window_Resized() -> void:
 	SetActiveColor()
+
+func HandleRightClick() -> void:
+	RClickMenuManager.instance.ShowMenu("Task Button", self)
+	RClickMenuManager.instance.AddMenuItem("Maximize", Maximize, ResourceManager.GetResource("Maximize"))
+	RClickMenuManager.instance.AddMenuItem("Hide", Minimize)
+	RClickMenuManager.instance.AddMenuItem("Close", Close, ResourceManager.GetResource("Close"))
+
+func Maximize() -> void:
+	target_window.maximize_window(true)
+
+func Minimize() -> void:
+	target_window.hide_window()
+
+func Close() -> void:
+	target_window._on_close_button_pressed()
