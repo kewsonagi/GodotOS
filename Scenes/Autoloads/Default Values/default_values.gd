@@ -51,6 +51,14 @@ func load_state() -> void:
 
 ## Copies the wallpaper to root GodotOS folder so it can load it again later. 
 ## It doesn't use the actual wallpaper file since it can be removed/deleted.
+func save_wallpaperByName(filePath: String, fileName: String) -> void:
+	delete_wallpaper()
+	
+	var from: String = "user://files/%s/%s" % [filePath, fileName]
+	var to: String = "user://%s" % fileName
+	DirAccess.copy_absolute(from, to)
+	wallpaper_name = fileName
+	save_state()
 func save_wallpaper(wallpaper_file: BaseFile) -> void:
 	delete_wallpaper()
 	

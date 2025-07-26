@@ -26,11 +26,12 @@ size = Vector2i(535, 407)
 mouse_filter = 2
 
 [node name="SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="3"]
-custom_minimum_size = Vector2(40, 25)
+custom_minimum_size = Vector2(40, 24)
 layout_mode = 1
 offset_left = 40.0
-offset_right = 80.00003
-offset_bottom = 25.0
+offset_top = 2.0
+offset_right = 80.0
+offset_bottom = 26.0
 focus_mode = 0
 mouse_filter = 1
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
@@ -43,6 +44,8 @@ expand_icon = true
 
 [node name="FileManagerWindow" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2" node_paths=PackedStringArray("windowTitle", "parentWindow") groups=["file_manager_window"] instance=ExtResource("3_x5fsl")]
 layout_mode = 1
+offset_left = 5.0
+offset_right = -5.0
 windowTitle = NodePath("../Top Bar/Title Text")
 parentWindow = NodePath("../../../../..")
 

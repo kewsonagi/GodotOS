@@ -14,6 +14,8 @@ var itemLocations: Dictionary = {}
 @export var extensionsForText: PackedStringArray = ["txt", "md"]
 @export var imageFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
 @export var extensionsForImage: PackedStringArray = ["png", "jpg", "jpeg", "webp", "tif", "ico", "svg"]
+@export var sceneFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
+@export var extensionsForScene: PackedStringArray = ["tscn"]
 @export var folderFile: PackedScene # = preload("res://Scenes/Desktop/FolderFile.tscn")
 static var masterFileManagerList: Array[BaseFileManager]
 @export var parentWindow: FakeWindow
@@ -55,6 +57,8 @@ func populate_file_manager() -> void:
 		# or file_name.ends_with(".webp"):
 		elif (extensionsForImage.has(file_name.get_extension())):
 			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.IMAGE)
+		elif (extensionsForScene.has(file_name.get_extension())):
+			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.SCENE_FILE)
 		else:
 			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.UNKNOWN)
 	
@@ -87,6 +91,8 @@ func PopulateWithFile(file_name: String, path: String, file_type: BaseFile.E_FIL
 		file = textFile.instantiate()
 	elif(file_type == BaseFile.E_FILE_TYPE.IMAGE):
 		file = imageFile.instantiate()
+	elif(file_type == BaseFile.E_FILE_TYPE.SCENE_FILE):
+		file = sceneFile.instantiate()
 	elif(file_type == BaseFile.E_FILE_TYPE.FOLDER):
 		file = folderFile.instantiate()
 	else:

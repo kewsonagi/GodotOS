@@ -26,6 +26,12 @@ func apply_wallpaper_from_file(image_file: BaseFile) -> void:
 	
 	var image: Image = Image.load_from_file("user://files/%s/%s" % [image_file.szFilePath, image_file.szFileName])
 	add_wallpaper(image)
+func apply_wallpaper_from_filename(fileName: String, filePath: String) -> void:
+	wallpaper_added.emit()
+	DefaultValues.save_wallpaperByName(filePath, fileName)
+	
+	var image: Image = Image.load_from_file("user://files/%s/%s" % [filePath, fileName])
+	add_wallpaper(image)
 
 func add_wallpaper(image: Image) -> void:
 	image.generate_mipmaps()

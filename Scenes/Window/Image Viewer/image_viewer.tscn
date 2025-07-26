@@ -11,7 +11,7 @@ corner_radius_top_right = 10
 [node name="Window" instance=ExtResource("1_bisfo")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_ssjd8")
 
-[node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17"]
+[node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2"]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -31,8 +31,12 @@ anchor_bottom = 1.0
 offset_top = 30.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 expand_mode = 2
 stretch_mode = 5
 script = ExtResource("2_3oyj5")
 parentWindow = NodePath("../../../../../..")
+
+[connection signal="gui_input" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control/Image Viewer" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control/Image Viewer" method="_on_gui_input"]
+
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots"]

@@ -27,8 +27,8 @@ func _ready() -> void:
 		instance = self;
 	else:
 		queue_free()
+	startSize = size + Vector2(0, 0)
 	visible = false
-	startSize = size + Vector2(0, 10)
 
 #setup the menu and list with name and caller
 func ShowMenu(menuName: String, caller: Control) -> void:
@@ -57,11 +57,13 @@ func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null)
 	newItem.option_clicked.connect(callback)
 	newItem.option_clicked.connect(DismissMenu)
 
+	var separator: Node = menuItemSeparator.instantiate()
+	itemContainer.add_child(separator)
+
 	currentMenuItems.append(newItem)
 	itemContainer.add_child(newItem)
 	
-	var separator: Node = menuItemSeparator.instantiate()
-	itemContainer.add_child(separator)
+	
 	#add menu size to our size, resize X if new item is the largest item
 	if(size.x<newItem.size.x):
 		size.x = newItem.size.x

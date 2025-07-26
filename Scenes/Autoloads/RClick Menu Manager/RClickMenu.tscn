@@ -32,7 +32,7 @@ thickness = 2
 [node name="RClick Menu" type="Panel" node_paths=PackedStringArray("itemContainer", "title")]
 clip_contents = true
 offset_right = 180.0
-offset_bottom = 51.0
+offset_bottom = 26.0
 theme = ExtResource("1_s3lot")
 theme_override_styles/panel = SubResource("StyleBoxFlat_n6wkr")
 script = ExtResource("2_s3lot")
@@ -57,6 +57,7 @@ anchor_bottom = 1.0
 offset_top = 24.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="Context Menu Option" parent="VBoxContainer" instance=ExtResource("3_ss3sn")]
 visible = false

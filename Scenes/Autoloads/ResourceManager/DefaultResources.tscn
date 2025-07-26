@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://b0s8ey703a0i6"]
+[gd_scene load_steps=83 format=3 uid="uid://b0s8ey703a0i6"]
 
 [ext_resource type="Script" uid="uid://y57u7bdnh015" path="res://Scenes/Autoloads/ResourceManager/DefaultResources.gd" id="1_s4c1d"]
 [ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="2_32g4d"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cmf11afmi3sol" path="res://examples/icon_texture/icons/actions/action_copy.svg" id="9_5vjn4"]
 [ext_resource type="Texture2D" uid="uid://cwika7au3grfq" path="res://examples/icon_texture/icons/actions/action_paste.svg" id="10_p4bhy"]
 [ext_resource type="Texture2D" uid="uid://dmwwybx1uv3mt" path="res://Art/shaded/Scissors.png" id="11_vogka"]
-[ext_resource type="Texture2D" uid="uid://dsvsrbvc48oxs" path="res://Art/Cartoony/elements/DoubleCircleArrows1.png" id="12_nw14q"]
+[ext_resource type="Texture2D" uid="uid://db82pcugt0v2c" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 24.png" id="13_3otmv"]
 [ext_resource type="Texture2D" uid="uid://ck8rymxwu8fmp" path="res://examples/icon_texture/icons/nodes/menu_button.svg" id="13_hyoq3"]
 [ext_resource type="Texture2D" uid="uid://dj6uxnp8pet0o" path="res://Art/shaded/Trashbin.png" id="14_cl5xl"]
 [ext_resource type="Texture2D" uid="uid://b34jpilo33jmk" path="res://Art/shaded/27-pen-edit.png" id="15_sddh6"]
@@ -30,17 +30,13 @@
 [ext_resource type="Texture2D" uid="uid://bcgml7i2xvsk3" path="res://Art/shaded/45-lock.png" id="28_a10kg"]
 [ext_resource type="Texture2D" uid="uid://dacu7cej1xakn" path="res://Art/shaded/Exit.png" id="29_fi7pf"]
 [ext_resource type="Texture2D" uid="uid://dwh6hr3ex3poi" path="res://Art/shaded/46-lock-open.png" id="30_stj78"]
-[ext_resource type="Texture2D" uid="uid://bxoo67ooc2p7l" path="res://Art/shaded/Info.png" id="31_52tvc"]
-[ext_resource type="Texture2D" uid="uid://nxsfhif8ir1k" path="res://Art/GuiAssets/icons/shaded/circle-exclamtion.png" id="32_5p2wt"]
+[ext_resource type="Texture2D" uid="uid://ck1x3txpylmyd" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 39.png" id="31_i202l"]
+[ext_resource type="Texture2D" uid="uid://1m003kffvqgs" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 7.png" id="32_uglxp"]
 [ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="33_dpmh6"]
-[ext_resource type="Texture2D" uid="uid://wd02o8nb6ru6" path="res://Art/Crunchycons/Caution_20220327175031.png" id="34_sgd5v"]
-[ext_resource type="Texture2D" path="res://Art/GuiAssets/icons/shaded/skull_bones_shaded.tres" id="35_ailjk"]
-[ext_resource type="Texture2D" uid="uid://lwqcys4ltg7x" path="res://Art/Crunchycons/Message_20220327175432.png" id="36_gd1nv"]
-[ext_resource type="Texture2D" uid="uid://cyj76mywaaoby" path="res://Art/GuiAssets/icons/shaded/comment.png" id="37_7je3n"]
-[ext_resource type="Texture2D" uid="uid://twjfhuvfh4m0" path="res://Art/Crunchycons/Pause_20220327173959.png" id="38_hhi5a"]
-[ext_resource type="Texture2D" uid="uid://dsrvmeelqeaj5" path="res://Art/Crunchycons/Play_20220327173942.png" id="39_oijan"]
-[ext_resource type="Texture2D" uid="uid://f2bapyn1arlw" path="res://Art/Crunchycons/Plus_20220327175332.png" id="40_j285p"]
-[ext_resource type="Texture2D" uid="uid://d4b5ivkrs1pjs" path="res://Art/Crunchycons/Minus_20220327175348.png" id="41_u1khr"]
+[ext_resource type="Texture2D" uid="uid://byb6qjkm50yp0" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 28.png" id="34_214tp"]
+[ext_resource type="Texture2D" uid="uid://chm3lpagkm800" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 21.png" id="35_vogka"]
+[ext_resource type="Texture2D" uid="uid://bvsd76i3kepfb" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 32.png" id="36_nw14q"]
+[ext_resource type="Texture2D" uid="uid://c5ve6mp68b5w8" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 33.png" id="37_cl5xl"]
 
 [sub_resource type="Resource" id="Resource_xqxrs"]
 script = ExtResource("3_ut5xl")
@@ -105,7 +101,7 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_7htkm"]
 script = ExtResource("3_ut5xl")
 key = "Refresh"
-res = ExtResource("12_nw14q")
+res = ExtResource("13_3otmv")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_o4pw1"]
@@ -219,13 +215,13 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_e4vw1"]
 script = ExtResource("3_ut5xl")
 key = "Info"
-res = ExtResource("31_52tvc")
+res = ExtResource("31_i202l")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_bm7ln"]
 script = ExtResource("3_ut5xl")
 key = "Error"
-res = ExtResource("32_5p2wt")
+res = ExtResource("32_uglxp")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_njn73"]
@@ -237,49 +233,66 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_f37qp"]
 script = ExtResource("3_ut5xl")
 key = "Warning"
-res = ExtResource("34_sgd5v")
+res = ExtResource("34_214tp")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1r5ku"]
+load_path = "res://.godot/imported/gdp_icons.png-2461fc761f03159e2281c78371d7de92.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8b5ay"]
+atlas = SubResource("CompressedTexture2D_1r5ku")
+region = Rect2(109, 40, 11, 14)
+margin = Rect2(2, 1, 3, 1)
 
 [sub_resource type="Resource" id="Resource_v2pt2"]
 script = ExtResource("3_ut5xl")
 key = "Death"
-res = ExtResource("35_ailjk")
+res = SubResource("AtlasTexture_8b5ay")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_caim1"]
+load_path = "res://.godot/imported/Message_20220327175432.png-b9d808d81e80ef3b294526e422bb2e14.s3tc.ctex"
 
 [sub_resource type="Resource" id="Resource_kij7c"]
 script = ExtResource("3_ut5xl")
 key = "Message"
-res = ExtResource("36_gd1nv")
+res = SubResource("CompressedTexture2D_caim1")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jrtb8"]
+load_path = "res://.godot/imported/comment.png-d065e1a588e6664c1ec6c32fec702b89.s3tc.ctex"
 
 [sub_resource type="Resource" id="Resource_1phvw"]
 script = ExtResource("3_ut5xl")
 key = "Emote"
-res = ExtResource("37_7je3n")
+res = SubResource("CompressedTexture2D_jrtb8")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_pk0a4"]
 script = ExtResource("3_ut5xl")
 key = "Pause"
-res = ExtResource("38_hhi5a")
+res = ExtResource("35_vogka")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1t5wi"]
+load_path = "res://.godot/imported/Play_20220327173942.png-6806c025879dc97c960a3ac0d519b713.s3tc.ctex"
 
 [sub_resource type="Resource" id="Resource_6rm25"]
 script = ExtResource("3_ut5xl")
 key = "Play"
-res = ExtResource("39_oijan")
+res = SubResource("CompressedTexture2D_1t5wi")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_ihmb0"]
 script = ExtResource("3_ut5xl")
 key = "Plus"
-res = ExtResource("40_j285p")
+res = ExtResource("36_nw14q")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_3aray"]
 script = ExtResource("3_ut5xl")
 key = "Minus"
-res = ExtResource("41_u1khr")
+res = ExtResource("37_cl5xl")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [node name="DefaultResources" type="Control"]

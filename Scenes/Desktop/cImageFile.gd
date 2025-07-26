@@ -41,3 +41,10 @@ func DeleteFile() -> void:
 	# TODO make the color file_type dependent?
 	NotificationManager.ShowNotification("Moved [color=59ea90][wave freq=7]%s[/wave][/color] to trash!" % szFileName, NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Trashed, image")
 	queue_free()
+
+func HandleRightClick() -> void:
+	super.HandleRightClick()
+	RClickMenuManager.instance.AddMenuItem("Set Wallpaper", SetWallpaper)
+
+func SetWallpaper() -> void:
+	Wallpaper.wallpaperInstance.apply_wallpaper_from_file(self)
