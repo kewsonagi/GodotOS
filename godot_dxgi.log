@@ -1,8 +1,8 @@
 warn:  CreateDXGIFactory2: Ignoring flags
-info:  Game: Godot.exe
+info:  Game: godot.exe
 info:  DXVK: v2.6.1-338-g389702c0
 info:  Build: x86_64 gcc 15.1.0
-info:  Vulkan: Found vkGetInstanceProcAddr in vulkan-1.dll @ 0x7ff8bebbeb80
+info:  Vulkan: Found vkGetInstanceProcAddr in vulkan-1.dll @ 0x7ff9e179eb80
 info:  Extension providers:
 info:    Platform WSI
 info:    OpenVR
@@ -15,10 +15,10 @@ info:    VK_KHR_get_surface_capabilities2
 info:    VK_KHR_surface
 info:    VK_KHR_win32_surface
 info:  Found device: NVIDIA GeForce GTX 970 (NVIDIA 576.52.0)
-info:  Game: Godot.exe
+info:  Game: godot.exe
 info:  DXVK: v2.6.1-338-g389702c0
 info:  Build: x86_64 gcc 15.1.0
-info:  Vulkan: Found vkGetInstanceProcAddr in vulkan-1.dll @ 0x7ff8bebbeb80
+info:  Vulkan: Found vkGetInstanceProcAddr in vulkan-1.dll @ 0x7ff9e179eb80
 info:  Extension providers:
 info:    Platform WSI
 info:    OpenVR

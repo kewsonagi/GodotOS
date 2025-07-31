@@ -10,16 +10,16 @@ config_version=5
 
 [application]
 
-config/name="GodotOS"
-config/description="A fake operating system interface, created by popcar2 for fun!"
-config/version="1.1.0"
+config/name="GOSS"
+config/description="Godot OS simulation for playing around with Godot"
+config/version="1.0.0"
 run/main_scene="res://Scenes/Main/MainScene.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="GodotOS"
+config/custom_user_dir_name="Godot OS Simulator"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/bg_color=Color(1, 1, 1, 0.5411765)
 boot_splash/image="uid://bcaphivalhf06"
-config/icon="res://icon.svg"
+config/icon="uid://c2xpxb6y11og1"
 
 [aseprite]
 
@@ -28,9 +28,9 @@ import/import_plugin/default_automatic_importer="SpriteFrames"
 [autoload]
 
 IndieBlueprintSaveManager="*res://addons/ninetailsrabbit.indie_blueprint_save/src/save_manager.gd"
-InputHelper="*res://addons/input_helper/input_helper.gd"
 TransitionManager="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldTransition_Manager.gd"
 GlobalResourceManager="*res://Scenes/Autoloads/ResourceManager/ResourceManager.gd"
+ProjectUISoundController="*res://addons/maaacks_ui_sound_controller/base/scenes/autoloads/project_ui_sound_controller.tscn"
 DefaultResourcesInterface="*res://Scenes/Autoloads/ResourceManager/DefaultResources.tscn"
 UIAnimation="*res://addons/godot_ui_animations/UIAnimationHandler.tscn"
 DefaultValues="*res://Scenes/Autoloads/Default Values/default_values.tscn"
@@ -38,7 +38,6 @@ GlobalValues="*res://Scenes/Autoloads/GlobalValues/global_values.tscn"
 CopyPasteManager="*res://Scenes/Autoloads/CopyPaste Manager/copy_paste_manager.tscn"
 UVPosition="*res://Games/Paint Splatter 3D/scripts/uv_position.gd"
 HotkeyManager="res://Scenes/Autoloads/Hotkey Manager/hotkey_manager.tscn"
-ContextMenu="res://Scenes/Autoloads/Context Menu/context_menu.tscn"
 RClickManager="*res://Scenes/Autoloads/RClick Menu Manager/RClickMenu.tscn"
 NotificationManager="*res://Scenes/Autoloads/Notification Manager/notification_manager.tscn"
 UnderworldGlobal="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldGlobal.gd"
@@ -47,6 +46,9 @@ UnderworldQuest="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldQuest
 [debug]
 
 gdscript/warnings/untyped_declaration=1
+gdscript/warnings/confusable_identifier=2
+gdscript/warnings/confusable_local_declaration=2
+gdscript/warnings/confusable_local_usage=2
 
 [display]
 
@@ -56,14 +58,22 @@ window/size/transparent=true
 window/energy_saving/keep_screen_on=false
 window/subwindows/embed_subwindows=false
 window/vsync/vsync_mode=2
+mouse_cursor/custom_image="uid://dtpgdm53hdkw0"
 
 [dotnet]
 
-project/assembly_name="GodotOS"
+project/assembly_name="GOSS"
+
+[editor]
+
+naming/default_signal_callback_name="_On{NodeName}{SignalName}"
+naming/default_signal_callback_to_self_name="_On{SignalName}"
+naming/scene_name_casing=4
+naming/script_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/FreeControl/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/ColorPreview/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/PSDImporter/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/custom_theme_overrides/plugin.cfg", "res://addons/dock_slot_expander/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/icon_texture/plugin.cfg", "res://addons/maaacks_ui_sound_controller/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/nklbdev.importality/plugin.cfg", "res://addons/scene-selector/plugin.cfg", "res://addons/scene_scripts_panel/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg")
 
 [file_customization]
 
@@ -100,29 +110,8 @@ theme/lcd_subpixel_layout=0
 [importer_defaults]
 
 texture={
-"compress/channel_pack": 0,
-"compress/hdr_compression": 1,
-"compress/high_quality": false,
-"compress/lossy_quality": 0.7,
-"compress/mode": 2,
-"compress/normal_map": 0,
-"compress/rdo_quality_loss": 0.0,
-"compress/uastc_level": 0,
-"detect_3d/compress_to": 1,
-"mipmaps/generate": false,
-"mipmaps/limit": -1,
-"process/channel_remap/alpha": 3,
-"process/channel_remap/blue": 2,
-"process/channel_remap/green": 1,
-"process/channel_remap/red": 0,
-"process/fix_alpha_border": true,
-"process/hdr_as_srgb": false,
-"process/hdr_clamp_exposure": false,
-"process/normal_map_invert_y": false,
-"process/premult_alpha": false,
-"process/size_limit": 0,
-"roughness/mode": 0,
-"roughness/src_normal": ""
+&"compress/mode": 2,
+&"mipmaps/generate": true
 }
 texture_atlas={
 &"crop_to_region": true
@@ -130,6 +119,12 @@ texture_atlas={
 psd_layers_importer={
 &"import_mode": 1,
 &"layer_trim_enabled": true
+}
+2d_array_texture={
+&"compress/mode": 2
+}
+font_data_dynamic={
+&"compress": false
 }
 
 [input]
@@ -356,6 +351,10 @@ Escape={
 2d_physics/layer_10="Box"
 2d_physics/layer_11="BoxThru"
 2d_physics/layer_12="NoClip"
+
+[maaacks_ui_sound_controller]
+
+disable_update_check=false
 
 [rendering]
 
